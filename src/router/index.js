@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
-import AboutView from "../views/AboutView.vue";
-import ScheduleView from "../views/ScheduleView.vue";
-import SpeakersView from "../views/SpeakersView.vue";
-import PartnersView from "../views/PartnersView.vue";
-import BuyTicketView from "../views/BuyTicketView.vue";
-import LoginView from "../views/LoginView.vue";
+import HomeView from '@/views/HomeView.vue';
+import AboutView from '@/views/AboutView.vue';
+import ScheduleView from '@/views/ScheduleView.vue';
+import SpeakersView from '@/views/SpeakersView.vue';
+import PartnersView from '@/views/PartnersView.vue';
+import BuyTicketView from '@/views/BuyTicketView.vue';
+import LoginView from '@/views/LoginView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
