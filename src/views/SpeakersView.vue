@@ -1,15 +1,16 @@
 <template>
     <div>
-        This is the Speakers page.
+        <h2>Speakers</h2>
+        <nav>
+            <RouterLink :to="{ name: 'panelDiscussion' }">Panel Discussion</RouterLink>
+        </nav>
+
+        <router-view />
     </div>
 </template>
 
 <script>
-    export default {
-
-    }
+export default {
+    name: "SpeakersView",
+};
 </script>
-
-<style scoped>
-
-</style>
