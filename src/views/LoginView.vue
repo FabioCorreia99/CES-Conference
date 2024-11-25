@@ -10,15 +10,12 @@
 
         <v-sheet class="mx-auto" width="300">
             <v-form @submit.prevent="login">
-                <!-- Campo de Nome -->
                 <v-text-field v-model="username" label="Nome" :rules="usernameRules" outlined required>
                 </v-text-field>
 
-                <!-- Campo de Senha -->
                 <v-text-field v-model="password" label="Senha" :rules="passwordRules" type="password" outlined required>
                 </v-text-field>
 
-                <!-- Botão de Login -->
                 <v-btn class="mt-2" type="submit" block color="primary">
                     Login
                 </v-btn>
