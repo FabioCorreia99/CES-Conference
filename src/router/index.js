@@ -8,10 +8,12 @@ import BuyTicketView from "@/views/BuyTicketView.vue";
 import LoginView from "@/views/LoginView.vue";
 import PanelDiscussionView from "@/views/PanelDiscussionView.vue";
 import ProfileSettingsView from "@/views/ProfileSettingsView.vue";
-import FavouritesTalksView from "@/views/FavouritesTalksView.vue";
-import PersonalAgendaView from "@/views/PersonalAgendaView.vue";
 import TicketClientsView from '@/views/TicketClientsView.vue';
 import TicketCompaniesView from '@/views/TicketCompaniesView.vue';
+import ForumView from '@/views/ForumView.vue';
+import ForumTopicView from '@/views/ForumTopicView.vue';
+import ForumCreateView from '@/views/ForumCreateView.vue';
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,19 +32,23 @@ const router = createRouter({
       path: "/speakers",
       name: "speakers",
       component: SpeakersView,
-      children: [
-        {
-          path: "panel-discussion", // Rota filha
-          name: "panelDiscussion",
-          component: PanelDiscussionView,
-          meta: { requiresAuth: true }, // login para participar no fórum
-        },
-      ],
+    },
+    {
+      path: "/speakers/:speakerId", // como têm design diferentes é melhor separar por agora
+      name: "panelDiscussion",// +
+      component: PanelDiscussionView,// +
     },
     {
       path: "/partners",
       name: "partners",
       component: PartnersView,
+      children: [
+        {
+          path: "ticketCompanies",
+          name: "ticketCompanies",
+          component: TicketCompaniesView,
+        },
+      ],
     },
     {
       path: "/buy-ticket",
@@ -54,33 +60,44 @@ const router = createRouter({
           name: "ticketClients",
           component: TicketClientsView,
         },
-        {
-          path: "companies",
-          name: "ticketCompanies",
-          component: TicketCompaniesView,
-        },
       ],
     },
     {
-      path: "/login",
+      path: "/login",// ver register
       name: "login",
       component: LoginView,
       children: [
         {
-          path: "profile-settings", // Rota para perfil
+          path: ":userId", // Rota para perfil
           name: "profileSettings",
           component: ProfileSettingsView,
+          props: true,
         },
         {
-          path: "favourites-talks", // Rota para talks favoritas
-          name: "favouritesTalks",
-          component: FavouritesTalksView,
+          path: "admin", // Rota para perfil
+          name: "profileSettings", //+
+          component: ProfileSettingsView, //+
+          props: true,
+        }
+      ],
+    },
+    {
+      path: "/forum",
+      name: "forum",
+      component: ForumView,
+      children: [
+        {
+          path: ":topciId",
+          name: "forumTopic",
+          component: ForumTopicView,
+          props: true,
         },
         {
-          path: "personal-agenda", // Rota para agenda pessoal
-          name: "personalAgenda",
-          component: PersonalAgendaView,
-        },
+          path: "Create",
+          name: "forumCreate", 
+          component: ForumCreateView, 
+          props: true,
+        }
       ],
     },
     {
