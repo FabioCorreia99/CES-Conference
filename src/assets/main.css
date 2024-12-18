@@ -1,10 +1,14 @@
 @import './base.css';
 
 #app {
-  max-width: 1280px;
+  max-width: 1120px;
   margin: 0 auto;
-  padding: 2rem;
+  /* padding: 2rem; */
   font-weight: normal;
+}
+
+.v-application {
+  background: none !important;
 }
 
 a,
@@ -23,7 +27,14 @@ a,
 
 @media (min-width: 1024px) {
   body {
-    
+    /* background: #EEF6F2; */
+  }
+
+  header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
   }
 
   #app {

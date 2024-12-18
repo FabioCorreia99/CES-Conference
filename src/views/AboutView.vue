@@ -1,13 +1,25 @@
 <template>
+  
+  <header>
+
+    <Navbar/>
+
+  </header>
+  
   <div>
     This is the About page.
   </div>
 </template>
 
 <script>
-export default {
+import Navbar from '@/components/Navbar.vue';
 
+export default {
+  components: {
+  Navbar,
+},
 }
+
 </script>
 
 <style scoped></style>

@@ -10,6 +10,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </template>
 
 <style scoped>
+
 header {
   line-height: 1.5;
   max-height: 100vh;
@@ -20,7 +21,7 @@ header {
   margin: 0 auto 2rem;
 }
 
-nav {
+/* nav {
   width: 100%;
   font-size: 12px;
   text-align: center;
@@ -43,7 +44,7 @@ nav a {
 
 nav a:first-of-type {
   border: 0;
-}
+} */
 
 @media (min-width: 1024px) {
   header {
@@ -62,13 +63,13 @@ nav a:first-of-type {
     flex-wrap: wrap;
   }
 
-  nav {
+  /* nav {
     text-align: left;
     margin-left: -1rem;
     font-size: 1rem;
 
     padding: 1rem 0;
     margin-top: 1rem;
-  }
+  } */
 }
 </style>
