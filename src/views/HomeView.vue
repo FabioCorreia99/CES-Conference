@@ -1,12 +1,19 @@
 <script>
   
   import Navbar from '@/components/Navbar.vue';
-  
+  import { gsap } from "gsap";
+    
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
   export default {
     components: {
     Navbar,
   },
   }
+
+  gsap.registerPlugin(ScrollTrigger);
+
+
 </script>
 
 <template>
@@ -27,7 +34,9 @@
           <v-row>
 
             <v-col>
-              <span>This is the Homepage.</span>
+              <img class="masterImg left">
+              <img class="masterImg center">
+              <img class="masterImg right" >
             </v-col>
 
           </v-row>

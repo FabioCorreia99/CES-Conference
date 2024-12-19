@@ -3,38 +3,27 @@ import { defineStore } from "pinia";
 export const usersStore = defineStore("users", {
     state: () => ({
         users: [],
+        authentication: false
+
     }),
-    actions: {
-        addUser(user) {
-            this.users.push(user);
-        },
-        removeUser(user) {
-            const userIndex = this.users.indexOf(u => u.id === user.id);
-
-            if (userIndex === -1) {
-                console.log("User not found!");
-                return;
-            }
-            
-            this.users.splice(userIndex, 1);
-        }
-    },
     getters: {
-        getUserById(id) {
-            try {
-                const user = this.users.find(user => user.id === id);
-
-                if (!user) {
-                    throw new Error("User not found");
-                }
-
-                return user;
-
-            } catch (error) {
-                console.log(error.message); 
-                return null;
+        getUserById: (state) => (userId) => state.users.find(user => user.id == userId)
+    },
+    actions: {
+        addUser(Email, password) {
+            const newUser ={
+                id: this.users.length,
+                Email,
+                password,
+                name: "",
+                picture: "",
+                ticket: {},
+                likedTalks: []
             }
-            
+            this.users.push(newUser);
+        },
+        removeUser(id) {       
+            this.users.splice(id, 1);
         }
     }
 })

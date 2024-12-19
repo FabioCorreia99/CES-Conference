@@ -4,6 +4,12 @@ export const talksStore = defineStore("talks", {
     state: () => ({
         talks: [],
     }),
+    getters: {
+        getTalkById: (state) => (id) => state.talks.find(talk => talk.id === id),
+        getTalksBySpeaker: (state) => (speaker) => state.talks.filter(talk => talk.speaker === speaker),
+        getTalksByFilter: (state) => (filter) => state.talks.filter(talk => talk.filters.include(filter)),
+        getTalksByDay: (state) => (day) =>  state.talks.filter(talk => talk.day === day)
+    },
     actions: {
         addTalk(talk) {
             
@@ -38,17 +44,6 @@ export const talksStore = defineStore("talks", {
             if(typeof unverifiedTalk.hour !== "string") return false;
 
             return true;
-        }
-    },
-    getters: {
-        getTalkById(id) {
-            return this.talks.find(talk => talk.id === id);       
-        },
-        getTalkBySpeaker(speaker) {
-            return this.talks.filter(talk => talk.speaker === speaker);
-        },
-        getTalksByDay(day) {
-            return this.talks.filter(talk => talk.day === day);
         }
     }
 })
