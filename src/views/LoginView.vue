@@ -1,12 +1,18 @@
 <template>
-    <div>
-        <h2>Login Area</h2>
-        <nav>
+        
+        <header>
+            <Navbar />
+        </header>
+ 
+        <!-- <nav>
             <RouterLink :to="{ name: 'profileSettings' }">Profile Settings</RouterLink>
             <RouterLink :to="{ name: 'favouritesTalks' }">Favourites Talks</RouterLink>
             <RouterLink :to="{ name: 'personalAgenda' }">Personal Agenda</RouterLink>
-        </nav>
+        </nav> -->
         <br>
+
+        
+        <h2>Login Area</h2>
 
         <v-sheet class="mx-auto" width="300">
             <v-form @submit.prevent="login">
@@ -26,10 +32,12 @@
 
 
         <router-view />
-    </div>
+   
 </template>
 
 <script>
+import Navbar from '@/components/Navbar.vue';
+
 export default {
     name: "LoginView",
     data() {
@@ -52,5 +60,8 @@ export default {
             }
         }
     },
+    components: {
+        Navbar,
+    }
 }
 </script>
