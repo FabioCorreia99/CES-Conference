@@ -1,8 +1,8 @@
 <template>
-    
+
     <header>
 
-        <Navbar/>
+        <Navbar />
 
     </header>
 
@@ -18,6 +18,6 @@ export default {
     name: "SpeakersView",
     components: {
         Navbar,
-    },  
+    },
 };
 </script>

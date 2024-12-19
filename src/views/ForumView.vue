@@ -1,15 +1,21 @@
 <template>
-    <div>
+    <header>
+        <Navbar />
+    </header>
 
+    <div>
+        Forum
     </div>
 </template>
 
 <script>
-    export default {
-        
-    }
+import Navbar from "@/components/Navbar.vue";
+
+export default {
+    components: {
+        Navbar,
+    },
+}
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

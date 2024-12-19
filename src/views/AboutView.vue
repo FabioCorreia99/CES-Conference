@@ -1,13 +1,13 @@
 <template>
-  
+
   <header>
 
-    <Navbar/>
+    <Navbar />
 
   </header>
-  
+
   <div>
-    This is the About page.
+    About
   </div>
 </template>
 
@@ -16,8 +16,8 @@ import Navbar from '@/components/Navbar.vue';
 
 export default {
   components: {
-  Navbar,
-},
+    Navbar,
+  },
 }
 
 </script>

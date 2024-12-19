@@ -1,17 +1,12 @@
 <template>
     <header>
 
-        <Navbar/>
+        <Navbar />
 
     </header>
-    
+
     <div>
         <h2>Buy Ticket</h2>
-        <nav>
-            <RouterLink :to="{ name: 'ticketClients' }">Clients</RouterLink>
-            <RouterLink :to="{ name: 'ticketCompanies' }">Companies</RouterLink>
-        </nav>
-
         <router-view />
     </div>
 </template>
@@ -27,6 +22,4 @@ export default {
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

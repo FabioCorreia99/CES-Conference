@@ -1,14 +1,18 @@
 <template>
-    
+
     <header>
 
-        <Navbar/>
+        <Navbar />
 
     </header>
-    
+
+    <nav>
+        <RouterLink :to="{ name: 'PartnersForm' }">Partners Form</RouterLink>
+    </nav>
     <div>
-        This is the Partners page.
+
     </div>
+
 </template>
 
 <script>
@@ -22,6 +26,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

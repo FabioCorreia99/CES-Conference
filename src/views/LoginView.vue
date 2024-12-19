@@ -1,42 +1,44 @@
 <template>
-        
-        <header>
-            <Navbar />
-        </header>
- 
-        <!-- <nav>
-            <RouterLink :to="{ name: 'profileSettings' }">Profile Settings</RouterLink>
-            <RouterLink :to="{ name: 'favouritesTalks' }">Favourites Talks</RouterLink>
-            <RouterLink :to="{ name: 'personalAgenda' }">Personal Agenda</RouterLink>
-        </nav> -->
-        <br>
 
-        
-        <h2>Login Area</h2>
+    <header>
+        <Navbar />
+    </header>
 
-        <v-sheet class="mx-auto" width="300">
-            <v-form @submit.prevent="login">
-                <v-text-field v-model="username" label="Nome" :rules="usernameRules" outlined required>
-                </v-text-field>
-
-                <v-text-field v-model="password" label="Senha" :rules="passwordRules" type="password" outlined required>
-                </v-text-field>
-
-                <v-btn class="mt-2" type="submit" block color="primary">
-                    Login
-                </v-btn>
-            </v-form>
-        </v-sheet>
-
-        <p v-if="error" style="color: red;">Dados Invalidos</p>
+    <br>
 
 
-        <router-view />
-   
+    <h3>Login Area</h3>
+
+    <v-sheet class="mx-auto" width="300">
+        <v-form @submit.prevent="login">
+            <v-text-field v-model="username" label="Nome" :rules="usernameRules" outlined required>
+            </v-text-field>
+
+            <v-text-field v-model="password" label="Senha" :rules="passwordRules" type="password" outlined required>
+            </v-text-field>
+
+            <v-btn class="mt-2" type="submit" block color="primary">
+                Login
+            </v-btn>
+        </v-form>
+    </v-sheet>
+
+    <p v-if="error" style="color: red;">Dados Invalidos</p>
+
+
+    <router-view />
+
 </template>
 
 <script>
 import Navbar from '@/components/Navbar.vue';
+
+// Funções auxiliares para validação
+const required = field => value =>
+    value !== null && value !== undefined && value !== "" || `${field} é obrigatório`;
+
+const minLength = (field, length) => value =>
+    value && value.length >= length || `${field} deve ter pelo menos ${length} caracteres`;
 
 export default {
     name: "LoginView",
@@ -45,14 +47,15 @@ export default {
             username: "",
             password: "",
             error: false,
-        }
+            usernameRules: [required("Nome de utilizador"), minLength("Nome de utilizador", 3)],
+            passwordRules: [required("Senha"), minLength("Senha", 6)]
+        };
     },
     methods: {
         login() {
-            if (this.username == "user" && this.password == "1234") {
+            if (this.username === "user" && this.password === "1234") {
                 localStorage.setItem("isAuthenticated", true);
                 this.error = false;
-                // this.$router.push("page");
                 const from = this.$route.query.from || "/";
                 this.$router.push(from);
             } else {
@@ -63,5 +66,5 @@ export default {
     components: {
         Navbar,
     }
-}
+};
 </script>

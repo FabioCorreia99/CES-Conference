@@ -4,12 +4,10 @@ import AboutView from "@/views/AboutView.vue";
 import ScheduleView from "@/views/ScheduleView.vue";
 import SpeakersView from "@/views/SpeakersView.vue";
 import PartnersView from "@/views/PartnersView.vue";
-import BuyTicketView from "@/views/BuyTicketView.vue";
 import LoginView from "@/views/LoginView.vue";
-import PanelDiscussionView from "@/views/PanelDiscussionView.vue";
+import SpeakerProfileView from "@/views/SpeakerProfileView.vue";
 import ProfileSettingsView from "@/views/ProfileSettingsView.vue";
-import TicketClientsView from '@/views/TicketClientsView.vue';
-import TicketCompaniesView from '@/views/TicketCompaniesView.vue';
+import PartnersFormView from '@/views/PartnersFormView.vue';
 import ForumView from '@/views/ForumView.vue';
 import ForumTopicView from '@/views/ForumTopicView.vue';
 import ForumCreateView from '@/views/ForumCreateView.vue';
@@ -32,11 +30,32 @@ const router = createRouter({
       path: "/speakers",
       name: "speakers",
       component: SpeakersView,
+      children: [
+        {
+          path: "SpeakerProfile",
+          name: "SpeakerProfile",
+          component: SpeakerProfileView,
+        },
+      ],
     },
     {
-      path: "/speakers/:speakerId", // como têm design diferentes é melhor separar por agora
-      name: "panelDiscussion",// +
-      component: PanelDiscussionView,// +
+      path: "/forum",
+      name: "forum",
+      component: ForumView,
+      children: [
+        {
+          path: ":topciId",
+          name: "forumTopic",
+          component: ForumTopicView,
+          props: true,
+        },
+        {
+          path: "Create",
+          name: "forumCreate",
+          component: ForumCreateView,
+          props: true,
+        }
+      ],
     },
     {
       path: "/partners",
@@ -44,23 +63,16 @@ const router = createRouter({
       component: PartnersView,
       children: [
         {
-          path: "ticketCompanies",
-          name: "ticketCompanies",
-          component: TicketCompaniesView,
+          path: "PartnersForm",
+          name: "PartnersForm",
+          component: PartnersFormView,
         },
       ],
     },
     {
-      path: "/buy-ticket",
-      name: "buyTicket",
-      component: BuyTicketView,
-      children: [
-        {
-          path: "clients",
-          name: "ticketClients",
-          component: TicketClientsView,
-        },
-      ],
+      path: "/about",
+      name: "about",
+      component: AboutView,
     },
     {
       path: "/login",// ver register
@@ -80,30 +92,6 @@ const router = createRouter({
           props: true,
         }
       ],
-    },
-    {
-      path: "/forum",
-      name: "forum",
-      component: ForumView,
-      children: [
-        {
-          path: ":topciId",
-          name: "forumTopic",
-          component: ForumTopicView,
-          props: true,
-        },
-        {
-          path: "Create",
-          name: "forumCreate", 
-          component: ForumCreateView, 
-          props: true,
-        }
-      ],
-    },
-    {
-      path: "/about",
-      name: "about",
-      component: AboutView,
     },
   ],
 });

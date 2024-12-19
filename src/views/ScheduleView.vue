@@ -1,5 +1,5 @@
 <template>
-  <Navbar/>
+  <Navbar />
 
   <v-app id="inspire">
     <v-main>
@@ -8,26 +8,24 @@
           <v-col v-for="n in 24" :key="n" cols="4">
             <v-card height="200"></v-card>
           </v-col>
-        </v-row> 
+        </v-row>
       </v-container>
     </v-main>
   </v-app>
-    
-    <div>
-        This is the Schedule Page
-    </div>
+
+  <div>
+    This is the Schedule Page
+  </div>
 </template>
 
 <script>
-    import Navbar from '@/components/Navbar.vue';
-  
-  export default {
-    components: {
+import Navbar from '@/components/Navbar.vue';
+
+export default {
+  components: {
     Navbar,
   },
-  }
+}
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
