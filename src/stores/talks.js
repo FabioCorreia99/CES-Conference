@@ -11,10 +11,21 @@ export const talksStore = defineStore("talks", {
         getTalksByDay: (state) => (day) =>  state.talks.filter(talk => talk.day === day)
     },
     actions: {
-        addTalk(talk) {
+        addTalk(title, speaker, desc, topic, room, day, hour) {
             
-            if (this.isValidTalk(talk)) {
-                this.talks.push(talk);
+            const newTalk ={
+                id: this.talks.length,
+                title,
+                speaker,
+                desc,
+                topic,
+                room,
+                day,
+                hour,
+            }
+            
+            if (this.isValidTalk(newTalk)) {
+                this.talks.push(newTalk);
                 console.log("Talk added!");
             } else {
                 console.log("Invalid talk!");
