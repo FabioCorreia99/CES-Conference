@@ -1,4 +1,7 @@
 import { defineStore } from "pinia";
+import * as api from "@/api/api"
+
+const BASE_API = "https://randomuser.me/api/"
 
 export const speakersStore = defineStore("speakers", {
     state: () => ({
@@ -22,6 +25,16 @@ export const speakersStore = defineStore("speakers", {
         },
         removeSpeakers(id) {
             this.speakers = this.speakers.filter(speaker => speaker.id != id)      
-        }
+        },
+        async fetchPersons() {
+            try {
+              const data = await api.get(BASE_API, '?results=100&seed=abc');
+              console.log(data);
+              this.speakers = data.results;
+            } catch (error) {
+              console.error("Error in store fetching person api:", error);
+              throw error;
+            }
+          }
     }
 })

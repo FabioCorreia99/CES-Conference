@@ -1,5 +1,6 @@
 <script>
 
+import { speakersStore } from '../stores/speakers';
 import Navbar from '@/components/Navbar.vue';
 import { gsap } from "gsap";
 
@@ -8,6 +9,21 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 export default {
   components: {
     Navbar,
+  },
+  data() {
+    return {
+      speakersStore: speakersStore(),
+    }
+  },
+  created () {
+    try {
+      this.speakersStore.fetchPersons();
+      console.log(this.speakersStore.speakers);
+    } catch (error) {
+      alert(error.message)
+    }
+    
+    
   },
 }
 
