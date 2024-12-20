@@ -11,7 +11,7 @@ export const speakersStore = defineStore("speakers", {
     actions: {
         addSpeaker(name, brand, desc, picture, talks,) {
             const newSpeaker ={
-                id: this.speakers.length,
+                id: this.speakers.length > 0 ? this.speakers[this.speakers.length - 1].id + 1 :  0 ,
                 name,
                 brand,
                 desc,

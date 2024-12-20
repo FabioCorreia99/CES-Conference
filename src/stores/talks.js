@@ -14,7 +14,7 @@ export const talksStore = defineStore("talks", {
         addTalk(title, speaker, desc, topic, room, day, hour) {
             
             const newTalk ={
-                id: this.talks.length,
+                id: this.talks.length > 0 ? this.talks[this.talks.length - 1].id + 1 :  0 ,
                 title,
                 speaker,
                 desc,

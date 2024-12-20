@@ -12,7 +12,7 @@ export const usersStore = defineStore("users", {
     actions: {
         addUser(Email, password) {
             const newUser ={
-                id: this.users.length,
+                id: this.users.length > 0 ? this.users[this.users.length - 1].id + 1 :  0 ,
                 Email,
                 password,
                 name: "",
