@@ -1,7 +1,14 @@
 <template>
-  <Navbar />
-
   <v-app id="inspire">
+    <v-row>
+      <!-- Navbar Column -->
+      <v-col>
+        <header>
+            <Navbar />
+        </header>
+      </v-col>
+    </v-row>
+
     <v-main>
       <v-container>
         <v-row>
