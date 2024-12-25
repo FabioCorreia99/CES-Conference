@@ -1,16 +1,20 @@
 <script>
-
+import { ref } from 'vue';
 import { speakersStore } from '../stores/speakers';
 import Navbar from '@/components/Navbar.vue';
+import OrangeBtn from '@/components/OrangeBtn.vue';
 import { gsap } from "gsap";
 
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
+const main = ref();
+let ctx;
 
 export default {
   components: {
     Navbar,
+    OrangeBtn
   },
   data() {
     return {
@@ -28,36 +32,32 @@ export default {
     }
   },
   mounted () {
-    let tl = gsap.timeline({scrollTrigger: {
-      trigger:".box-container",
-      start: "center center",
-      end: "+=300",
-      invalidateOnRefresh: true,
-      pin: true,
-      scrub: 1,
-      markers:1
-    }})
-
-    tl.to(".left", { y: "+700" , ease: "power1.out", opacity: 0});
-    tl.to(".right", { y: "-500", ease: "power3.out", opacity: 0},"<");
-    tl.to(".center",{ width: "100vw", height:"100vh", ease: "power2.out",
-      scrollTrigger: { 
+    ctx = gsap.context((self) => {
+      let tl = gsap.timeline({scrollTrigger: {
         trigger:".box-container",
-        start: "52% center",
-        end: "+=250",
-        invalidateOnRefresh: true,
-        scrub: 1,
+        start: "center center",
+        end: "+=600",
         pin: true,
+        scrub: 1,
         markers:1,
-        pinSpacing: false,
-        snap: {
-          snapTo: 1, // Encaixa no final do ScrollTrigger (progresso 1)
-          duration: { min: 0.2, max: 1 }, // Duração do snap
-          ease: "power1.inOut", // Efeito suave ao ajustar
-          delay: 0.1, // Espera 0.1s antes de fazer o snap
-        },
-      }
-    },)
+          snap: {
+            snapTo: 1, // Encaixa no final do ScrollTrigger (progresso 1)
+            duration: { min: 1, max: 2 }, // Duração do snap
+            ease: "power1.inOut", // Efeito suave ao ajustar
+            delay: 0.1, // Espera 0.1s antes de fazer o snap
+          },
+      }})
+
+      tl.to(".left", { y: "+700" , ease: "power1.out", opacity: 0 });
+      tl.to(".right", { y: "-500", ease: "power3.out", opacity: 0 },"<");
+      tl.to(".center",{position: "absolute", y:"-100", width: "100vw", height:"100vh", ease: "power2.out"}
+      ,">")
+      tl.from(".after-animation",{opacity: 0, ease: "power2.out"}
+      ,">")
+    }, main.value); // <- Scope!
+  },
+  beforeDestroy () {
+    ctx.revert();
   },
 }
 
@@ -79,9 +79,16 @@ export default {
     <v-main>
       <v-container>
         <v-row>
-          <v-col cols="12" class="d-flex justify-center mb-6 mt-3 box-container">
+          <v-col cols="12" class="d-flex justify-space-around mb-6 mt-10 mx-0 box-container">
             <img class="masterImg left" :src="leftImg">
-            <img class="masterImg center mx-5">
+            <div class="masterImg center d-flex justify-center flex-column align-center ga-16">  
+              <div class="d-flex justify-center flex-column align-center pa-0 ma-0 after-animation">
+                <h1 class=" masterTitleDate">JANUARY 7-9</h1>
+                <h1 class="masterTitleLocal">PORTO, PORTUGAL</h1>
+              </div>
+              <h1 class="after-animation">CES: Inspiring developers, shaping tomorrow</h1>
+              <OrangeBtn class="after-animation" value="Buy Ticket" route="home"/>
+            </div> 
             <img class="masterImg right" :src="rightImg">
           </v-col>
         </v-row>
@@ -167,5 +174,24 @@ span {
   height: 75vh;
   width: 20rem;
   object-fit: cover;
+}
+
+.center{
+  background: var(--Initial-Gradient, linear-gradient(180deg, #26466D 0%, #6590D0 50%, #EEF6F2 100%));
+}
+.masterTitleDate{
+  color: #EEF6F2;
+  text-align: center;
+  font-size: 8rem;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+}
+.masterTitleLocal{
+  color: #EEF6F2;
+  font-size: 3.5rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 </style>
