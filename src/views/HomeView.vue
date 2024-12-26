@@ -1,5 +1,5 @@
 <script>
-import { ref } from 'vue';
+import { ref,onBeforeUnmount } from 'vue';
 import { speakersStore } from '../stores/speakers';
 import Navbar from '@/components/Navbar.vue';
 import OrangeBtn from '@/components/OrangeBtn.vue';
@@ -26,7 +26,6 @@ export default {
   created () {
     try {
       this.speakersStore.fetchPersons();
-      console.log(this.speakersStore.speakers);
     } catch (error) {
       alert(error.message)
     }
@@ -44,7 +43,7 @@ export default {
             snapTo: 1, // Encaixa no final do ScrollTrigger (progresso 1)
             duration: { min: 1, max: 2 }, // Duração do snap
             ease: "power1.inOut", // Efeito suave ao ajustar
-            delay: 0.1, // Espera 0.1s antes de fazer o snap
+            delay: 0.5, //  Espera 0.1s antes de fazer o snap
           },
       }})
 
@@ -56,16 +55,16 @@ export default {
       ,">")
     }, main.value); // <- Scope!
   },
-  beforeDestroy () {
-    ctx.revert();
+  beforeUnmount() {
+    if (ctx) {
+      ctx.revert(); // Reverte o contexto do GSAP
+    }
   },
 }
 
 </script>
 
 <template>
-
-
   <v-app>
     <v-row>
       <!-- Navbar Column -->
@@ -77,7 +76,7 @@ export default {
     </v-row>
 
     <v-main>
-      <v-container>
+      <v-container class="w-100">
         <v-row>
           <v-col cols="12" class="d-flex justify-space-around mb-6 mt-10 mx-0 box-container">
             <img class="masterImg left" :src="leftImg">
@@ -87,7 +86,9 @@ export default {
                 <h1 class="masterTitleLocal">PORTO, PORTUGAL</h1>
               </div>
               <h1 class="after-animation">CES: Inspiring developers, shaping tomorrow</h1>
-              <OrangeBtn class="after-animation" value="Buy Ticket" route="home"/>
+              <div class="after-animation">
+                <OrangeBtn value="Buy Ticket" route="home"/>
+              </div>
             </div> 
             <img class="masterImg right" :src="rightImg">
           </v-col>

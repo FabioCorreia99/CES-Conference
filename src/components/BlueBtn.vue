@@ -4,11 +4,14 @@
             :to="{ name: route }"
             elevation="4" 
             size="large" 
-            :color="isHovering ? '#6590D0' : '#EEF6F2'"
-            class="rounded-lg Orangebtn"
-            style="color: red;"
+            :color="isHovering ? '#EEF6F2': '#6590D0'"
+            class="rounded-lg "
             v-bind="props"
-            ><span>{{ value }}</span>
+            ><span 
+                :class="{ 'on-hover': isHovering }"
+                v-bind="props"
+                >/{{ value }}
+            </span>
         </v-btn>
     </v-hover>
 </template>
@@ -31,5 +34,8 @@
 <style>
 span{
     color: var(--color-white) !important;
+}
+.on-hover {
+    color: #F2A714 !important; /* Aplica o estilo ao texto */
 }
 </style>

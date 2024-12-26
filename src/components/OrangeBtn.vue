@@ -11,7 +11,7 @@
             ><span 
                 :class="{ 'on-hover': isHovering }"
                 v-bind="props"
-                >{{ value }}
+                >/{{ value }}
             </span>
         </v-btn>
     </v-hover>
