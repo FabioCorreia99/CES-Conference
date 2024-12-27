@@ -9,6 +9,7 @@
             style="color: red;"
             v-bind="props"
             ><span 
+                class="text-lowercase text-button"
                 :class="{ 'on-hover': isHovering }"
                 v-bind="props"
                 >/{{ value }}

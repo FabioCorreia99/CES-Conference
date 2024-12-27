@@ -65,6 +65,7 @@ export default {
 
 <style scoped>
 #navbar {
+    position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -75,6 +76,7 @@ export default {
     background-color: rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(100px);
     border-radius: 20px;
+    z-index: 9999;
 }
 
 .nav-logo {

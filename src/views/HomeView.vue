@@ -47,9 +47,9 @@ export default {
           },
       }})
 
-      tl.to(".left", { y: "+700" , ease: "power1.out", opacity: 0 });
-      tl.to(".right", { y: "-500", ease: "power3.out", opacity: 0 },"<");
-      tl.to(".center",{position: "absolute", y:"-100", width: "100vw", height:"100vh", ease: "power2.out"}
+      tl.to(".left", { y: "+700" , ease: "power1.out", opacity: 0, duration: 2 });
+      tl.to(".right", { y: "-500", ease: "power3.out", opacity: 0, duration: 2 },"<");
+      tl.to(".center",{position: "absolute", top: -159 , width: "100vw", height:"100vh", ease: "power2.out"}
       ,">")
       tl.from(".after-animation",{opacity: 0, ease: "power2.out"}
       ,">")
@@ -76,8 +76,8 @@ export default {
     </v-row>
 
     <v-main>
-      <v-container class="w-100">
-        <v-row>
+      <v-container class="w-100 mt-8">
+        <v-row class="intro">
           <v-col cols="12" class="d-flex justify-space-around mb-6 mt-10 mx-0 box-container">
             <img class="masterImg left" :src="leftImg">
             <div class="masterImg center d-flex justify-center flex-column align-center ga-16">  
@@ -85,7 +85,7 @@ export default {
                 <h1 class=" masterTitleDate">JANUARY 7-9</h1>
                 <h1 class="masterTitleLocal">PORTO, PORTUGAL</h1>
               </div>
-              <h1 class="after-animation">CES: Inspiring developers, shaping tomorrow</h1>
+              <h1 class="after-animation masterDesc">CES: Inspiring <b>developers</b>, shaping tomorrow</h1>
               <div class="after-animation">
                 <OrangeBtn value="Buy Ticket" route="home"/>
               </div>
@@ -94,7 +94,7 @@ export default {
           </v-col>
         </v-row>
 
-        <v-row>
+        <v-row class="body">
           <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
           <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
           <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
@@ -167,6 +167,14 @@ export default {
 
 
 <style>
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Para evitar rolagem horizontal */
+}
+.intro{
+  margin-bottom: 50rem !important;
+}
 span {
   color: white;
 }
@@ -193,6 +201,15 @@ span {
   font-size: 3.5rem;
   font-style: normal;
   font-weight: 400;
+  line-height: normal;
+}
+.masterDesc {
+  color: #EEF6F2;
+  text-align: center;
+  font-family: "Source Sans 3";
+  font-size: 2.5rem;
+  font-style: normal;
+  font-weight: 300;
   line-height: normal;
 }
 </style>
