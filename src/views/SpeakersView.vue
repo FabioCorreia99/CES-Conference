@@ -1,5 +1,5 @@
 <template>
-<div class="bg-intro"></div>
+<div class="bg-intro" ></div>
 <v-app>
     <v-row>
       <!-- Navbar Column -->
@@ -18,6 +18,7 @@
                 <h6 class="textTitle my-12 w-75">The CES conference program spotlights technology's most influential leaders as partners and speakers, sharing insights on premier technologies and what will continue to redefine the consumer technology industry in the future.</h6>
                 <div class="d-flex justify-space-around my-12 w-50">
                     <v-text-field
+                        rounded="lg"
                         label="/Search..."
                         prepend-inner-icon="mdi-magnify"
                         variant="solo"
@@ -26,12 +27,12 @@
             </v-col>
         </v-row>
 
-        <v-row>
-          <v-col v-for="sp in speakersStore.speakers" :key="sp.id" sm="3" cols="6">
+        <v-row class="speakersContainer">
+          <v-col class="speaker" v-for="sp in speakersStore.speakers" :key="sp.id" sm="3" cols="6" ref="main">
             <SpeakersCard 
                 :id="sp.id" 
-                :name="sp.firstName" 
-                :subTitle="sp.lastName" 
+                :name="sp.firstName + ` `+ sp.lastName" 
+                :subTitle="sp.company.title"
                 :image="sp.image"/>
           </v-col>
         </v-row>
@@ -44,9 +45,18 @@
 </template>
 
 <script>
+import { ref,onBeforeUnmount } from 'vue';
 import Navbar from '@/components/Navbar.vue';
 import SpeakersCard from '@/components/SpeakersCard.vue';
 import { speakersStore } from '@/stores/speakers.js';
+import { gsap } from "gsap";
+
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
+
+const main = ref();
+let ctx;
+
 export default {
     name: "SpeakersView",
     components: {
@@ -61,7 +71,34 @@ export default {
     created () {
         this.speakersStore.fetchPersons()
     },
+    mounted() {
+        const observer = new IntersectionObserver((entries, self) => {
+            let targets = entries.map(entry => {
+                if (entry.isIntersecting) {
+                    self.unobserve(entry.target);
+                    return entry.target;
+                }
+            });
+            gsap.to(targets, {
+                opacity: 1,
+                stagger: 0.2
+            })
+        });
 
+        // Seleciona todos os cartões e define seu estado inicial
+        const cards = document.querySelectorAll('.speaker-card');
+        gsap.set(cards, { opacity: 0 }); // Define o estado inicial para todos os cartões
+
+        // Observa cada cartão individualmente
+        cards.forEach(card => {
+            observer.observe(card); // Vincula o observer a cada cartão
+        });
+    },
+    beforeUnmount() {
+        if (ctx) {
+            ctx.revert(); // Reverte o contexto GSAP
+        }
+    },
 };
 </script>
 

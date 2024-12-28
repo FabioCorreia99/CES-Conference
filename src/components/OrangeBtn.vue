@@ -6,7 +6,6 @@
             size="large" 
             :color="isHovering ?  '#EEF6F2' : '#F2A714'"
             class="rounded-lg Orangebtn"
-            style="color: red;"
             v-bind="props"
             ><span 
                 class="text-lowercase text-button"
