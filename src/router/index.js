@@ -7,11 +7,11 @@ import PartnersView from "@/views/PartnersView.vue";
 import LoginView from "@/views/LoginView.vue";
 import SpeakerProfileView from "@/views/SpeakerProfileView.vue";
 import ProfileSettingsView from "@/views/ProfileSettingsView.vue";
-import PartnersFormView from '@/views/PartnersFormView.vue';
-import ForumView from '@/views/ForumView.vue';
-import ForumTopicView from '@/views/ForumTopicView.vue';
-import ForumCreateView from '@/views/ForumCreateView.vue';
-
+import PartnersFormView from "@/views/PartnersFormView.vue";
+import ForumView from "@/views/ForumView.vue";
+import ForumTopicView from "@/views/ForumTopicView.vue";
+import ForumCreateView from "@/views/ForumCreateView.vue";
+import { useUsersStore } from "@/stores/users";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,7 +44,7 @@ const router = createRouter({
       component: ForumView,
       children: [
         {
-          path: ":topciId",
+          path: ":topicId",
           name: "forumTopic",
           component: ForumTopicView,
           props: true,
@@ -54,7 +54,7 @@ const router = createRouter({
           name: "forumCreate",
           component: ForumCreateView,
           props: true,
-        }
+        },
       ],
     },
     {
@@ -75,31 +75,31 @@ const router = createRouter({
       component: AboutView,
     },
     {
-      path: "/login",// ver register
+      path: "/login",
       name: "login",
       component: LoginView,
       children: [
         {
-          path: ":userId", // Rota para perfil
+          path: ":userId", // Rota para perfil Utilizador
           name: "profileSettings",
           component: ProfileSettingsView,
           props: true,
         },
         {
-          path: "admin", // Rota para perfil
-          name: "profileSettings", //+
-          component: ProfileSettingsView, //+
+          path: "admin", // Rota para perfil Admin
+          name: "adminProfile",
+          component: ProfileSettingsView,
           props: true,
-        }
+        },
       ],
     },
   ],
 });
 
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = localStorage.getItem("isAuthenticated");
+  const store = useUsersStore();
 
-  if (to.meta.requiresAuth && !isAuthenticated) {
+  if (to.meta.requiresAuth && !store.authentication) {
     next({ path: "/login", query: { from: to.path } });
   } else {
     next();

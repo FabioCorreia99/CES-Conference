@@ -1,17 +1,14 @@
 <template>
-
     <header>
         <Navbar />
     </header>
 
-    <br>
+    <br><br><br>
 
-
-    <h3>Login Area</h3>
 
     <v-sheet class="mx-auto" width="300">
         <v-form @submit.prevent="login">
-            <v-text-field v-model="username" label="Nome" :rules="usernameRules" outlined required>
+            <v-text-field v-model="email" label="Email" :rules="emailRules" outlined required>
             </v-text-field>
 
             <v-text-field v-model="password" label="Senha" :rules="passwordRules" type="password" outlined required>
@@ -23,48 +20,47 @@
         </v-form>
     </v-sheet>
 
-    <p v-if="error" style="color: red;">Dados Invalidos</p>
-
+    <p v-if="error" style="color: red;">Dados Inválidos</p>
 
     <router-view />
-
 </template>
 
 <script>
-import Navbar from '@/components/Navbar.vue';
+import Navbar from "@/components/Navbar.vue";
+import { useUsersStore } from "@/stores/users";
 
 // Funções auxiliares para validação
-const required = field => value =>
+const required = (field) => (value) =>
     value !== null && value !== undefined && value !== "" || `${field} é obrigatório`;
 
-const minLength = (field, length) => value =>
+const minLength = (field, length) => (value) =>
     value && value.length >= length || `${field} deve ter pelo menos ${length} caracteres`;
 
 export default {
     name: "LoginView",
     data() {
         return {
-            username: "",
+            email: "",
             password: "",
             error: false,
-            usernameRules: [required("Nome de utilizador"), minLength("Nome de utilizador", 3)],
-            passwordRules: [required("Senha"), minLength("Senha", 6)]
+            emailRules: [required("Email"), minLength("Email", 5)],
+            passwordRules: [required("Senha"), minLength("Senha", 6)],
         };
     },
     methods: {
         login() {
-            if (this.username === "user" && this.password === "1234") {
-                localStorage.setItem("isAuthenticated", true);
-                this.error = false;
+            const store = useUsersStore();
+            const isAuthenticated = store.login(this.email, this.password);
+            if (isAuthenticated) {
                 const from = this.$route.query.from || "/";
                 this.$router.push(from);
             } else {
                 this.error = true;
             }
-        }
+        },
     },
     components: {
         Navbar,
-    }
+    },
 };
 </script>
