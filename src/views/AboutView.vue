@@ -36,25 +36,5 @@ export default {
 </script>
 
 <style scoped>
-.bg-intro {
-    padding: 0 8rem;
-    background-color: rgba(189, 199, 211, 0.30);
-}
 
-.introTitle {
-  color: #26466D;
-  font-family: "Source Code Pro";
-  font-size: 6.25rem;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
-}
-
-.textTitle {
-  color: #26466D;
-  font-size: 1.125rem;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
-}
 </style>
