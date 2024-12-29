@@ -11,7 +11,9 @@ import PartnersFormView from "@/views/PartnersFormView.vue";
 import ForumView from "@/views/ForumView.vue";
 import ForumTopicView from "@/views/ForumTopicView.vue";
 import ForumCreateView from "@/views/ForumCreateView.vue";
+import CreateAccount from "@/views/CreateAccountView.vue";
 import { useUsersStore } from "@/stores/users";
+import CreateAccountView from "@/views/CreateAccountView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -93,6 +95,10 @@ const router = createRouter({
         },
       ],
     },
+    {
+      path: "/create-account",
+      name: "createAccount",
+      component: CreateAccountView },
   ],
 });
 

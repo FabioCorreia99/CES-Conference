@@ -20,33 +20,25 @@ export const useUsersStore = defineStore("users", {
   },
   actions: {
     login(email, password) {
-      try {
-        const user = this.users.find(
-          (u) => u.Email === email && u.password === password
-        );
-        if (!user) {
-          throw new Error(
-            "Credenciais inválidas. Por favor, verifique o email e a palavra-passe."
-          );
-        }
-        this.authentication = true; // Autentica o utilizador
-        return true; // Login bem-sucedido
-      } catch (error) {
-        console.error("Falha no login:", error.message);
-        return false; // Falha no login
+      const user = this.users.find(
+        (u) => u.Email === email && u.password === password
+      );
+
+      if (!user) {
+        console.error("Invalid credentials. Please check your email and password.");
+        return false; // Login falhou
       }
+
+      this.authentication = true;
+      return true; // Login bem sucedido
     },
     logout() {
-      try {
-        if (!this.authentication) {
-          throw new Error("O utilizador não está autenticado.");
-        }
-        this.authentication = false; // Desautentica o utilizador
-        return true; // Logout bem-sucedido
-      } catch (error) {
-        console.error("Falha no logout:", error.message);
-        return false; // Falha no logout
+      if (!this.authentication) {
+        console.error("Logout failed: User not authenticated.");
+        return false; // Utilizador não autenticado
       }
+      this.authentication = false;
+      return true; // Logout bem sucedido
     },
     addUser(Email, password) {
       const newUser = {

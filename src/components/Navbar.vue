@@ -46,15 +46,15 @@ export default {
         toggleNAV() {
             this.isNavOpen = !this.isNavOpen;
             sessionStorage.setItem("isNavOpen", JSON.stringify(this.isNavOpen));
-            
+
             const links = document.querySelector(".links");
-            
+
             if (this.isNavOpen) {
                 links.style.display = "flex";
             } else {
                 links.style.display = "none";
             }
-            
+
         }
     },
     mounted() {
