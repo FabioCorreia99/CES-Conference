@@ -28,7 +28,7 @@
   --color-orange: #F2A714;
 
   --gradient-primary: linear-gradient(180deg, #eef6f2 0%, #26466d 61%, #6590d0 100%);
-  
+
 }
 
 /* semantic color variables for this project */
@@ -115,5 +115,3 @@ header {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-
