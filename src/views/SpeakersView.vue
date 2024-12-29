@@ -1,23 +1,17 @@
 <template>
-<div class="bg-intro" ></div>
 <v-app>
-    <v-row>
-      <!-- Navbar Column -->
-      <v-col>
-        <header>
-            <Navbar />
-        </header>
-      </v-col>
-    </v-row>
+    <header class="position-absolute">
+        <Navbar />
+    </header>
 
     <v-main>
-      <v-container>
-        <v-row class="test">
+        <v-row class="bg-intro mx-0 pt-10 w-100">
             <v-col>
                 <h1 class="introTitle my-12">Speakers</h1>
                 <h6 class="textTitle my-12 w-75">The CES conference program spotlights technology's most influential leaders as partners and speakers, sharing insights on premier technologies and what will continue to redefine the consumer technology industry in the future.</h6>
-                <div class="d-flex justify-space-around my-12 w-50">
+                <div class="d-flex justify-space-around my-1 w-50">
                     <v-text-field
+                        class="mt-12 mb-0"
                         rounded="lg"
                         label="/Search..."
                         prepend-inner-icon="mdi-magnify"
@@ -26,7 +20,7 @@
                 </div>
             </v-col>
         </v-row>
-
+    <v-container class="mt-10">
         <v-row class="speakersContainer">
           <v-col class="speaker" v-for="sp in speakersStore.speakers" :key="sp.id" sm="3" cols="6" ref="main">
             <SpeakersCard 
@@ -104,12 +98,7 @@ export default {
 
 <style>
 .bg-intro {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 28rem;
-    margin: 0; /* Remove margens */
+    padding: 0 8rem;
     background-color: rgba(189, 199, 211, 0.30);
 }
 .introTitle{

@@ -1,27 +1,24 @@
 <template>
   <v-app>
-    <v-row>
-      <!-- Navbar Column -->
-      <v-col>
-        <header>
-          <Navbar />
-        </header>
-      </v-col>
-    </v-row>
+    <header  class="position-absolute">
+      <Navbar />
+    </header>
 
     <v-main>
-      <v-container>
-        <v-row class="test">
+        <v-row class="bg-intro mx-0 pt-10 w-100">
           <v-col>
             <h1 class="introTitle my-12">About</h1>
             <h6 class="textTitle my-12 w-75">CES® is the world's most impactful tech event — the launchpad for
               groundbreaking ideas and visionary creators.</h6>
-            <div class="d-flex justify-space-around my-12 w-50">
+            <div class="d-flex justify-space-around w-50">
             </div>
           </v-col>
         </v-row>
+      <v-container>
+
         <v-row class="aboutContainer">
         </v-row>
+
       </v-container>
     </v-main>
   </v-app>
@@ -40,13 +37,8 @@ export default {
 
 <style scoped>
 .bg-intro {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 28rem;
-  margin: 0;
-  background-color: rgba(189, 199, 211, 0.30);
+    padding: 0 8rem;
+    background-color: rgba(189, 199, 211, 0.30);
 }
 
 .introTitle {
