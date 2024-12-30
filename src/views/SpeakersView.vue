@@ -21,7 +21,8 @@
             </v-col>
         </v-row>
     <v-container class="mt-10">
-        <v-row class="speakersContainer">
+        <!-- Speakers grid -->
+        <v-row class="speakersContainer"> 
           <v-col class="speaker" v-for="sp in speakersStore.speakers" :key="sp.id" sm="3" cols="6" ref="main">
             <SpeakersCard 
                 :id="sp.id" 
