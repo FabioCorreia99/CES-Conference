@@ -10,7 +10,7 @@ export const speakersStore = defineStore("speakers", {
 
     }),    
     getters: {
-        getSpeakerById: (state) => (id) => state.speakers.find(speaker => speaker.id === id),
+        getSpeakerById: (state) => (id) => state.speakers.find(speaker => speaker.id == id),
     },
     actions: {
         async fetchPersons() {

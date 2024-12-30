@@ -7,7 +7,7 @@
                 <v-card-subtitle class="pro">{{ subTitle }}</v-card-subtitle>
             </v-card-item>
             <div class="d-flex justify-center">
-            <BlueBtn value="check profile"/>
+                <BlueBtn route="SpeakerProfile" :id="id" value="check profile"/>
             </div>
         </v-card>
     </v-hover>

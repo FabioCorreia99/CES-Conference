@@ -32,13 +32,16 @@ const router = createRouter({
       path: "/speakers",
       name: "speakers",
       component: SpeakersView,
-      children: [
-        {
-          path: "SpeakerProfile",
-          name: "SpeakerProfile",
-          component: SpeakerProfileView,
-        },
-      ],
+    },
+    {
+      path: "/:speakerId",
+      name: "SpeakerProfile",
+      component: SpeakerProfileView, 
+    },
+    {
+      path: "/schedule",
+      name: "schedule",
+      component: ScheduleView,
     },
     {
       path: "/forum",

@@ -1,7 +1,7 @@
 <template>
     <v-hover v-slot="{ isHovering, props }">
         <v-btn 
-            :to="{ name: route }"
+            :to='{ name: route, params:{speakerId: id} }'
             elevation="4" 
             size="large" 
             :color="isHovering ? '#EEF6F2': '#6590D0'"
@@ -28,6 +28,9 @@
             type: String,
             default: "home"
         },
+        id:{
+            type: Number,
+        }
      },   
     }
 </script>
