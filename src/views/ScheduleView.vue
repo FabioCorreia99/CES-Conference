@@ -14,30 +14,59 @@
                 </div>
             </v-col>
         </v-row>
-      <v-container class="mt-12">
-        <v-row>
-          <v-col v-for="n in 24" :key="n" cols="4">
-            <v-card height="200"></v-card>
-          </v-col>
+      
+        <v-row class="mt-16">
+          <v-expansion-panels class="w-100" multiple  bg-color="rgba(189, 199, 211, 0.3)" elevation="0" static collapse-icon="mdi-chevron-up" expand-icon="mdi-chevron-down">
+            <v-expansion-panel v-for="hour in hours" class="scheduleMenu">
+              <v-expansion-panel-title class="text-h6">{{ hour }}</v-expansion-panel-title>
+              <v-expansion-panel-text>
+
+              </v-expansion-panel-text>
+            </v-expansion-panel>
+          </v-expansion-panels>
         </v-row>
-      </v-container>
     </v-main>
   </v-app>
 
-  <div>
-    This is the Schedule Page
-  </div>
+<link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
 </template>
 
 <script>
 import Navbar from '@/components/Navbar.vue';
+import SpeakersCard from '@/components/SpeakersCard.vue';
+
 
 export default {
-  components: {
-    Navbar,
-  },
+    name: "ScheduleView",
+    components: {
+        Navbar,
+        SpeakersCard
+    },
+    data() {
+      return {
+        hours: [
+          "9:00",
+          "10:00",
+          "11:00",
+          "13:00",
+          "14:00",
+          "15:00",
+          "16:00",
+          "17:00",
+          "18:00",
+        ],
+      }
+    },
 }
 </script>
 
 <style >
+.scheduleMenu{
+  color: var(--color-dark-blue) !important;
+  height: 3.5rem;
+  padding: 0 6.5rem !important;
+}
+.v-expansion-panel .v-icon {
+  color: var(--color-orange);
+}
 </style>
