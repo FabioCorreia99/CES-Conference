@@ -19,7 +19,9 @@
                 <div class="terminal-body">
                     <!-- Conteúdo do terminal -->
                     <div class="terminal-content">
-                        <pre class="ascii-logo">
+                        <div class="ascii-and-message">
+                            <div class="ascii-logo-wrapper">
+                                <pre class="ascii-logo">
           ░░░░░░░░░░░░░░░░░░           ░░░░░░░░░░░░░░░░░░░░░░░░░░░          ░░░░░░░░░░░░░░░
        ░░░░░░░░░░░░░░░░░░░░░░░░        ░░░░░░░░░░░░░░░░░░░░░░░░░░░       ░░░░░░░░░░░░░░░░░░░░░░
     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░      ░░░░░░░░░░░░░░░░░░░░░░░░░░░     ░░░░░░░░░░░░░░░░░░░░░░░░░
@@ -41,13 +43,23 @@
        ░░░░░░░░░░░░░░░░░░░░░░          ░░░░░░░░░░░░░░░░░░░░░░░░░░░       ░░░░░░░░░░░░░░░░░░░░░░░
            ░░░░░░░░░░░░░░              ░░░░░░░░░░░░░░░░░░░░░░░░░░░            ░░░░░░░░░░░░░
                         </pre>
+                            </div>
+                            <div class="welcome-message">
+                                <p>Welcome to CES!</p>
+                                <p>Let's begin the adventure</p>
+                            </div>
+                        </div>
                         <form @submit.prevent="login" class="login-form">
                             <label for="email" class="login-label">Enter your email</label>
-                            <input id="email" type="email" v-model="email" placeholder="Email" class="login-input"
-                                required />
-                            <input id="password" type="password" v-model="password" placeholder="Password"
-                                class="login-input" required />
-                            <button type="submit" class="login-button">/continue</button>
+                            <div class="input-group">
+                                <input id="email" type="email" v-model="email" placeholder="Email" class="login-input"
+                                    required />
+                                <div class="password-button-group">
+                                    <input id="password" type="password" v-model="password" placeholder="Password"
+                                        class="login-input" required />
+                                    <BlueBtnToOrange :value="'continue'" :route="'home'" />
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -56,10 +68,9 @@
     </div>
 </template>
 
-
-
 <script>
 import LoginNavbar from "@/components/LoginNavbar.vue";
+import BlueBtnToOrange from "@/components/BlueBtnToOrange.vue";
 import { MinusIcon, Square2StackIcon, XMarkIcon } from "@heroicons/vue/24/solid";
 import { useUsersStore } from "@/stores/users";
 
@@ -67,6 +78,7 @@ export default {
     name: "LoginView",
     components: {
         LoginNavbar,
+        BlueBtnToOrange,
         MinusIcon,
         Square2StackIcon,
         XMarkIcon,
@@ -91,6 +103,7 @@ export default {
     },
 };
 </script>
+
 
 <style scoped>
 .login-page {
@@ -142,25 +155,76 @@ export default {
 
 /* Conteúdo do terminal */
 .terminal-content {
-    text-align: center;
-    color: #EEF6F2;
-}
-
-.login-form {
-    margin-top: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.ascii-and-message {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+    color: #EEF6F2;
+}
+
+.ascii-logo-wrapper {
+    flex-shrink: 0;
+    /* Impede o redimensionamento do ASCII */
+}
+
+.ascii-logo {
+    font-family: monospace;
+    color: #EEF6F2;
+    font-size: 0.3rem;
+    white-space: pre-wrap;
+    text-align: left
+}
+
+.welcome-message {
+    text-align: left;
+    color: #EEF6F2;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 1rem;
 }
 
 .login-label {
     font-size: 1rem;
     color: #F2A714;
+    font-weight: bold;
+    align-self: flex-start;
+    /* Garante alinhamento com os inputs */
+    margin-bottom: 0.5rem;
+    /* Espaçamento entre a label e os inputs */
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    /* Garante alinhamento com os inputs */
+}
+
+.password-button-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    /* Espaçamento entre o botão e a caixa de texto */
 }
 
 .login-input {
     width: 408px;
+    /* Tamanho fixo para os inputs */
     height: 39px;
     padding: 0.5rem;
     font-size: 1rem;
@@ -171,31 +235,24 @@ export default {
     outline: none;
 }
 
-.login-input::placeholder {
-    color: #EEF6F2;
-    opacity: 0.7;
-}
+@media (max-width: 768px) {
+    .ascii-and-message {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
 
-.login-button {
-    padding: 0.5rem 1.5rem;
-    font-size: 1rem;
-    border: none;
-    border-radius: 5px;
-    background-color: #6590D0;
-    color: #EEF6F2;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+    .login-input {
+        width: 100%;
+    }
 
-.login-button:hover {
-    background-color: #F2A714;
-}
+    .password-button-group {
+        flex-direction: column;
+        gap: 1rem;
+    }
 
-.ascii-logo {
-    font-family: monospace;
-    color: #EEF6F2;
-    font-size: 0.3rem;
-    white-space: pre-wrap;
-    text-align: left;
+    .login-button {
+        width: 100%;
+    }
 }
 </style>
