@@ -50,16 +50,20 @@
                             </div>
                         </div>
                         <form @submit.prevent="login" class="login-form">
-                            <label for="email" class="login-label">Enter your email</label>
+                            <label for="email" class="login-label">Enter your account</label>
                             <div class="input-group">
                                 <input id="email" type="email" v-model="email" placeholder="Email" class="login-input"
                                     required />
                                 <div class="password-button-group">
                                     <input id="password" type="password" v-model="password" placeholder="Password"
                                         class="login-input" required />
-                                    <BlueBtnToOrange :value="'continue'" :route="'home'" />
+                                    <BlueBtnToOrange :value="'login'" :handleClick="login" />
                                 </div>
                             </div>
+                            <p v-if="loginMessage"
+                                v-bind:class="{ 'success-message': isSuccess, 'error-message': !isSuccess }">
+                                {{ loginMessage }}
+                            </p>
                         </form>
                     </div>
                 </div>
@@ -72,6 +76,7 @@
 import LoginNavbar from "@/components/LoginNavbar.vue";
 import BlueBtnToOrange from "@/components/BlueBtnToOrange.vue";
 import { MinusIcon, Square2StackIcon, XMarkIcon } from "@heroicons/vue/24/solid";
+
 import { useUsersStore } from "@/stores/users";
 
 export default {
@@ -87,22 +92,29 @@ export default {
         return {
             email: "",
             password: "",
+            loginMessage: "",
+            isSuccess: false,
         };
     },
     methods: {
         login() {
             const store = useUsersStore();
+            this.loginMessage = "";
+
             const isAuthenticated = store.login(this.email, this.password);
+
             if (isAuthenticated) {
-                const from = this.$route.query.from || "/";
-                this.$router.push(from);
+                this.loginMessage = "Login successful!";
+                this.isSuccess = true;
             } else {
-                alert("Invalid credentials. Please try again.");
+                this.loginMessage = "Invalid email or password. Please try again.";
+                this.isSuccess = false;
             }
         },
     },
 };
 </script>
+
 
 
 <style scoped>
@@ -141,7 +153,6 @@ export default {
     width: 20px;
     height: 20px;
     color: #26466D;
-    ;
 }
 
 /* Corpo do Terminal */
@@ -190,21 +201,20 @@ export default {
     line-height: 1.5;
 }
 
+/* Formulário e inputs */
 .login-form {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     gap: 1rem;
+    width: 100%;
+    /* Adapta-se a ecrãs menores */
 }
+
 
 .login-label {
     font-size: 1rem;
     color: #F2A714;
     font-weight: bold;
-    align-self: flex-start;
-    /* Garante alinhamento com os inputs */
-    margin-bottom: 0.5rem;
-    /* Espaçamento entre a label e os inputs */
 }
 
 .input-group {
@@ -212,7 +222,6 @@ export default {
     flex-direction: column;
     gap: 1rem;
     width: 100%;
-    /* Garante alinhamento com os inputs */
 }
 
 .password-button-group {
@@ -224,7 +233,6 @@ export default {
 
 .login-input {
     width: 408px;
-    /* Tamanho fixo para os inputs */
     height: 39px;
     padding: 0.5rem;
     font-size: 1rem;
@@ -235,11 +243,21 @@ export default {
     outline: none;
 }
 
+.success-message {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.error-message {
+    color: #F44336;
+    font-weight: bold;
+}
+
 @media (max-width: 768px) {
     .ascii-and-message {
         flex-direction: column;
-        gap: 1rem;
         align-items: center;
+        gap: 1rem;
     }
 
     .login-input {
@@ -248,11 +266,8 @@ export default {
 
     .password-button-group {
         flex-direction: column;
+        align-items: center;
         gap: 1rem;
-    }
-
-    .login-button {
-        width: 100%;
     }
 }
 </style>
