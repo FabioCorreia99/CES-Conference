@@ -2,7 +2,18 @@ import { defineStore } from "pinia";
 
 export const useUsersStore = defineStore("users", {
   state: () => ({
-    users: [],
+    // Carrega utilizadores do localStorage ou inicializa com o utilizador fictício
+    users: JSON.parse(localStorage.getItem("users")) || [
+      {
+        id: 0,
+        Email: "user",
+        password: "1234",
+        name: "Test User",
+        picture: "",
+        ticket: {},
+        likedTalks: [],
+      },
+    ],
     authentication: false,
   }),
   getters: {
@@ -10,7 +21,7 @@ export const useUsersStore = defineStore("users", {
     getUserById: (state) => (userId) =>
       state.users.find((user) => user.id === userId),
 
-    // Getter para calcular o próximo ID (sem operador ternário)
+    // Getter para calcular o próximo ID
     nextUserId: (state) => {
       if (state.users.length === 0) {
         return 0; // Se o array estiver vazio, retorna 0
@@ -25,7 +36,6 @@ export const useUsersStore = defineStore("users", {
       );
 
       if (!user) {
-        console.error("Invalid credentials. Please check your email and password.");
         return false; // Login falhou
       }
 
@@ -34,13 +44,18 @@ export const useUsersStore = defineStore("users", {
     },
     logout() {
       if (!this.authentication) {
-        console.error("Logout failed: User not authenticated.");
         return false; // Utilizador não autenticado
       }
       this.authentication = false;
       return true; // Logout bem sucedido
     },
     addUser(Email, password) {
+      // Verificar se o utilizador já existe
+      const existingUser = this.users.find((u) => u.Email === Email);
+      if (existingUser) {
+        return false; // Conta já existe
+      }
+
       const newUser = {
         id: this.nextUserId, // Usa o getter para obter o próximo ID
         Email,
@@ -50,11 +65,20 @@ export const useUsersStore = defineStore("users", {
         ticket: {},
         likedTalks: [],
       };
-      this.users.push(newUser); // Adiciona o novo utilizador à lista
+
+      // Adiciona o novo utilizador e atualiza o localStorage
+      this.users.push(newUser);
+      this.updateLocalStorage();
+      return true;
     },
     // Método para remover um utilizador pelo ID
     removeUser(id) {
       this.users = this.users.filter((user) => user.id !== id); // Remove o utilizador da lista
+      this.updateLocalStorage(); // Atualiza o localStorage
+    },
+    // Método para sincronizar o state com o localStorage
+    updateLocalStorage() {
+      localStorage.setItem("users", JSON.stringify(this.users));
     },
   },
 });
