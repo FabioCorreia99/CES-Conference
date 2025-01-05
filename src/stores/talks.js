@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-export const talksStore = defineStore("talks", {
+export const useTalksStore = defineStore("talks", {
     state: () => ({
         talks: [],
     }),
@@ -8,7 +8,8 @@ export const talksStore = defineStore("talks", {
         getTalkById: (state) => (id) => state.talks.find(talk => talk.id === id),
         getTalksBySpeaker: (state) => (speaker) => state.talks.filter(talk => talk.speaker === speaker),
         getTalksByFilter: (state) => (filter) => state.talks.filter(talk => talk.filters.include(filter)),
-        getTalksByDay: (state) => (day) =>  state.talks.filter(talk => talk.day === day)
+        getTalksByDay: (state) => (day) =>  state.talks.filter(talk => talk.day === day),
+        getTalksByDayandHour: (state) => (day,hour) =>  state.talks.filter(talk => talk.day == day && talk.hour == hour)
     },
     actions: {
         addTalk(title, speaker, sumary, desc, filters, room, day, hour) {
@@ -140,7 +141,7 @@ export const talksStore = defineStore("talks", {
                         hour: "9:00" 
                     },
                     { 
-                        title: "Future of Blockchain Beyond Cryptocurrency", 
+                        title: "Future of Blockchain", 
                         speaker: 11, 
                         sumary: "Explore how blockchain technology is being applied beyond cryptocurrencies in areas like supply chain, healthcare, and finance.", 
                         desc: "Dive deep into <b>blockchain</b> applications revolutionizing industries beyond <b>cryptocurrency</b>. \n\nUnderstand its potential in streamlining supply chain processes and ensuring data integrity in healthcare. \n\nFinally, discover emerging trends and the future outlook for blockchain innovation.", 
@@ -150,7 +151,7 @@ export const talksStore = defineStore("talks", {
                         hour: "10:00" 
                     },
                     { 
-                        title: "Emerging Trends in Cloud Computing", 
+                        title: "Emerging Trends in Cloud", 
                         speaker: 12, 
                         sumary: "An in-depth look at the future of cloud computing, focusing on serverless, multi-cloud, and green computing initiatives.", 
                         desc: "Uncover the <b>latest</b> innovations in <b>cloud</b> technology, from multi-cloud strategies to energy-efficient architectures. \n\nLearn about the impact of serverless computing and how it enables scalability and cost efficiency. \n\nFinally, understand how green computing initiatives are shaping the cloud's future.", 
@@ -180,7 +181,7 @@ export const talksStore = defineStore("talks", {
                         hour: "14:00" 
                     },
                     { 
-                        title: "DevOps for Modern Software Development", 
+                        title: "DevOps for Software Development", 
                         speaker: 15, 
                         sumary: "Discover how DevOps practices streamline software development and improve collaboration between teams.", 
                         desc: "Understand the <b>principles</b> of <b>DevOps</b> and its role in modern software development. \n\nExplore tools and techniques that enable continuous integration and deployment. \n\nFinally, learn how DevOps fosters collaboration between development and operations teams to deliver value faster.", 
@@ -190,7 +191,7 @@ export const talksStore = defineStore("talks", {
                         hour: "15:00" 
                     },
                     { 
-                        title: "Harnessing Big Data for Business Insights", 
+                        title: "Harnessing Big Data for Business", 
                         speaker: 16, 
                         sumary: "Learn how big data analytics can transform decision-making and drive innovation in businesses across industries.", 
                         desc: "Dive into the <b>power</b> of <b>big data</b> analytics to uncover patterns, trends, and actionable insights. \n\nExplore tools and platforms that make big data processing efficient and scalable. \n\nFinally, discover how businesses leverage these insights to stay competitive and innovate.", 
@@ -246,7 +247,7 @@ export const talksStore = defineStore("talks", {
                         desc: "Understand the <b>importance</b> of ethical principles in <b>data</b> science, including transparency and accountability. \n\nLearn methods for identifying and mitigating algorithmic bias. \n\nFinally, explore case studies highlighting the consequences of unethical data practices.",
                         filters: ["Ethics", "Data", "Science"],
                         room: "B121",
-                        day: 8,
+                        day: 9,
                         hour: "11:00"
                     },
                     {
@@ -316,7 +317,7 @@ export const talksStore = defineStore("talks", {
                         desc: "Explore <b>sustainable</b> approaches to <b>AI</b> development, focusing on energy efficiency and ethical design. \n\nLearn how to measure and reduce the carbon footprint of AI models. \n\nFinally, discuss frameworks for ensuring AI benefits are distributed equitably across society.",
                         filters: ["AI", "Sustainability", "Ethics"],
                         room: "C128",
-                        day: 8,
+                        day: 9,
                         hour: "18:00"
                     },
                     {
@@ -340,7 +341,7 @@ export const talksStore = defineStore("talks", {
                         hour: "10:00"
                     },
                     {
-                        title: "JavaScript Performance Optimization",
+                        title: "JavaScript Optimization",
                         speaker: 31,
                         sumary: "Learn techniques to enhance JavaScript performance in web applications for smoother user experiences.",
                         desc: "Understand <b>critical</b> performance bottlenecks in <b>JavaScript</b> applications and how to address them. \n\nExplore tools like Lighthouse and Webpack to analyze and optimize scripts. \n\nFinally, learn strategies for reducing memory leaks and improving runtime efficiency.",
@@ -370,7 +371,7 @@ export const talksStore = defineStore("talks", {
                         hour: "14:00"
                     },
                     {
-                        title: "Progressive Web Apps with JavaScript",
+                        title: "Progressive Web Apps with JS",
                         speaker: 34,
                         sumary: "Discover how to build fast, reliable, and engaging Progressive Web Apps using JavaScript.",
                         desc: "Learn the <b>principles</b> of <b>Progressive</b> Web Apps (PWAs) and their benefits for users and developers. \n\nExplore tools and frameworks to implement service workers, caching strategies, and offline capabilities. \n\nFinally, understand how to enhance PWA adoption with installation prompts and push notifications.",
@@ -400,7 +401,7 @@ export const talksStore = defineStore("talks", {
                         hour: "17:00"
                     },
                     {
-                        title: "HTML5 APIs for Modern Web Development",
+                        title: "APIs for Modern Web Development",
                         speaker: 37,
                         sumary: "Discover powerful HTML5 APIs that enable modern, interactive web experiences.",
                         desc: "Explore <b>essential</b> <b>HTML5</b> APIs such as Canvas, WebRTC, and WebSockets for creating interactive applications. \n\nLearn how to implement features like offline storage, geolocation, and multimedia controls. \n\nFinally, understand compatibility considerations and polyfills for broader support.",
@@ -418,13 +419,194 @@ export const talksStore = defineStore("talks", {
                         room: "A138",
                         day: 9,
                         hour: "18:00"
+                    },
+                    {
+                        title: "Advanced HTML5 Semantics",
+                        speaker: 39,
+                        sumary: "Unleash the power of semantic HTML5 for better SEO and accessibility.",
+                        desc: "Discover the <b>importance</b> of <b>semantic</b> HTML5 elements in creating structured and accessible content. \n\nLearn how proper semantics improve both search engine optimization and user experience. \n\nFinally, explore case studies where semantic HTML has made a significant impact.",
+                        filters: ["HTML", "Accessibility", "Web"],
+                        room: "A139",
+                        day: 7,
+                        hour: "9:00"
+                    },
+                    {
+                        title: "Mastering CSS Layouts",
+                        speaker: 40,
+                        sumary: "Learn to design stunning layouts using Grid, Flexbox, and responsive techniques.",
+                        desc: "Explore <b>advanced</b> CSS layout techniques including <b>Grid</b> and Flexbox to create visually appealing designs. \n\nUnderstand how to make layouts fully responsive for all devices. \n\nFinally, gain insights into common pitfalls and how to avoid them.",
+                        filters: ["CSS", "Web"],
+                        room: "B140",
+                        day: 7,
+                        hour: "10:00"
+                    },
+                    {
+                        title: "State Management with Vuex",
+                        speaker: 41,
+                        sumary: "Simplify state management in Vue.js applications using Vuex.",
+                        desc: "Learn the <b>fundamentals</b> of <b>Vuex</b> and how it helps manage state across Vue components. \n\nExplore patterns for structuring Vuex stores for scalability. \n\nFinally, integrate Vuex with tools for debugging and enhancing performance.",
+                        filters: ["Vue", "State"],
+                        room: "C141",
+                        day: 7,
+                        hour: "11:00"
+                    },
+                    {
+                        title: "JavaScript Best Practices",
+                        speaker: 42,
+                        sumary: "Adopt best practices for writing clean, efficient JavaScript code.",
+                        desc: "Understand <b>essential</b> <b>JavaScript</b> best practices for readability and maintainability. \n\nExplore strategies to reduce bugs and improve performance. \n\nFinally, discover tools and libraries that complement these practices.",
+                        filters: ["JavaScript", "Web"],
+                        room: "A142",
+                        day: 7,
+                        hour: "13:00"
+                    },
+                    {
+                        title: "Vue 3 Composition API",
+                        speaker: 43,
+                        sumary: "Discover the power of Vue 3’s Composition API for building scalable applications.",
+                        desc: "Learn the <b>concepts</b> of the <b>Composition</b> API and its advantages over the Options API. \n\nUnderstand how to manage reactivity and lifecycle hooks effectively. \n\nFinally, explore practical examples of using the Composition API in real projects.",
+                        filters: ["Vue", "JavaScript", "Frontend"],
+                        room: "B143",
+                        day: 7,
+                        hour: "14:00"
+                    },
+                    {
+                        title: "Building Interactive Forms with Vue",
+                        speaker: 44,
+                        sumary: "Create engaging and user-friendly forms in Vue.js with dynamic features.",
+                        desc: "Understand how to <b>build</b> interactive <b>forms</b> with real-time validation and feedback. \n\nExplore libraries and techniques to manage complex form states. \n\nFinally, learn how to enhance user experience with custom components.",
+                        filters: ["Vue", "Frontend"],
+                        room: "C144",
+                        day: 7,
+                        hour: "15:00"
+                    },
+                    {
+                        title: "CSS Grid Advanced Techniques",
+                        speaker: 45,
+                        sumary: "Master CSS Grid to create flexible and powerful layouts for the modern web.",
+                        desc: "Learn <b>advanced</b> concepts of <b>CSS</b> Grid such as implicit and explicit tracks. \n\nUnderstand how to create reusable grid-based design systems. \n\nFinally, discover real-world applications of these techniques.",
+                        filters: ["CSS", "Design", "Web"],
+                        room: "A145",
+                        day: 7,
+                        hour: "16:00"
+                    },
+                    {
+                        title: "Debugging JavaScript Applications",
+                        speaker: 46,
+                        sumary: "Learn effective techniques for debugging and troubleshooting JavaScript code.",
+                        desc: "Explore <b>powerful</b> tools for <b>debugging</b> JavaScript applications like Chrome DevTools. \n\nUnderstand how to analyze runtime errors and improve code reliability. \n\nFinally, learn strategies for identifying and fixing performance bottlenecks.",
+                        filters: ["JavaScript", "Web"],
+                        room: "B146",
+                        day: 7,
+                        hour: "17:00"
+                    },
+                    {
+                        title: "HTML Forms and Validation",
+                        speaker: 47,
+                        sumary: "Create accessible and user-friendly HTML forms with robust validation.",
+                        desc: "Understand the <b>best</b> practices for <b>HTML</b> forms, including semantic markup and accessibility. \n\nLearn how to implement client-side and server-side validation effectively. \n\nFinally, explore libraries and techniques for advanced form features.",
+                        filters: ["HTML", "Accessibility"],
+                        room: "C147",
+                        day: 7,
+                        hour: "18:00"
+                    },
+                    {
+                        title: "Optimizing CSS for Performance",
+                        speaker: 48,
+                        sumary: "Discover techniques for optimizing CSS to improve load times and user experience.",
+                        desc: "Learn how to <b>optimize</b> <b>CSS</b> with techniques like critical CSS and minification. \n\nUnderstand the impact of CSS on rendering performance. \n\nFinally, explore tools for analyzing and improving your stylesheets.",
+                        filters: ["CSS", "Web"],
+                        room: "A148",
+                        day: 9,
+                        hour: "9:00"
+                    },
+                    {
+                        title: "Single-Page Applications with Vue",
+                        speaker: 49,
+                        sumary: "Learn to build fast and dynamic single-page applications using Vue.js.",
+                        desc: "Understand the <b>architecture</b> of <b>single-page</b> applications (SPAs) and their advantages. \n\nExplore routing, state management, and API integration in Vue.js. \n\nFinally, discover techniques for improving SPA performance and usability.",
+                        filters: ["Vue", "JavaScript", "Frontend"],
+                        room: "B149",
+                        day: 9,
+                        hour: "10:00"
+                    },
+                    {
+                        title: "CSS Variables in Action",
+                        speaker: 50,
+                        sumary: "Use CSS custom properties to create dynamic and maintainable styles.",
+                        desc: "Learn the <b>concepts</b> behind <b>CSS</b> variables and their use in theming and dynamic styling. \n\nUnderstand how to leverage variables to improve stylesheet maintainability. \n\nFinally, explore examples of real-world usage in responsive and interactive designs.",
+                        filters: ["CSS", "Design", "Web"],
+                        room: "C150",
+                        day: 9,
+                        hour: "11:00"
+                    },
+                    {
+                        title: "JavaScript and the DOM",
+                        speaker: 51,
+                        sumary: "Master the Document Object Model (DOM) to create dynamic web pages.",
+                        desc: "Understand <b>how</b> <b>JavaScript</b> interacts with the DOM for dynamic content manipulation. \n\nLearn techniques for optimizing DOM queries and updates. \n\nFinally, discover common patterns and best practices for DOM manipulation.",
+                        filters: ["JavaScript"],
+                        room: "A151",
+                        day: 9,
+                        hour: "13:00"
+                    },
+                    {
+                        title: "Vue Router Deep Dive",
+                        speaker: 52,
+                        sumary: "Explore the advanced features of Vue Router for building complex navigation systems.",
+                        desc: "Learn <b>advanced</b> techniques in <b>Vue</b> Router, including nested routes and navigation guards. \n\nUnderstand how to optimize routing for performance and usability. \n\nFinally, explore patterns for managing dynamic and static routes effectively.",
+                        filters: ["Vue", "JavaScript", "Frontend"],
+                        room: "B152",
+                        day: 9,
+                        hour: "14:00"
+                    },
+                    {
+                        title: "Web Accessibility with ARIA",
+                        speaker: 53,
+                        sumary: "Enhance web accessibility with ARIA roles and properties.",
+                        desc: "Understand <b>how</b> <b>ARIA</b> roles and properties enhance accessibility for dynamic content. \n\nLearn techniques for testing and validating ARIA compliance. \n\nFinally, explore examples of using ARIA to improve user experience across devices.",
+                        filters: ["HTML", "Accessibility"],
+                        room: "C153",
+                        day: 9,
+                        hour: "15:00"
+                    },
+                    {
+                        title: "Deploying Vue Applications",
+                        speaker: 54,
+                        sumary: "Learn best practices for deploying Vue applications efficiently and securely.",
+                        desc: "Explore <b>techniques</b> for <b>deploying</b> Vue applications, including CI/CD pipelines and cloud hosting. \n\nUnderstand how to optimize builds and manage dependencies for production. \n\nFinally, discover security practices to protect Vue apps from common vulnerabilities.",
+                        filters: ["Vue", "JavaScript", "Frontend"],
+                        room: "A154",
+                        day: 9,
+                        hour: "16:00"
+                    },
+                    {
+                        title: "Modern JavaScript Frameworks",
+                        speaker: 55,
+                        sumary: "Compare and evaluate the top JavaScript frameworks for your next project.",
+                        desc: "Understand the <b>differences</b> between popular <b>JavaScript</b> frameworks like Vue, React, and Angular. \n\nLearn how to choose the right framework based on project requirements. \n\nFinally, explore trends and the future of frontend development.",
+                        filters: ["JavaScript", "Web"],
+                        room: "B155",
+                        day: 9,
+                        hour: "17:00"
+                    },
+                    {
+                        title: "Dynamic CSS Animations",
+                        speaker: 56,
+                        sumary: "Create advanced and dynamic animations using modern CSS techniques.",
+                        desc: "Learn <b>how</b> to <b>design</b> dynamic CSS animations that enhance user experience. \n\nExplore advanced features like scroll-linked animations and variable-driven keyframes. \n\nFinally, discover tools and workflows for animating efficiently at scale.",
+                        filters: ["CSS", "Web"],
+                        room: "C156",
+                        day: 9,
+                        hour: "18:00"
                     }
                 ];
                 
                 // Adicionar as talks ao array
                 scheduleData.forEach(talk => {
-                    this.talks.addTalk(talk.title, talk.speaker, talk.sumary, talk.desc, talk.filters, talk.room, talk.day, talk.hour);
+                    this.addTalk(talk.title, talk.speaker, talk.sumary, talk.desc, talk.filters, talk.room, talk.day, talk.hour);
                 });
+                console.log(this.talks);
             }
             
         },
