@@ -12,9 +12,11 @@ export const useUsersStore = defineStore("users", {
         picture: "",
         ticket: {},
         likedTalks: [],
+        role: "admin",
       },
     ],
     authentication: false,
+    currentUserId: null, // Identificador do utilizador autenticado
   }),
   getters: {
     // Getter para obter um utilizador por ID
@@ -28,7 +30,14 @@ export const useUsersStore = defineStore("users", {
       }
       return state.users[state.users.length - 1].id + 1; // Caso contrário, retorna o último ID + 1
     },
+
+    // Verifica se o utilizador atual é administrador
+    isAdmin: (state) => {
+      const user = state.users.find((u) => u.id === state.currentUserId);
+      return user?.role === "admin"; // Retorna true apenas se o role for 'admin'
+    },
   },
+
   actions: {
     login(email, password) {
       const user = this.users.find(
@@ -40,6 +49,7 @@ export const useUsersStore = defineStore("users", {
       }
 
       this.authentication = true;
+      this.currentUserId = user.id; // Define o utilizador atual
       return true; // Login bem sucedido
     },
     logout() {
@@ -47,6 +57,7 @@ export const useUsersStore = defineStore("users", {
         return false; // Utilizador não autenticado
       }
       this.authentication = false;
+      this.currentUserId = null; // Limpa o utilizador atual
       return true; // Logout bem sucedido
     },
     addUser(Email, password) {
@@ -64,6 +75,7 @@ export const useUsersStore = defineStore("users", {
         picture: "",
         ticket: {},
         likedTalks: [],
+        role: "user", // Por padrão, novos utilizadores são "user"
       };
 
       // Adiciona o novo utilizador e atualiza o localStorage
