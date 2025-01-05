@@ -32,7 +32,7 @@ export default {
     },
     data() {
         return {
-            isNavOpen: JSON.parse(sessionStorage.getItem("isNavOpen")) || false,
+            isNavOpen: JSON.parse(sessionStorage.getItem("isNavOpen")) || true,
             hoverColor: "#ffff",
         }
     },
