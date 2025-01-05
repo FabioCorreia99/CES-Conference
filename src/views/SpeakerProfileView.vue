@@ -34,7 +34,7 @@
 
 <script>
 import Navbar from '@/components/Navbar.vue';
-import { speakersStore } from '@/stores/speakers.js';
+import { useSpeakersStore } from '@/stores/speakers.js';
 
 
 export default {
@@ -43,7 +43,7 @@ export default {
     },
     data() {
         return {
-            speakersStore: speakersStore(),
+            speakersStore: useSpeakersStore(),
             sp: {},
             desc: 1
         }

@@ -4,19 +4,37 @@
         rounded="lg"
         width="24.8125rem"
         color='var(--color-dark-blue)'
-        title="Avatars"
-        subtitle="prepend-avatar and append-avatar"
-        append-avatar="https://cdn.vuetifyjs.com/images/john.jpg"
+        :title="title"
+        :subtitle='"by "+speaker.firstName + " "  + speaker.lastName'
+        :append-avatar="speaker.image"
     >
         <v-divider class="mx-4 mt-0" thickness="3" color="var(--color-light-blue)"></v-divider>
-        <v-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</v-card-text>
+        <v-card-text>{{ sumary }}</v-card-text>
     </v-card>
 </template>
 
 <script>
     export default {
-        
+        data() {
+            return {
+            }
+        },
+        props: {
+            id: {
+                type: Number,
+            },
+            title: {
+                type: String,
+            },
+            sumary: {
+                type: String,
+            },
+            speaker:{
+                type: Object,
+            }
+        },
     }
+    
 </script>
 
 <style scoped>

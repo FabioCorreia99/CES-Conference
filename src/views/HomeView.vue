@@ -1,8 +1,12 @@
 <script>
 import { ref,onBeforeUnmount } from 'vue';
-import { speakersStore } from '../stores/speakers';
+
+import { useSpeakersStore } from '../stores/speakers';
+import { useTalksStore } from '@/stores/talks.js';
+
 import Navbar from '@/components/Navbar.vue';
 import OrangeBtn from '@/components/OrangeBtn.vue';
+
 import { gsap } from "gsap";
 
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -18,7 +22,8 @@ export default {
   },
   data() {
     return {
-      speakersStore: speakersStore(),
+      speakersStore: useSpeakersStore(),
+      talksStore: useTalksStore(),
       leftImg: new URL("../assets/media/left.png", import.meta.url).href,
       rightImg: new URL("../assets/media/right.png", import.meta.url).href
     }
@@ -28,10 +33,11 @@ export default {
       this.speakersStore.fetchPersons();
     } catch (error) {
       alert(error.message)
-    }
+    };
+    this.talksStore.init();
   },
   mounted () {
-    ctx = gsap.context((self) => {
+      ctx = gsap.context((self) => {
       let tl = gsap.timeline({scrollTrigger: {
         trigger:".box-container",
         start: "center center",

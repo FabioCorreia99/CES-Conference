@@ -43,7 +43,7 @@
 import { ref,onBeforeUnmount } from 'vue';
 import Navbar from '@/components/Navbar.vue';
 import SpeakersCard from '@/components/SpeakersCard.vue';
-import { speakersStore } from '@/stores/speakers.js';
+import { useSpeakersStore } from '@/stores/speakers.js';
 import { gsap } from "gsap";
 
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -60,17 +60,20 @@ export default {
     },
     data() {
         return {
-            speakersStore: speakersStore()
+            speakersStore: useSpeakersStore()
         }
     },
     created () {
-        this.speakersStore.fetchPersons()
+        try {
+            this.speakersStore.fetchPersons();
+        } catch (error) {
+            alert(error.message)
+        };
     },
     mounted() {
         const observer = new IntersectionObserver((entries, self) => {
             let targets = entries.map(entry => {
                 if (entry.isIntersecting) {
-                    self.unobserve(entry.target);
                     return entry.target;
                 }
             });
