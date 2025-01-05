@@ -5,15 +5,15 @@ import ScheduleView from "@/views/ScheduleView.vue";
 import SpeakersView from "@/views/SpeakersView.vue";
 import PartnersView from "@/views/PartnersView.vue";
 import LoginView from "@/views/LoginView.vue";
-import SpeakerProfileView from "@/views/SpeakerProfileView.vue";
 import ProfileSettingsView from "@/views/ProfileSettingsView.vue";
+import AdminProfileView from "@/views/AdminProfileView.vue";
+import CreateAccountView from "@/views/CreateAccountView.vue";
 import PartnersFormView from "@/views/PartnersFormView.vue";
+import SpeakerProfileView from "@/views/SpeakerProfileView.vue";
 import ForumView from "@/views/ForumView.vue";
 import ForumTopicView from "@/views/ForumTopicView.vue";
 import ForumCreateView from "@/views/ForumCreateView.vue";
-import CreateAccount from "@/views/CreateAccountView.vue";
 import { useUsersStore } from "@/stores/users";
-import CreateAccountView from "@/views/CreateAccountView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -36,7 +36,7 @@ const router = createRouter({
     {
       path: "/:speakerId",
       name: "SpeakerProfile",
-      component: SpeakerProfileView, 
+      component: SpeakerProfileView,
     },
     {
       path: "/schedule",
@@ -83,33 +83,39 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: LoginView,
-      children: [
-        {
-          path: ":userId", // Rota para perfil Utilizador
-          name: "profileSettings",
-          component: ProfileSettingsView,
-          props: true,
-        },
-        {
-          path: "admin", // Rota para perfil Admin
-          name: "adminProfile",
-          component: ProfileSettingsView,
-          props: true,
-        },
-      ],
     },
     {
       path: "/create-account",
       name: "createAccount",
-      component: CreateAccountView },
+      component: CreateAccountView,
+    },
+    {
+      path: "/profile/:userId",
+      name: "profileSettings",
+      component: ProfileSettingsView,
+      props: true,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/admin-profile/:adminId",
+      name: "adminProfile",
+      component: AdminProfileView,
+      props: true,
+      meta: { requiresAuth: true, requiresAdmin: true }, // Proteção de rota para admin
+    },
   ],
 });
 
 router.beforeEach((to, from, next) => {
   const store = useUsersStore();
 
+  // Verificar autenticação para rotas protegidas
   if (to.meta.requiresAuth && !store.authentication) {
+    // Redirecionar para login com a query "from"
     next({ path: "/login", query: { from: to.path } });
+  } else if (to.meta.requiresAdmin && !store.isAdmin) {
+    // Redirecionar para home com a query "from"
+    next({ path: "/", query: { from: to.path, error: "Unauthorized" } });
   } else {
     next();
   }
