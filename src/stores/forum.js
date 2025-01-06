@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { useUsersStore } from '@/stores/users';
 
 export const useTopicsStore = defineStore("topics", {
     state: () => ({
@@ -11,9 +12,12 @@ export const useTopicsStore = defineStore("topics", {
     },
     actions: {
         addTopic(userId, title, desc, filters) {
+            const usersStore = useUsersStore();
+            const author = usersStore.getUserById(userId).id; // depois trocar para o nome
+            
             const newTopic ={
                 id: this.topics.length > 0 ? this.topics[this.topics.length - 1].id + 1 :  0 ,
-                userId,
+                author,
                 title,
                 desc,
                 filters,

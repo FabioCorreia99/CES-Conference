@@ -3,8 +3,7 @@
         <v-card 
             class="pa-4 my-4 topic-card" 
             :elevation="isHovering ? 16 : 6" 
-            max-height="200" 
-            max-width="425" 
+            max-height="200"  
             rounded="lg" 
             v-bind="props"
         >

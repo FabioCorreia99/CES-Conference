@@ -50,6 +50,8 @@ export const useUsersStore = defineStore("users", {
 
       this.authentication = true;
       this.currentUserId = user.id; // Define o utilizador atual
+      console.log(this.currentUserId);
+      
       return true; // Login bem sucedido
     },
     logout() {

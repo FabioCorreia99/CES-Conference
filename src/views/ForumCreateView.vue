@@ -50,6 +50,7 @@ import { useRouter } from 'vue-router';
 import { useTopicsStore } from "@/stores/forum"
 import BlueBtnToOrange from '@/components/BlueBtnToOrange.vue';
 import SubmitBtn from '@/components/SubmitBtn.vue';
+import { useUsersStore } from '@/stores/users';
 
 export default {
     components: {
@@ -59,8 +60,11 @@ export default {
     setup() {
         const router = useRouter();
         const topicsStore = useTopicsStore();
+        const usersStore = useUsersStore();
+        const userId = usersStore.currentUserId; // TROCAR POR ID DO USER
+        console.log(userId);
 
-        return { router, topicsStore };
+        return { router, topicsStore, usersStore};
     },
     data() {
         return {
@@ -92,13 +96,16 @@ export default {
         submitForm() {
             const router = this.router;
             const topicsStore = this.topicsStore;
+            const usersStore = this.usersStore;
 
             if (!this.isValid) {
                 console.log("Form is not valid!");
                 return;
             }
 
-            const userId = 1; // TROCAR POR ID DO USER
+            const userId = usersStore.currentUserId; // TROCAR POR ID DO USER
+            console.log(userId);
+            
             topicsStore.addTopic(userId, this.title, this.desc, this.tags.split(","));
             console.log(`New topic added: ${this.title}`);
             
