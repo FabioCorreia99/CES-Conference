@@ -11,20 +11,34 @@
             <RouterLink :to="{ name: 'forum'}" :class="{active: isCurrentRoute('forum')}">Forum</RouterLink>
             <RouterLink :to="{ name: 'partners'}" :class="{active: isCurrentRoute('partners')}">Partners</RouterLink>
             <RouterLink :to="{ name: 'about'}" :class="{active: isCurrentRoute('about')}">About</RouterLink>
-            <RouterLink :to="{ name: 'login'}" id="LoginLink" :class="{active: isCurrentRoute('login')}">Sign Up</RouterLink>
+            <div class="profile" v-if="this.user">
+                <v-avatar size="x-small" :image="avatar"></v-avatar>
+                
+                <div id="menu"  @mouseover="hoverColor = '#F2A714'" @mouseleave="hoverColor = '#ffff'" @click="goToProfile()">
+                    <Bars3Icon :style="{color: hoverColor}" />
+                    <!-- <v-select
+                        id="profileDropdown"
+                        :items="['profile', 'logout']"
+                        variant="default"
+                    ></v-select> -->
+                </div>
+            </div>
+            <RouterLink v-else :to="{ name: 'login'}" id="LoginLink" :class="{active: isCurrentRoute('login')}">Sign Up</RouterLink>
+            
         </div>
 
-        <div id="menu" @click="toggleNAV()" @mouseover="hoverColor = '#F2A714'" @mouseleave="hoverColor = '#ffff'">
+        <!-- <div id="menu" @click="toggleNAV()" @mouseover="hoverColor = '#F2A714'" @mouseleave="hoverColor = '#ffff'">
             <Bars3Icon :style="{color: hoverColor}" />
-        </div>
+        </div> -->
 
     </nav>
 
 </template>
 
 <script>
-import { RouterLink, useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { Bars3Icon } from '@heroicons/vue/24/solid'
+import { useUsersStore } from '@/stores/users';
 
 export default {
     components: {
@@ -34,13 +48,19 @@ export default {
         return {
             isNavOpen: JSON.parse(sessionStorage.getItem("isNavOpen")) || true,
             hoverColor: "#ffff",
+            avatar: (this.user? new URL(this.user.picture, import.meta.url).href : ""),
         }
     },
     setup() {
         const route = useRoute();
         const isCurrentRoute = (name) => route.name === name;
 
-        return {isCurrentRoute};
+        const userStore = useUsersStore();
+        const userID = userStore.currentUserId
+        const user = userStore.getUserById(userID)
+        console.log(user);
+
+        return {isCurrentRoute, user};
     },
     methods: {
         toggleNAV() {
@@ -55,6 +75,9 @@ export default {
                 links.style.display = "none";
             }
 
+        },
+        goToProfile() {
+            this.$router.push({name: "profileSettings", params: { userId: this.user.id }});
         }
     },
     mounted() {
@@ -102,6 +125,30 @@ export default {
 #LoginLink {
     background-color: rgba(255,255,255, 0.3);
     border-radius: 10px;
+    width: fit-content;
+    height: 32px;
+    padding: 8px;
+    gap: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile {
+    background-color: rgba(255,255,255, 0.3);
+    border-radius: 10px;
+    width: fit-content;
+    height: 32px;
+    padding: 8px;
+    gap: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#profileDropdown {
+    position: absolute;
+    visibility: hidden;
 }
 
 .links {
