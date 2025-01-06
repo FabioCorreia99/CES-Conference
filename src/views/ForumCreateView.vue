@@ -62,7 +62,6 @@ export default {
         const topicsStore = useTopicsStore();
         const usersStore = useUsersStore();
         const userId = usersStore.currentUserId; // TROCAR POR ID DO USER
-        console.log(userId);
 
         return { router, topicsStore, usersStore};
     },
@@ -104,7 +103,6 @@ export default {
             }
 
             const userId = usersStore.currentUserId; // TROCAR POR ID DO USER
-            console.log(userId);
             
             topicsStore.addTopic(userId, this.title, this.desc, this.tags.split(","));
             console.log(`New topic added: ${this.title}`);

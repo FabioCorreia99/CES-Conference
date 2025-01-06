@@ -2,32 +2,16 @@
     <v-hover v-slot="{ isHovering, props }">
         <v-card 
             class="pa-4 my-4 topic-card" 
-            :elevation="isHovering ? 16 : 6" 
-            rounded="lg" 
+            :elevation="isHovering ? 3 : 0"  
             v-bind="props"
         >
-            <v-card-item class="d-flex flex-row align-center">
-                <!-- Title Section -->
-                <v-card-title class="title-section">
-                    {{ title }}
-                </v-card-title>
+            <v-card-text class="d-flex flex-row align-center justify-space-between">
 
-                <!-- Spacer to separate title from other content -->
-                <div class="flex-grow-1"></div>
+                <p>{{ title }}</p>
+                
+                <div class="wrapper">
 
-                <!-- Right Section: Image, Author, Stats -->
-                <div class="d-flex flex-row align-center gap-4">
-                    <!-- Image -->
-                    <v-img 
-                        v-if="image" 
-                        :alt="title" 
-                        :src="image" 
-                        cover 
-                        max-width="50px" 
-                        max-height="50px" 
-                        class="topic-image" 
-                        rounded="lg">
-                    </v-img>
+                    <v-avatar size="x-small" :image="leftImg"></v-avatar>
 
                     <!-- Author -->
                     <div class="topic-author">
@@ -39,8 +23,10 @@
                         <p>Likes: {{ likes }}</p>
                         <p>Comments: {{ comments }}</p>
                     </div>
+
                 </div>
-            </v-card-item>
+
+            </v-card-text>
         </v-card>
     </v-hover>
 </template>
@@ -67,8 +53,13 @@ export default {
         comments: {
             type: Number,
             default: 0
+        },
+    },
+    data() {
+        return {
+            leftImg: new URL(this.image, import.meta.url).href,
         }
-    }
+    },
 }
 </script>
 
@@ -84,13 +75,11 @@ export default {
 .topic-image {
     flex-shrink: 0;
 }
-
 .topic-author {
     font-size: 14px;
     margin: 0;
     color: gray;
 }
-
 .topic-stats {
     display: flex;
     gap: 8px;
@@ -98,8 +87,19 @@ export default {
     margin: 0;
     text-align: right;
 }
-
 .gap-4 > * {
     margin-left: 16px; /* Adds consistent spacing between right-side items */
 }
+.wrapper {
+    display: flex;   
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+.v-card--variant-elevated, .v-card--variant-flat {
+    background: none !important;
+    border-radius: 0;
+    border-bottom: 0.1px groove #26466D;
+}
+
 </style>

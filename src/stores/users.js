@@ -8,11 +8,21 @@ export const useUsersStore = defineStore("users", {
         id: 0,
         Email: "user",
         password: "1234",
-        name: "Test User",
+        name: "Test Admin",
         picture: "",
         ticket: {},
         likedTalks: [],
         role: "admin",
+      },
+      {
+        id: 1,
+        Email: "test",
+        password: "test",
+        name: "Test User",
+        picture: "../assets/media/speakers/BillGates.jpg",
+        ticket: {},
+        likedTalks: [],
+        role: "user",
       },
     ],
     authentication: false,
@@ -50,7 +60,6 @@ export const useUsersStore = defineStore("users", {
 
       this.authentication = true;
       this.currentUserId = user.id; // Define o utilizador atual
-      console.log(this.currentUserId);
       
       return true; // Login bem sucedido
     },
