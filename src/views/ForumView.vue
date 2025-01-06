@@ -10,7 +10,7 @@
         <v-row class="bg-intro mx-0 pt-10 w-100">
             <v-col>
                 <h1 class="introTitle my-12">Forum</h1>
-                <h6 class="textTitle my-12 w-75">Be part of the action - share your thoughts, and engage with a global community of tech      enthusiasts, all in one place.</h6>
+                <h6 class="textTitle my-12 w-75">Be part of the action - share your thoughts, and engage with a global community of tech enthusiasts, all in one place.</h6>
 
                 <div class="d-flex justify-center align-center my-1 w-50">
                     <v-text-field
@@ -57,7 +57,7 @@
         </v-row>
       <v-container class="mt-12" v-if="!showCreate">
         <v-row>
-          <v-col v-for="(topic, index) in filteredTopics" :key="topic.id" cols="12" md="4" class="mb-4" >
+          <v-col v-for="(topic, index) in filteredTopics" :key="topic.id" cols="12" class="mb-4" >
             <TopicCard 
                 :title="topic.title"
                 :author="topic.author"
@@ -81,7 +81,7 @@
 import BlueBtnToOrange from "@/components/BlueBtnToOrange.vue";
 import Navbar from "@/components/Navbar.vue";
 import OrangeBtn from "@/components/OrangeBtn.vue";
-import TopicCard from "@/components/topicCard.vue";
+import TopicCard from "@/components/TopicCard.vue";
 import { useTopicsStore } from "@/stores/forum";
 
 export default {

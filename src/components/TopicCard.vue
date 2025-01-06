@@ -3,25 +3,43 @@
         <v-card 
             class="pa-4 my-4 topic-card" 
             :elevation="isHovering ? 16 : 6" 
-            max-height="200"  
             rounded="lg" 
             v-bind="props"
         >
-            <v-card-item density="comfortable" class="w-100 px-1">
-                <v-card-title>{{ title }}</v-card-title>
+            <v-card-item class="d-flex flex-row align-center">
+                <!-- Title Section -->
+                <v-card-title class="title-section">
+                    {{ title }}
+                </v-card-title>
 
-                <v-img :alt="title" :src="image" cover class="topic-image" rounded="lg"></v-img>
+                <!-- Spacer to separate title from other content -->
+                <div class="flex-grow-1"></div>
 
-                <div class="topic-author">
-                    <p>{{ author }}</p>
+                <!-- Right Section: Image, Author, Stats -->
+                <div class="d-flex flex-row align-center gap-4">
+                    <!-- Image -->
+                    <v-img 
+                        v-if="image" 
+                        :alt="title" 
+                        :src="image" 
+                        cover 
+                        max-width="50px" 
+                        max-height="50px" 
+                        class="topic-image" 
+                        rounded="lg">
+                    </v-img>
+
+                    <!-- Author -->
+                    <div class="topic-author">
+                        <p>{{ author }}</p>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="topic-stats">
+                        <p>Likes: {{ likes }}</p>
+                        <p>Comments: {{ comments }}</p>
+                    </div>
                 </div>
-
-                <div class="topic-stats">
-                    <p>Likes: {{ likes }}</p>
-                    <p>Comments: {{ comments }}</p>
-                </div>
-
-                <!-- <hr> -->
             </v-card-item>
         </v-card>
     </v-hover>
@@ -40,7 +58,7 @@ export default {
         },
         image: {
             type: String,
-            required: true
+            required: false // Optional
         },
         likes: {
             type: Number,
@@ -55,23 +73,33 @@ export default {
 </script>
 
 <style scoped>
+.title-section {
+    font-weight: bold;
+    font-size: 18px;
+}
+.v-card-item__content {
+    display: flex;
+    flex-direction: row;
+}
 .topic-image {
-    width: 100%;
-    margin-bottom: 8px; /* Adjust spacing between image and text */
+    flex-shrink: 0;
 }
 
 .topic-author {
     font-size: 14px;
-    /* color: black; */
-    margin-bottom: 4px;
+    margin: 0;
+    color: gray;
 }
 
 .topic-stats {
+    display: flex;
+    gap: 8px;
     font-size: 14px;
-    color: black !important;
+    margin: 0;
+    text-align: right;
 }
 
-.topic-stats span {
-    margin-right: 10px;
+.gap-4 > * {
+    margin-left: 16px; /* Adds consistent spacing between right-side items */
 }
 </style>
