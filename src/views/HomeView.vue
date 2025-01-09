@@ -40,9 +40,12 @@ export default {
       ctx = gsap.context((self) => {
       let tl = gsap.timeline({scrollTrigger: {
         trigger:".box-container",
-        start: "center center",
+        start: "top top",
         end: "+=600",
         pin: true,
+        invalidateOnRefresh: true,
+        anticipatePin: 1,
+        pinType: "fixed",
         scrub: 1,
         markers:1,
           snap: {
@@ -53,12 +56,12 @@ export default {
           },
       }})
 
-      tl.to(".left", { y: "+700" , ease: "power1.out", opacity: 0, duration: 2 });
-      tl.to(".right", { y: "-500", ease: "power3.out", opacity: 0, duration: 2 },"<");
-      tl.to(".center",{position: "absolute", top: -159 , width: "100vw", height:"100vh", ease: "power2.out"}
-      ,">")
-      tl.from(".after-animation",{opacity: 0, ease: "power2.out"}
-      ,">")
+      tl.to(".left", { display: "none" ,y: "-700" , ease: "power1.out", opacity: 0, duration: 2 });
+      tl.to(".right", { display: "none" ,y: "500", ease: "power3.out", opacity: 0, duration: 2 },"<");
+      tl.to(".center",{position: "absolute", top: "0" , width: "100vw", height:"150vh", ease: "power2.out"}
+      ,">");
+      tl.to(".afterAnimation",{opacity: 1, ease: "power2.out"}
+      ,">");
     }, main.value); // <- Scope!
   },
   beforeUnmount() {
@@ -72,38 +75,39 @@ export default {
 
 <template>
   <v-app>
-    <v-row>
-      <!-- Navbar Column -->
-      <v-col>
-        <header>
-            <Navbar />
-        </header>
-      </v-col>
-    </v-row>
-
+    <header class="position-absolute">
+      <Navbar />
+    </header>
     <v-main>
-      <v-container class="w-100 mt-8">
-        <v-row class="intro">
-          <v-col cols="12" class="d-flex justify-space-around mb-6 mt-10 mx-0 box-container">
-            <img class="masterImg left" :src="leftImg">
-            <div class="masterImg center d-flex justify-center flex-column align-center ga-16">  
-              <div class="d-flex justify-center flex-column align-center pa-0 ma-0 after-animation">
-                <h1 class=" masterTitleDate">JANUARY 7-9</h1>
-                <h1 class="masterTitleLocal">PORTO, PORTUGAL</h1>
-              </div>
-              <h1 class="after-animation masterDesc">CES: Inspiring <b>developers</b>, shaping tomorrow</h1>
-              <div class="after-animation">
-                <OrangeBtn value="Buy Ticket" route="home"/>
-              </div>
-            </div> 
-            <img class="masterImg right" :src="rightImg">
-          </v-col>
-        </v-row>
+      <v-container class="w-100 mt-0 pt-0">
+      <v-row class="mt-0 mx-auto d-flex justify-space-around box-container">
+        <!-- Imagem Esquerda -->
+        <v-col class="left d-flex justify-center" cols="4">
+          <img class="masterImg" :src="leftImg">
+        </v-col>
+        <!-- Imagem Centro -->
+        <v-col class="d-flex justify-center" cols="4">
+          <div class="masterImg center d-flex justify-start flex-column align-center ga-16">  
+            <div class="mainTitles d-flex justify-center flex-column align-center ma-0 afterAnimation">
+              <h1 class=" masterTitleDate">JANUARY 7-9</h1>
+              <h1 class="masterTitleLocal">PORTO, PORTUGAL</h1>
+            </div>
+            <h1 class="afterAnimation masterDesc">CES: Inspiring <b>developers</b>, shaping tomorrow</h1>
+            <div class="afterAnimation">
+              <OrangeBtn value="Buy Ticket" route="home"/>
+            </div>
+          </div> 
+        </v-col>
+        <!-- Imagem Direita -->
+        <v-col class="d-flex justify-center right" cols="4">
+          <img class="masterImg" :src="rightImg">
+        </v-col>
+      </v-row>
 
-        <v-row class="body">
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
+      <v-row class="body">
+        <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
+        <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
+        <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
           <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
           <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
           <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
@@ -163,8 +167,6 @@ export default {
           <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
         </v-row>
       </v-container>
-
-
     </v-main>
   </v-app>
 
@@ -173,6 +175,12 @@ export default {
 
 
 <style>
+.mainTitles{
+  padding-top: 6rem !important;
+}
+.box-container{
+  padding-top: 6rem !important;
+}
 html, body {
   margin: 0;
   padding: 0;
@@ -193,6 +201,10 @@ span {
 
 .center{
   background: var(--Initial-Gradient, linear-gradient(180deg, #26466D 0%, #6590D0 50%, #EEF6F2 100%));
+}
+.afterAnimation{
+  z-index: 9999 !important;
+  opacity: 0;
 }
 .masterTitleDate{
   color: #EEF6F2;

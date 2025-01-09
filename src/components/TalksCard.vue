@@ -9,7 +9,7 @@
         :append-avatar="speaker.image"
     >
         <v-divider class="mx-4 mt-0" thickness="3" color="var(--color-light-blue)"></v-divider>
-        <v-card-text>{{ sumary }}</v-card-text>
+        <v-card-text>{{ summary }}</v-card-text>
     </v-card>
 </template>
 
@@ -20,13 +20,13 @@
             }
         },
         props: {
-            id: {
+            talkId: {
                 type: Number,
             },
             title: {
                 type: String,
             },
-            sumary: {
+            summary: {
                 type: String,
             },
             speaker:{
