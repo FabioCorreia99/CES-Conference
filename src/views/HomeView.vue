@@ -79,14 +79,14 @@ export default {
       <Navbar />
     </header>
     <v-main>
-      <v-container class="w-100 mt-0 pt-0">
+      <v-container fluid class="w-100 mt-0 pt-0">
       <v-row class="mt-0 mx-auto d-flex justify-space-around box-container">
         <!-- Imagem Esquerda -->
-        <v-col class="left d-flex justify-center" cols="4">
+        <v-col class="left d-flex justify-end" cols="4">
           <img class="masterImg" :src="leftImg">
         </v-col>
         <!-- Imagem Centro -->
-        <v-col class="d-flex justify-center" cols="4">
+        <v-col class="d-flex justify-center" cols="3">
           <div class="masterImg center d-flex justify-start flex-column align-center ga-16">  
             <div class="mainTitles d-flex justify-center flex-column align-center ma-0 afterAnimation">
               <h1 class=" masterTitleDate">JANUARY 7-9</h1>
@@ -99,7 +99,7 @@ export default {
           </div> 
         </v-col>
         <!-- Imagem Direita -->
-        <v-col class="d-flex justify-center right" cols="4">
+        <v-col class="d-flex justify-start right" cols="4">
           <img class="masterImg" :src="rightImg">
         </v-col>
       </v-row>
