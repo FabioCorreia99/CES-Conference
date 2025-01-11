@@ -3,7 +3,9 @@ import { defineStore } from "pinia";
 export const useTalksStore = defineStore("talks", {
     state: () => ({
         talks: [],
+        filters: []
     }),
+    persist: true,
     getters: {
         getTalkById: (state) => (id) => state.talks.find(talk => talk.id === id),
         getTalksBySpeaker: (state) => (speaker) => state.talks.filter(talk => talk.speaker === speaker),
@@ -185,7 +187,7 @@ export const useTalksStore = defineStore("talks", {
                         speaker: 15, 
                         summary: "Discover how DevOps practices streamline software development and improve collaboration between teams.", 
                         desc: "Understand the <b>principles</b> of <b>DevOps</b> and its role in modern software development. \n\nExplore tools and techniques that enable continuous integration and deployment. \n\nFinally, learn how DevOps fosters collaboration between development and operations teams to deliver value faster.", 
-                        filters: ["DevOps", "Software", "Collaboration"], 
+                        filters: ["Software"], 
                         room: "A115", 
                         day: 8, 
                         hour: "15:00" 
@@ -365,7 +367,7 @@ export const useTalksStore = defineStore("talks", {
                         speaker: 33,
                         summary: "Master Vuex for effective state management in complex Vue.js applications.",
                         desc: "Learn how <b>Vuex</b> simplifies <b>state</b> management in large Vue projects, keeping data consistent across components. \n\nExplore patterns for modularizing and optimizing Vuex stores. \n\nFinally, understand how to integrate Vuex with the Composition API for modern development practices.",
-                        filters: ["Vue"],
+                        filters: ["Vue", "State"],
                         room: "B133",
                         day: 9,
                         hour: "14:00"
@@ -601,6 +603,9 @@ export const useTalksStore = defineStore("talks", {
                         hour: "18:00"
                     }
                 ];
+
+                this.filters = ["AI", "Accessibility", "Animation", "CSS", "Cloud", "Code", "Data", "Design", "Ethics", "Frontend", "Future", "HTML", "Innovation", "IoT", "JavaScript", "Leadership", "Programming", "Science", "Security", "State", "Sustainability", "Tech", "Vue", "Web"]
+                console.log(this.filters);
                 
                 // Adicionar as talks ao array
                 scheduleData.forEach(talk => {

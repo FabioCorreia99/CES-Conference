@@ -8,12 +8,14 @@ export const useSpeakersStore = defineStore("speakers", {
     state: () => ({
         speakers: [],
 
-    }),    
+    }),
+    persist: true,
     getters: {
         getSpeakerById: (state) => (id) => state.speakers.find(speaker => speaker.id == id),
     },
     actions: {
         async fetchPersons() {
+        console.log("ANTES: " + this.speakers);
             if (this.speakers.length == 0) {
                 try {
                     // Fetch users from DummyJSON API
