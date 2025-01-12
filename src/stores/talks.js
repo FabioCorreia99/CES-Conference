@@ -9,9 +9,14 @@ export const useTalksStore = defineStore("talks", {
     getters: {
         getTalkById: (state) => (id) => state.talks.find(talk => talk.id === id),
         getTalksBySpeaker: (state) => (speaker) => state.talks.filter(talk => talk.speaker === speaker),
-        getTalksByFilter: (state) => (filter) => state.talks.filter(talk => talk.filters.include(filter)),
+        getTalksByFilter: (state) => (filter) => state.talks.filter(talk => talk.filters.includes(filter)),
         getTalksByDay: (state) => (day) =>  state.talks.filter(talk => talk.day === day),
-        getTalksByDayandHour: (state) => (day,hour) =>  state.talks.filter(talk => talk.day == day && talk.hour == hour)
+        getTalksByDayandHour: (state) => (day,hour) =>  state.talks.filter(talk => talk.day == day && talk.hour == hour),
+        getTalksByDayandHourFilted: (state) => (day, hour, filters) => 
+            state.talks.filter(talk => 
+                talk.day == day &&
+                talk.hour == hour && 
+                (filters.length === 0 || filters.every(filter => talk.filters.includes(filter)))),
     },
     actions: {
         addTalk(title, speaker, summary, desc, filters, room, day, hour) {
