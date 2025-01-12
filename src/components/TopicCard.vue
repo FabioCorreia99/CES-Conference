@@ -78,7 +78,6 @@ export default {
 .topic-author {
     font-size: 14px;
     margin: 0;
-    color: gray;
 }
 .topic-stats {
     display: flex;

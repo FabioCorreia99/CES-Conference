@@ -38,6 +38,7 @@ export const useUsersStore = defineStore("users", {
       const user = state.users.find((u) => u.id === state.currentUserId); // Caso contrário, retorna o último ID + 1
       return user?.role === "admin"; // Retorna true apenas se o role for 'admin'
     },
+    isAuthenticated: (state) => state.authentication,
   },
   actions: {
     login(email, password) {

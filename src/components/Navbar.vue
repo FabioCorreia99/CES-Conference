@@ -23,7 +23,7 @@
                     ></v-select> -->
                 </div>
             </div>
-            <RouterLink v-else :to="{ name: 'login'}" id="LoginLink" :class="{active: isCurrentRoute('login')}">Sign Up</RouterLink>
+            <RouterLink v-else :to="{ name: 'login'}" id="LoginLink" :class="{active: isCurrentRoute('login')}">Register</RouterLink>
             
         </div>
 
@@ -58,7 +58,6 @@ export default {
         const userStore = useUsersStore();
         const userID = userStore.currentUserId
         const user = userStore.getUserById(userID)
-        console.log(user);
 
         return {isCurrentRoute, user};
     },

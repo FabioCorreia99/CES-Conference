@@ -59,6 +59,7 @@ const router = createRouter({
           name: "forumCreate",
           component: ForumCreateView,
           props: true,
+          meta: {requiresAuth: true},
         },
       ],
     },
