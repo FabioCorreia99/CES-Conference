@@ -5,15 +5,15 @@
     <!-- Foto de Perfil -->
     <div class="profile-picture-section mb-10">
       <!-- Adicionada margem aqui -->
-      <v-avatar size="120">
+      <v-avatar size="120" class="mb-10">
         <img :src="profile.picture || defaultPicture" alt="Profile Picture" />
       </v-avatar>
       <div class="profile-buttons">
         <!-- Botão Customizado -->
-        <BlueBtnToOrange @click="triggerFileUpload" :value="'change picture'" />
+        <BlueBtnToOrange :handleClick="triggerFileUpload" :value="'change picture'" />
 
         <!-- Botão Padrão para Delete -->
-        <RedBtnToWhite @click="deletePicture" :value="'delete picture'" />
+        <RedBtnToWhite :handleClick="deletePicture" :value="'delete picture'" />
       </div>
       <input
         type="file"

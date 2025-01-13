@@ -19,7 +19,7 @@ export const useUsersStore = defineStore("users", {
         Email: "test",
         password: "test",
         name: "Test User",
-        picture: "../assets/media/speakers/BillGates.jpg",
+        picture: new URL("../assets/media/speakers/BillGates.jpg", import.meta.url).href,
         ticket: {},
         likedTalks: [],
         role: "user",
