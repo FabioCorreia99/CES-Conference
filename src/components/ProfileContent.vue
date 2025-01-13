@@ -5,7 +5,7 @@
     <!-- Foto de Perfil -->
     <div class="profile-picture-section mb-10">
       <!-- Adicionada margem aqui -->
-      <v-avatar size="120">
+      <v-avatar size="120" class="mb-10">
         <img :src="profile.picture || defaultPicture" alt="Profile Picture" />
       </v-avatar>
       <div class="profile-buttons">
