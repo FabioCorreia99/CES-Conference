@@ -43,11 +43,7 @@
                                 </v-btn>
                             </v-hover>
 
-                        </v-col>
-
-                        <v-col cols="auto">
-                            <BlueBtnToOrange value="filter"/>
-                        </v-col>    
+                        </v-col>  
                  
                     </div>
 
@@ -57,24 +53,39 @@
         </v-row>
       <v-container class="mt-12" v-if="!showCreate">
         <v-row>
+            <v-col cols="12">
+                <v-chip-group :mobile=false multiple filter class="mx-lg-16 chips" selected-class="scheduleSelected" v-model="topicSelected" >
+                <v-chip  v-for="filter in talksStore.filters" :key="filter" class="scheduleDays" rounded="lg" :value="filter" >{{ filter }}</v-chip>
+                </v-chip-group>
+            </v-col>
+        </v-row>
+        
+        <v-row>
           <v-col v-for="(topic, index) in filteredTopics" :key="topic.id" cols="12" class="mb-4" >
             <TopicCard 
+                :id="topic.id"
                 :title="topic.title"
                 :author="topic.author"
                 :image="topic.image"
                 :likes="topic.likes"
-                :comments="topic.comments.length"  
+                :comments="topic.comments.length" 
             />
           </v-col>
         </v-row>
       </v-container>
 
+      <!-- Create Topic View  -->
       <v-container v-if="showCreate">
         <router-view @close-form="closeCreate"/>
       </v-container>
 
+      <!-- Topic Page View -->
+      <router-view v-if="!showCreate" />
+
     </v-main>
 </v-app>
+
+<link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
 </template>
 
 <script>
@@ -82,7 +93,9 @@ import BlueBtnToOrange from "@/components/BlueBtnToOrange.vue";
 import Navbar from "@/components/Navbar.vue";
 import OrangeBtn from "@/components/OrangeBtn.vue";
 import TopicCard from "@/components/TopicCard.vue";
+
 import { useTopicsStore } from "@/stores/forum";
+import { useTalksStore } from '@/stores/talks.js';
 
 export default {
     components: {
@@ -96,18 +109,16 @@ export default {
             topics: [],
             showCreate: false,
             search: "",
+            talksStore: useTalksStore(),
+            topicsStore: useTopicsStore(),
+            topicSelected: [],
         }
-    },
-    created() {
-        const topicsStore = useTopicsStore();
-        this.topics = topicsStore.getTopics;
-
     },
     computed: {
         filteredTopics() {
             const input = this.search.toLowerCase();
 
-            return this.topics.filter((topic) => topic.title.toLowerCase().includes(input));
+            return this.topicsStore.topics.filter((topic) => topic.title.toLowerCase().includes(input));
         }
     },
     methods: {

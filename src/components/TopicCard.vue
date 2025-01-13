@@ -4,6 +4,7 @@
             class="pa-4 my-4 topic-card" 
             :elevation="isHovering ? 3 : 0"  
             v-bind="props"
+            @click="openTopic()"
         >
             <v-card-text class="d-flex flex-row align-center justify-space-between">
 
@@ -11,7 +12,7 @@
                 
                 <div class="wrapper">
 
-                    <v-avatar size="x-small" :image="leftImg"></v-avatar>
+                    <v-avatar size="x-small" :image="img"></v-avatar>
 
                     <!-- Author -->
                     <div class="topic-author">
@@ -34,6 +35,10 @@
 <script>
 export default {
     props: {
+        id: {
+            type: String,
+            required: true
+        },  
         title: {
             type: String,
             required: true
@@ -57,9 +62,14 @@ export default {
     },
     data() {
         return {
-            leftImg: new URL(this.image, import.meta.url).href,
+            img: new URL(this.image, import.meta.url).href,
         }
     },
+    methods: {
+        openTopic() {
+            this.$router.push({name: "forumTopic", params: {topicId: this.id}});
+        }
+    }
 }
 </script>
 

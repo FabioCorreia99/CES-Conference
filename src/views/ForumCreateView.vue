@@ -25,13 +25,13 @@
                     required>
                     </v-textarea>
                     <!-- topic tags -->
-                    <v-text-field 
-                      v-model="filters"
-                      label="Tags" 
-                      outlined 
-                      dense
-                      required>
-                    </v-text-field>
+                    <v-row class="mb-3">
+                        <v-col cols="12">
+                            <v-chip-group :mobile=false multiple filter class="mx-lg-16 chips" selected-class="scheduleSelected" v-model="tags" mandatory>
+                            <v-chip  v-for="filter in talkStore.filters" :key="filter" class="scheduleDays" rounded="lg" :value="filter" close-label="Please select at least one!">{{ filter }}</v-chip>
+                            </v-chip-group>
+                        </v-col>
+                    </v-row>
 
                     <SubmitBtn value="submit"/>
 
@@ -50,7 +50,9 @@ import { useRouter } from 'vue-router';
 import { useTopicsStore } from "@/stores/forum"
 import BlueBtnToOrange from '@/components/BlueBtnToOrange.vue';
 import SubmitBtn from '@/components/SubmitBtn.vue';
+
 import { useUsersStore } from '@/stores/users';
+import { useTalksStore } from '@/stores/talks.js';
 
 export default {
     components: {
@@ -89,8 +91,9 @@ export default {
                     }
                 }
             ],
-            tags: "",
+            tags: ["AI",],
             isValid: false,
+            talkStore: useTalksStore(),
         }
     },
     methods: {
@@ -106,7 +109,7 @@ export default {
 
             const userId = usersStore.currentUserId;
             
-            topicsStore.addTopic(userId, this.title, this.desc, this.tags.split(","));
+            topicsStore.addTopic(userId, this.title, this.desc, this.tags);
             console.log(`New topic added: ${this.title}`);
             
             this.$emit("close-form");

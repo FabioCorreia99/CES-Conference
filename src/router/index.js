@@ -49,12 +49,6 @@ const router = createRouter({
       component: ForumView,
       children: [
         {
-          path: ":topicId",
-          name: "forumTopic",
-          component: ForumTopicView,
-          props: true,
-        },
-        {
           path: "Create",
           name: "forumCreate",
           component: ForumCreateView,
@@ -62,6 +56,12 @@ const router = createRouter({
           meta: {requiresAuth: true},
         },
       ],
+    },
+    {
+      path: "/topic/:topicId",
+      name: "forumTopic",
+      component: ForumTopicView,
+      props: true,
     },
     {
       path: "/partners",
