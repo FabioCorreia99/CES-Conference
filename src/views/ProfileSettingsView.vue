@@ -75,29 +75,27 @@ components: {
 data() {
   return {
     currentContent: "Profile", // Conteúdo padrão
-    defaultPicture: "https://via.placeholder.com/120",
+    defaultPicture: "https://placehold.co/120",
     profile: {
       picture: null,
       name: "",
       about: "",
     },
+    store: useUsersStore(),
   };
 },
 methods: {
   logoutUser() {
-    const store = useUsersStore();
-    store.logout();
+    this.store.logout();
     this.$router.push("/login");
   },
   saveChanges(updatedProfile) {
-    const store = useUsersStore();
-    store.updateUser(updatedProfile);
+    this.store.updateUser(updatedProfile);
     alert("Profile updated successfully!");
   },
 },
 mounted() {
-  const store = useUsersStore();
-  const currentUser = store.getUserById(store.currentUserId);
+  const currentUser = this.store.getUserById(store.currentUserId);
   if (currentUser) {
     this.profile = {
       picture: currentUser.picture,

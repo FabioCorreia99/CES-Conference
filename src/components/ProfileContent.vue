@@ -10,10 +10,10 @@
       </v-avatar>
       <div class="profile-buttons">
         <!-- Botão Customizado -->
-        <BlueBtnToOrange @click="triggerFileUpload" :value="'change picture'" />
+        <BlueBtnToOrange :handleClick="triggerFileUpload" :value="'change picture'" />
 
         <!-- Botão Padrão para Delete -->
-        <RedBtnToWhite @click="deletePicture" :value="'delete picture'" />
+        <RedBtnToWhite :handleClick="deletePicture" :value="'delete picture'" />
       </div>
       <input
         type="file"
