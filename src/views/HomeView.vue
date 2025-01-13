@@ -189,10 +189,6 @@ html, body {
 .intro{
   margin-bottom: 50rem !important;
 }
-span {
-  color: white;
-}
-
 .masterImg{
   height: 75vh;
   width: 20rem;

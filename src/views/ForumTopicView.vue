@@ -34,6 +34,8 @@
 
     </v-main>
 </v-app>
+
+<link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
 </template>
 
 <script>

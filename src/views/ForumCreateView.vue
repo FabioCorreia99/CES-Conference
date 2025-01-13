@@ -10,7 +10,7 @@
                      <v-text-field 
                       v-model="title"
                       label="Title" 
-                      outlined 
+                      underlined 
                       dense
                       :rules="titleRules" 
                       required>
@@ -19,7 +19,7 @@
                     <v-textarea 
                     v-model="desc"
                     label="Description"
-                    outlined
+                    underlined
                     dense
                     :rules="descRules" 
                     required>
@@ -27,9 +27,31 @@
                     <!-- topic tags -->
                     <v-row class="mb-3">
                         <v-col cols="12">
-                            <v-chip-group :mobile=false multiple filter class="mx-lg-16 chips" selected-class="scheduleSelected" v-model="tags" mandatory>
-                            <v-chip  v-for="filter in talkStore.filters" :key="filter" class="scheduleDays" rounded="lg" :value="filter" close-label="Please select at least one!">{{ filter }}</v-chip>
-                            </v-chip-group>
+                            <v-combobox
+                                v-model="chips"
+                                :items="tags"
+                                label="Tags"
+                                variant="underlined"
+                                chips
+                                clearable
+                                multiple
+                                :rules="chipRules"
+                            >
+                                <template v-slot:selection="{ attrs, tag, select, selected }">
+                                    <v-chip
+                                        v-bind="attrs"
+                                        :model-value="selected"
+                                        closable
+                                        @click="select"
+                                        @click:close="remove(tag)"
+                                        variant="elevated"
+                                        color="primary"
+                                        text-color="black"
+                                    >
+                                        {{ tag }}
+                                    </v-chip>
+                                </template>
+                            </v-combobox>
                         </v-col>
                     </v-row>
 
@@ -63,9 +85,6 @@ export default {
         const router = useRouter();
         const topicsStore = useTopicsStore();
         const usersStore = useUsersStore();
-        console.log(usersStore.isAuthenticated);
-        
-        const userId = usersStore.currentUserId; // TROCAR POR ID DO USER
 
         return { router, topicsStore, usersStore};
     },
@@ -91,9 +110,13 @@ export default {
                     }
                 }
             ],
-            tags: ["AI",],
             isValid: false,
             talkStore: useTalksStore(),
+            chips: [],
+            chipRules: [
+                value => (value && value.length > 0) || "At least one tag is required"
+            ],
+            tags: [],
         }
     },
     methods: {
@@ -109,7 +132,7 @@ export default {
 
             const userId = usersStore.currentUserId;
             
-            topicsStore.addTopic(userId, this.title, this.desc, this.tags);
+            topicsStore.addTopic(userId, this.title, this.desc, this.chips);
             console.log(`New topic added: ${this.title}`);
             
             this.$emit("close-form");
@@ -125,9 +148,14 @@ export default {
             this.router.go(-1);
         }
 
+    }, 
+    created() {
+        this.tags = this.talkStore.filters;
     }
 }
 
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+
+</style>

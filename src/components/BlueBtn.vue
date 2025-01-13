@@ -35,7 +35,7 @@
     }
 </script>
 
-<style>
+<style scoped>
 @media only screen and (min-width: 600px) and (max-width: 700px) {
     .textBtn{
         font-size: 0.7rem;

@@ -33,7 +33,7 @@
     }
 </script>
 
-<style>
+<style scoped>
 span{
     color: var(--color-white) !important;
 }

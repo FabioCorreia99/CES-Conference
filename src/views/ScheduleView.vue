@@ -194,4 +194,7 @@ export default {
   background-color: var(--color-orange) !important;
   color: black !important;
 }
+.chips span{
+  color: var(--color-white) !important;
+}
 </style>
