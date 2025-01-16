@@ -19,7 +19,10 @@ export const useUsersStore = defineStore("users", {
         Email: "test",
         password: "test",
         name: "Test User",
-        picture: new URL("../assets/media/speakers/BillGates.jpg", import.meta.url).href,
+        picture: new URL(
+          "../assets/media/speakers/BillGates.jpg",
+          import.meta.url
+        ).href,
         ticket: {},
         likedTalks: [],
         role: "user",
@@ -71,6 +74,12 @@ export const useUsersStore = defineStore("users", {
         role: "user", // Por padrão, novos utilizadores são "user"
       });
       return true;
+    },
+    updateUser(updatedUser) {
+      const index = this.users.findIndex((user) => user.id === updatedUser.id);
+      if (index !== -1) {
+        Object.assign(this.users[index], updatedUser); // Atualiza o utilizador
+      }
     },
   },
   // Persiste os dados no localStorage
