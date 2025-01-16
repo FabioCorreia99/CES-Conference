@@ -6,11 +6,18 @@
     <div class="profile-picture-section mb-10">
       <!-- Adicionada margem aqui -->
       <v-avatar size="120" class="mb-10">
-        <img :src="profile.picture || defaultPicture" alt="Profile Picture" />
+        <img
+          :src="profile.picture || defaultPicture"
+          alt="Profile Picture"
+          class="profile-picture"
+        />
       </v-avatar>
       <div class="profile-buttons">
         <!-- Botão Customizado -->
-        <BlueBtnToOrange :handleClick="triggerFileUpload" :value="'change picture'" />
+        <BlueBtnToOrange
+          :handleClick="triggerFileUpload"
+          :value="'change picture'"
+        />
 
         <!-- Botão Padrão para Delete -->
         <RedBtnToWhite :handleClick="deletePicture" :value="'delete picture'" />
@@ -24,18 +31,16 @@
       />
     </div>
 
-    <!-- Nome de Perfil -->
+    <h3 class="mb-4">Nick name</h3>
     <v-text-field
       v-model="profile.name"
-      label="Profile name"
       outlined
       class="profile-input"
     ></v-text-field>
 
-    <!-- About Me -->
+    <h3 class="mb-4">About me</h3>
     <v-textarea
       v-model="profile.about"
-      label="About me"
       outlined
       rows="4"
       class="profile-textarea"
@@ -88,7 +93,7 @@ export default {
 .profile-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
 }
 
 .profile-title {
@@ -98,14 +103,26 @@ export default {
 .profile-picture-section {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
 }
 
 .profile-input,
 .profile-textarea {
-  width: 100%;
-  max-width: 400px;
+  width: 800px;
+  max-width: 100%;
   margin-bottom: 20px;
+}
+
+.profile-buttons {
+  display: flex;
+  gap: 15px; /* Ajuste o valor conforme necessário */
+}
+
+.profile-picture {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Garante proporção */
+  border-radius: 50%; /* Torna a imagem circular */
 }
 
 .save-section {
