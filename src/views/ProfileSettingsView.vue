@@ -47,9 +47,15 @@
           :defaultPicture="defaultPicture"
           @save="saveChanges"
         />
+
         <MyAgendaContent v-if="currentContent === 'My Agenda'" />
         <MyTicketContent v-if="currentContent === 'My Ticket'" />
-        <SettingsContent v-if="currentContent === 'Settings'" />
+
+        <SettingsContent
+          v-if="currentContent === 'Settings'"
+          :settings="settings"
+          @save="saveChanges"
+        />
       </v-main>
     </v-container>
   </v-app>
@@ -83,14 +89,20 @@ export default {
       },
     };
   },
+  props: {
+    userId: {
+      type: String,
+      required: true,
+    },
+  },
   methods: {
     logoutUser() {
       this.store.logout();
       this.$router.push("/login");
     },
-    saveChanges(updatedProfile) {
-      this.store.updateUser(updatedProfile);
-      alert("Profile updated successfully!");
+    saveChanges(updatedData) {
+      this.store.updateUser({ id: this.store.currentUserId, ...updatedData });
+      alert("Changes saved successfully!");
     },
   },
   mounted() {
