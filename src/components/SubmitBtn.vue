@@ -8,6 +8,7 @@
             class="rounded-lg Orangebtn"
             id="submitBtn"
             v-bind="props"
+            @click="$emit('submit')"
             ><span 
                 class="text-lowercase text-button"
                 :class="{ 'on-hover': isHovering }"
@@ -25,10 +26,7 @@
             type: String,
             required: true,
         },
-        // route: {
-        //     type: String,
-        //     default: "home"
-        // },
+        emits: ['submit'],
      },   
     }
 </script>

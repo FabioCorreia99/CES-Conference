@@ -44,12 +44,14 @@ export const useTopicsStore = defineStore("topics", {
                 this.saveTopics();
             }
         },
-        addComent(topicID, comment) {
+        addComment(topicID, comment) {
             const topic = this.topics.find((Topic) => Topic.id === topicID);
 
             if (topic) {
                 topic.comments.push(comment);
                 this.saveTopics();
+            } else {
+                console.log("topic not found");
             }
         }
     }

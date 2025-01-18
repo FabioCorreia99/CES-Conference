@@ -106,7 +106,7 @@ export default {
                     if (value?.length >= 3 && value?.length <= 500) {
                         return true
                     } else {
-                        return "Description must be between 3 and 500 characters."
+                        return "Description must have between 3 and 500 characters."
                     }
                 }
             ],
