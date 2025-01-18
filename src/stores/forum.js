@@ -23,7 +23,7 @@ export const useTopicsStore = defineStore("topics", {
                 title,
                 desc,
                 filters,
-                likes: 0,
+                likes: [],
                 comments: [],
             }
             this.topics.push(newTopic);
@@ -36,11 +36,20 @@ export const useTopicsStore = defineStore("topics", {
         saveTopics() {
             localStorage.setItem("topics", JSON.stringify(this.topics));
         },
-        toggleLike(topicID) {
+        toggleLike(topicID, userID) {
             const likedTopic = this.topics.find((topic) => topic.id === topicID);
-
+            
             if (likedTopic) {
-                likedTopic.likes = topic.likes > 0 ? 0 : 1; // Arranjar maneira de verificar se o user já deu like
+                const userIndex = likedTopic.likes.indexOf(userID);
+
+                if (userIndex === -1) {
+                    // adicionar like
+                    likedTopic.likes.push(userID)
+                } else {
+                    // remover like
+                    likedTopic.likes.splice(userIndex, 1)
+                }
+
                 this.saveTopics();
             }
         },

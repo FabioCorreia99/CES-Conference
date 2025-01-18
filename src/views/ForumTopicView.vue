@@ -27,8 +27,13 @@
      
         <!-- Comments & like -->
         <v-row no-gutters class="commentsContainer mx-0 pt-10 w-100">
-            <!-- new comment -->
             <v-col cols="12" class="d-flex mb-2">
+                <!-- like -->
+                <HeartBtn 
+                    :isActive="isLiked"
+                    @isActive="topicsStore.toggleLike(topic.id, currentUserId)"
+                />
+                <!-- new comment -->
                 <v-textarea 
                     v-model="comment"
                     label="/Leave a comment"
@@ -41,7 +46,7 @@
                     rows="1"
                     :rules="commentRules"
                     required
-                    class="pr-6">
+                    class="pr-6 pl-3">
                 </v-textarea>
                 <SubmitBtn value="Post" @submit="submitComment"/>
             </v-col>
@@ -77,6 +82,7 @@
 
 <script>
 import CommentsCard from "@/components/CommentsCard.vue";
+import HeartBtn from "@/components/HeartBtn.vue";
 import Navbar from "@/components/Navbar.vue";
 import SubmitBtn from '@/components/SubmitBtn.vue';
 
@@ -88,6 +94,7 @@ export default {
         Navbar,
         SubmitBtn,
         CommentsCard,
+        HeartBtn,
     },
     props: ["topicId"],
     computed: {
@@ -98,6 +105,15 @@ export default {
                 console.log("Topic author profile image not found.");
                 return "";
             }
+        },
+        isLiked() {
+            console.log(this.topic);
+            console.log(this.currentUserId);
+            
+            if (!this.topic || !Array.isArray(this.topic.likes)) {
+            return false;
+        }
+            return this.topic.likes.includes(this.currentUserId);
         }
     },
     data() {
@@ -118,18 +134,18 @@ export default {
                 }
             ],
             topic: topicsStore.topics.find((topic) => topic.id == this.topicId),
+            currentUserId: usersStore.currentUserId,
         }
     },
     methods: {
         submitComment() {
-            const userId = this.usersStore.currentUserId;
 
             if (this.topic) {
-                if (userId) {
+                if (this.currentUserId) {
 
                     const newComment = {
                     comment: this.comment,
-                    author: this.usersStore.getUserById(userId),
+                    author: this.usersStore.getUserById(this.currentUserId),
                     }
                     
                     console.log(newComment.author);

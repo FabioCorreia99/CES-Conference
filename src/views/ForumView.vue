@@ -67,7 +67,7 @@
                 :title="topic.title"
                 :author="topic.author"
                 :image="topic.image"
-                :likes="topic.likes"
+                :likes="topic.likes.length"
                 :comments="topic.comments.length" 
             />
           </v-col>
