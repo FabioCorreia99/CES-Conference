@@ -15,7 +15,6 @@ export const useSpeakersStore = defineStore("speakers", {
     },
     actions: {
         async fetchPersons() {
-        console.log("ANTES: " + this.speakers);
             if (this.speakers.length == 0) {
                 try {
                     // Fetch users from DummyJSON API
@@ -36,7 +35,6 @@ export const useSpeakersStore = defineStore("speakers", {
 
                 // Update the speakers state
                 this.speakers = combinedSpeakers;
-                console.log(this.speakers);
                 
                 } catch (error) {
                 console.error("Error in store fetching person api:", error);

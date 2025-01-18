@@ -24,7 +24,7 @@ export const useUsersStore = defineStore("users", {
           import.meta.url
         ).href,
         ticket: {},
-        likedTalks: [],
+        likedTalks: [1,4,2],
         role: "user",
       },
     ],
@@ -42,6 +42,7 @@ export const useUsersStore = defineStore("users", {
       return user?.role === "admin"; // Retorna true apenas se o role for 'admin'
     },
     isAuthenticated: (state) => state.authentication,
+    getUserLogged: (state) => state.users.find((user) => user.id === state.currentUserId),
   },
   actions: {
     login(email, password) {
@@ -81,6 +82,11 @@ export const useUsersStore = defineStore("users", {
         Object.assign(this.users[index], updatedUser); // Atualiza o utilizador
       }
     },
+    addLikedTalk(idTalk){
+      let userLogged = this.getUserById(this.currentUserId);
+      userLogged.likedTalks.push(idTalk);
+      this.updateUser(userLogged);
+    }
   },
   // Persiste os dados no localStorage
   persist: {

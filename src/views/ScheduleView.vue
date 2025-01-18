@@ -10,48 +10,16 @@
       <v-col>
         <h1 class="introTitle my-12">Schedule</h1>
         <h6 class="textTitle my-12 w-75">Explore your options to connect, learn and be inspired at CES.</h6>
-        <div class="d-flex justify-space-between my-1 w-100">
+        <div class="d-flex justify-start ga-6 my-1 w-100">
           <!-- Seleção dos dias -->
           <v-chip-group mandatory class="chips" v-model="daySelected" selected-class="scheduleSelected">
               <v-chip class="scheduleDays" rounded="lg" value="7" >/day 7</v-chip>
               <v-chip class="scheduleDays" rounded="lg" value="8" >/day 8</v-chip>
               <v-chip class="scheduleDays" rounded="lg" value="9">/day 9</v-chip>
-          </v-chip-group>
-
-          <!-- <v-speed-dial
-            location="bottom right"
-            transition="fade-transition"
-            :close-on-content-click=false
-            no-click-animation
-          >
-            <template v-slot:activator="{ props: activatorProps }">
-              <v-btn 
-                v-bind="activatorProps"
-                elevation="4" 
-                size="large" 
-                color='#6590D0'
-                class="rounded-lg "
-                ><span 
-                    class="text-lowercase textBtn"
-                    >/filters
-                </span>
-              </v-btn>
-            </template>
-
-            <v-chip-group v-for="line in talksStore.filters" multiple filter class="chips" selected-class="scheduleSelected" >
-              <div class="d-flex justify-end	flex-wrap">
-                <v-chip v-for="filter in line" class="scheduleDays" rounded="lg" :value="filter" >{{ filter }}</v-chip>
-              </div>
-            </v-chip-group> -->
-            <!-- <v-chip-group multiple filter class="chips" selected-class="scheduleSelected" >
-              <div class="d-flex justify-center	flex-wrap">
-                <v-chip class="scheduleDays" rounded="lg" value="71" >filter5</v-chip>
-                <v-chip class="scheduleDays" rounded="lg" value="34" >filter6</v-chip>
-                <v-chip class="scheduleDays" rounded="lg" value="95">filter7</v-chip>
-                <v-chip class="scheduleDays" rounded="lg" value="7653" >filter8</v-chip>
-              </div>
-            </v-chip-group> -->
-          <!-- </v-speed-dial> -->
+          </v-chip-group class="chips"  color="primary">
+          <div v-if="usersStore.authentication">
+            <HeartBtn v-on:isActive="active"/>  
+          </div>
         </div>
       </v-col>
     </v-row>
@@ -79,38 +47,31 @@
           <v-expansion-panel-title class="text-h6">{{ hour }}</v-expansion-panel-title> 
           <!-- Corpo -->
           <v-expansion-panel-text>
-            <v-row> <!-- Criação dos Cards -->
-              <v-col v-for="talk in talksStore.getTalksByDayandHourFilted(daySelected,hour,selected)" lg="4" md="6" sm="12" class="d-flex justify-center" >
-                <!-- Criação da Dialog  -->
-                <v-dialog max-width="25rem">
+            <v-row v-if="isFavActive"> <!-- Criação dos Cards com gosto -->
+              <v-col v-for="talk in talksStore.getTalksByDayandHourLiked(daySelected,hour,usersStore.getUserLogged.likedTalks)" lg="4" md="6" sm="12" class="d-flex justify-center" >
                   <!--Card-->
-                  <template v-slot:activator="{ props: activatorProps }"> 
-                    <TalksCard 
-                      v-bind="activatorProps" 
-                      :talkId="talk.id" 
-                      :title="talk.title" 
-                      :summary="talk.summary" 
-                      :speaker="speakersStore.getSpeakerById(talk.speaker)"
-                    /> 
-                  </template>
-                  <!--Dialog-->
-                  <template v-slot:default="{ isActive }">
-                    <v-card
-                      prepend-icon="mdi-package"
-                      text="When using the activator slot, you must bind the slot props to the activator element."
-                      title="Slot Activator"
-                    >
-                      <template v-slot:actions>
-                        <v-btn
-                          class="ml-auto"
-                          text="Close"
-                          @click="isActive.value = false"
-                        ></v-btn>
-                      </template>
-                    </v-card>
-                  </template>
-                </v-dialog>
-              </v-col>
+                  <TalksCard
+                    :liked="usersStore.authentication && usersStore.getUserLogged?.likedTalks.includes(talk.id) || false"
+                    :logged="usersStore.authentication"
+                    :talkId="talk.id" 
+                    :title="talk.title" 
+                    :summary="talk.summary" 
+                    :speaker="speakersStore.getSpeakerById(talk.speaker)"
+                  />
+                </v-col>
+            </v-row>
+            <v-row v-else> <!-- Criação de todos os Cards -->
+                  <v-col v-for="talk in talksStore.getTalksByDayandHourFilted(daySelected,hour,selected)" lg="4" md="6" sm="12" class="d-flex justify-center" >
+                  <!--Card-->
+                  <TalksCard
+                    :liked="usersStore.authentication && usersStore.getUserLogged?.likedTalks.includes(talk.id) || false"
+                    :logged="usersStore.authentication"
+                    :talkId="talk.id" 
+                    :title="talk.title" 
+                    :summary="talk.summary" 
+                    :speaker="speakersStore.getSpeakerById(talk.speaker)"
+                  />
+                </v-col>
             </v-row>
           </v-expansion-panel-text>
         </v-expansion-panel>
@@ -130,9 +91,11 @@
 import Navbar from '@/components/Navbar.vue';
 import SpeakersCard from '@/components/SpeakersCard.vue';
 import TalksCard from '@/components/TalksCard.vue';
+import HeartBtn from '@/components/HeartBtn.vue';
 
 import { useTalksStore } from '@/stores/talks.js';
 import { useSpeakersStore } from '../stores/speakers';
+import { useUsersStore } from '@/stores/users';
 
 
 export default {
@@ -141,9 +104,13 @@ export default {
         Navbar,
         SpeakersCard,
         TalksCard,
+        HeartBtn
     },
     data() {
       return {
+        isFavActive: false,
+        usersStore: useUsersStore(),
+        likedTalks: [],
         talksStore: useTalksStore(),
         speakersStore: useSpeakersStore(),
         panels: [], // Lista dos índices de painéis ativos
@@ -160,6 +127,11 @@ export default {
           "18:00",
         ],
         daySelected: "7",
+      }
+    },
+    methods: {
+      active (e){
+        this.isFavActive = e
       }
     },
     mounted () {
@@ -189,6 +161,9 @@ export default {
   background-color: var(--color-dark-blue) !important;
   transition: 0.5s all;
 }
+.v-expansion-panel-title__overlay {
+   background-color: transparent !important;
+}
 
 .scheduleSelected{
   background-color: var(--color-orange) !important;
@@ -196,5 +171,11 @@ export default {
 }
 .chips span{
   color: var(--color-white) !important;
+}
+
+@media only screen and (max-width: 676px) {
+  .scheduleMenu{
+      padding: 0 0 !important;
+  }
 }
 </style>

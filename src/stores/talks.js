@@ -16,7 +16,8 @@ export const useTalksStore = defineStore("talks", {
             state.talks.filter(talk => 
                 talk.day == day &&
                 talk.hour == hour && 
-                (filters.length === 0 || filters.every(filter => talk.filters.includes(filter)))),
+                (filters.length === 0 || filters.every(filter => talk.filters.includes(filter)))), // verifica se todo o array 'filters' está no talk.filters
+        getTalksByDayandHourLiked: (state) => (day, hour, likes) => state.talks.filter(talk => talk.day == day && talk.hour == hour && likes.includes(talk.id)),// Verifica se o ID da talk está no array 'likes'
     },
     actions: {
         addTalk(title, speaker, summary, desc, filters, room, day, hour) {
@@ -610,15 +611,12 @@ export const useTalksStore = defineStore("talks", {
                 ];
 
                 this.filters = ["AI", "Accessibility", "Animation", "CSS", "Cloud", "Code", "Data", "Design", "Ethics", "Frontend", "Future", "HTML", "Innovation", "IoT", "JavaScript", "Leadership", "Programming", "Science", "Security", "State", "Sustainability", "Tech", "Vue", "Web"]
-                console.log(this.filters);
                 
                 // Adicionar as talks ao array
                 scheduleData.forEach(talk => {
                     this.addTalk(talk.title, talk.speaker, talk.summary, talk.desc, talk.filters, talk.room, talk.day, talk.hour);
                 });
-                console.log(this.talks);
-            }
-            
+            }   
         },
     }
 })
