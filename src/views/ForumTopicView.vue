@@ -30,7 +30,7 @@
             <v-col cols="12" class="d-flex mb-2">
                 <!-- like -->
                 <HeartBtn 
-                    :isActive="isLiked"
+                    :clicked="isLiked"
                     @isActive="topicsStore.toggleLike(topic.id, currentUserId)"
                 />
                 <!-- new comment -->

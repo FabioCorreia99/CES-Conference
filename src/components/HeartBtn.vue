@@ -13,7 +13,7 @@
 
 <script>
     export default {
-        emits: ["isActive"], // Declara o evento
+        emits: ["clicked"], // Declara o evento
         props: {
             isActive: {
                 type: Boolean,
@@ -29,10 +29,10 @@
             toggleIcon() {
                 if (this.icon === 'mdi-heart-plus-outline') {
                     this.icon = 'mdi-heart';
-                    this.$emit("isActive", true)
+                    this.$emit("clicked", true)
                 } else {
                     this.icon = 'mdi-heart-plus-outline';
-                    this.$emit("isActive", false)
+                    this.$emit("clicked", false)
                 }
             },
         },

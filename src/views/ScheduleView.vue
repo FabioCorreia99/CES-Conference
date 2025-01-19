@@ -18,7 +18,7 @@
               <v-chip class="scheduleDays" rounded="lg" value="9">/day 9</v-chip>
           </v-chip-group class="chips"  color="primary">
           <div v-if="usersStore.authentication">
-            <HeartBtn v-on:isActive="active"/>  
+            <HeartBtn v-on:clicked="active"/>  
           </div>
         </div>
       </v-col>

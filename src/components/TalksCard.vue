@@ -17,7 +17,7 @@
                 <v-divider class="mx-4 mt-0" thickness="3" color="var(--color-light-blue)"></v-divider>
                 <v-card-text class="cardText pt-2">{{ summary }}</v-card-text>
                 <v-card-actions v-if="logged" class="d-flex justify-end align-end pa-2 pt-0" @click.stop>
-                    <HeartBtn :isActive="liked"/>
+                    <HeartBtn @clicked="" :isActive="liked"/>
                 </v-card-actions>
             </v-card>
         </v-hover>
@@ -73,6 +73,11 @@
             logged:{
                 type: Boolean,
                 default: false,
+            }
+        },
+        methods: {
+            switchLike() {
+                
             }
         },
     }
