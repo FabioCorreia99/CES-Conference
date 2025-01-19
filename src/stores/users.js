@@ -83,10 +83,21 @@ export const useUsersStore = defineStore("users", {
       }
     },
     addLikedTalk(idTalk){
-      let userLogged = this.getUserById(this.currentUserId);
-      userLogged.likedTalks.push(idTalk);
+      //dados do user
+      let userLogged = this.getUserLogged;
+      // Sem validação pois ja é feita antes(no meu caso Fabio, mudar se usarem)
+      userLogged.likedTalks.push(idTalk);      
+      //update
       this.updateUser(userLogged);
-    }
+    },
+    removeLikedTalk(idTalk){
+      //dados do user
+      let userLogged = this.getUserLogged;
+      // Sem validação pois ja é feita antes(no meu caso Fabio, mudar se usarem)
+      userLogged.likedTalks = userLogged.likedTalks.filter(liked => liked != idTalk)
+      // update
+      this.updateUser(userLogged);
+    },
   },
   // Persiste os dados no localStorage
   persist: {

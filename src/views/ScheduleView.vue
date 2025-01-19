@@ -24,7 +24,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="12">
+      <v-col v-if="isFavActive === false" cols="12">
         <v-chip-group :mobile=false multiple filter class="mx-lg-16 chips" selected-class="scheduleSelected" v-model="selected" >
           <v-chip  v-for="filter in talksStore.filters" :key="filter" class="scheduleDays" rounded="lg" :value="filter" >{{ filter }}</v-chip>
         </v-chip-group>

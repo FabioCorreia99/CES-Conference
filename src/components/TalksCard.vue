@@ -17,7 +17,8 @@
                 <v-divider class="mx-4 mt-0" thickness="3" color="var(--color-light-blue)"></v-divider>
                 <v-card-text class="cardText pt-2">{{ summary }}</v-card-text>
                 <v-card-actions v-if="logged" class="d-flex justify-end align-end pa-2 pt-0" @click.stop>
-                    <HeartBtn @clicked="" :isActive="liked"/>
+                    <HeartBtn @clicked="clickedHeart" :isActive="liked"/>
+                    <button>{{ talkId }}</button>
                 </v-card-actions>
             </v-card>
         </v-hover>
@@ -42,7 +43,9 @@
 </template>
 
 <script>
+// usersStore.authentication && usersStore.getUserLogged?.likedTalks.includes(talk.id) || false
     import HeartBtn from '@/components/HeartBtn.vue';
+    import { useUsersStore } from '@/stores/users';
 
     export default {
         components: {
@@ -50,6 +53,7 @@
         },
         data() {
             return {
+                store: useUsersStore(),
             }
         },
         props: {
@@ -76,8 +80,13 @@
             }
         },
         methods: {
-            switchLike() {
-                
+            clickedHeart(e) {
+                if (e) {
+                    this.store.addLikedTalk(this.talkId)
+                }
+                else{
+                    this.store.removeLikedTalk(this.talkId)
+                }
             }
         },
     }
