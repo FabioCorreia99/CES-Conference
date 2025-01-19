@@ -97,6 +97,12 @@ export default {
       this.newPassword = "";
 
       alert("Changes saved successfully!");
+
+      // Emitir evento para o componente pai
+      this.$emit("save", {
+        email: this.currentUser.Email,
+        password: this.currentUser.password,
+      });
     },
     deleteAccount() {
       const confirmDelete = confirm(
