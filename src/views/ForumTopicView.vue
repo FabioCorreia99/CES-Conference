@@ -30,8 +30,8 @@
             <v-col cols="12" class="d-flex mb-2">
                 <!-- like -->
                 <HeartBtn 
-                    :clicked="isLiked"
-                    @isActive="topicsStore.toggleLike(topic.id, currentUserId)"
+                :isActive="isLiked"    
+                @clicked="toggleLike"
                 />
                 <!-- new comment -->
                 <v-textarea 
@@ -107,12 +107,6 @@ export default {
             }
         },
         isLiked() {
-            console.log(this.topic);
-            console.log(this.currentUserId);
-            
-            if (!this.topic || !Array.isArray(this.topic.likes)) {
-            return false;
-        }
             return this.topic.likes.includes(this.currentUserId);
         }
     },
@@ -158,6 +152,9 @@ export default {
                 }
             }
         },
+        toggleLike() {
+            this.topicsStore.toggleLike(this.topic.id, this.currentUserId)
+        }
 
     }, 
     

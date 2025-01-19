@@ -62,6 +62,7 @@ export const useTopicsStore = defineStore("topics", {
             } else {
                 console.log("topic not found");
             }
+            
         }
     }
 })
