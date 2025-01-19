@@ -25,6 +25,14 @@
                 icon: "mdi-heart-plus-outline"
             }
         },
+        watch: {
+            isActive: {
+                immediate: true, // Executa na inicialização
+                handler(newVal) {
+                    this.icon = newVal ? "mdi-heart" : "mdi-heart-plus-outline";
+                },
+            },
+        },
         methods: {
             toggleIcon() {
                 if (this.icon === 'mdi-heart-plus-outline') {
@@ -36,12 +44,6 @@
                 }
             },
         },
-        beforeMount () {
-            if (this.isActive) {
-                this.icon = 'mdi-heart';
-            };
-        },
-
     }
 </script>
 
