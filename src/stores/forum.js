@@ -22,7 +22,7 @@ export const useTopicsStore = defineStore("topics", {
                 talks.forEach(talk => {
                     const newTopic = {
                         id: this.topics.length > 0 ? this.topics[this.topics.length - 1].id + 1 : 0,
-                        author: talk.speaker,  
+                        author: String(talk.speaker),  
                         image: '',
                         title: talk.title,
                         desc: talk.summary,
