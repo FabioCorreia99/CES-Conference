@@ -21,8 +21,8 @@
 
                     <!-- Stats -->
                     <div class="topic-stats">
-                        <p>Likes: {{ likes }}</p>
-                        <p>Comments: {{ comments }}</p>
+                        <p><v-icon>mdi-thumb-up-outline</v-icon> {{ likes }}</p>
+                        <p><v-icon>mdi-comment-outline</v-icon> {{ comments }}</p>
                     </div>
 
                 </div>
@@ -88,6 +88,7 @@ export default {
 .topic-author {
     font-size: 14px;
     margin: 0;
+    width: 100px;
 }
 .topic-stats {
     display: flex;

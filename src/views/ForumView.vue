@@ -55,7 +55,7 @@
       <v-container class="mt-12" v-if="!isLoading && !showCreate">
         <v-row>
             <v-col cols="12">
-                <v-chip-group :mobile=false multiple filter class="chips" selected-class="scheduleSelected" v-model="topicSelected" >
+                <v-chip-group :mobile=false multiple filter class="chips" selected-class="scheduleSelected" v-model="topicSelected" @change="onFilterChange">
                 <v-chip  v-for="filter in talksStore.filters" :key="filter" class="scheduleDays" rounded="lg" :value="filter" >{{ filter }}</v-chip>
                 </v-chip-group>
             </v-col>
@@ -116,6 +116,12 @@ export default {
             isLoading: true,
         }
     },
+    watch: {
+        // Watch topicSelected and update query params when filters change
+        topicSelected(newFilters) {
+        this.updateQueryParams(newFilters);
+        }
+    },
     computed: {
         filteredTopics() {
             const input = this.search.toLowerCase();
@@ -127,6 +133,10 @@ export default {
                 
                 return textSearch && tagsSearch;
             });
+        },
+        // Get filters from the query params if available
+        queryFilters() {
+            return this.$route.query.filters ? this.$route.query.filters.split(',') : [];
         }
     },
     methods: {
@@ -144,11 +154,21 @@ export default {
             this.showCreate = false;
             this.$router.push({name: "forum"});
         },
+        onFilterChange() {
+            // This method will be triggered when a filter is selected or deselected
+            this.updateQueryParams(this.topicSelected);
+        },
+        updateQueryParams(filters) {
+            // Update the URL query parameters
+            this.$router.push({ query: { filters: filters.join(',') } });
+        }
 
     },
     mounted() {
         this.topicsStore.createTopicsFromTalks(); 
         this.isLoading = false; 
+        // When the component mounts, use the filters from the query params (if any)
+        this.topicSelected = this.queryFilters;
     },
 
 }

@@ -17,7 +17,7 @@
                 <v-row v-if="topic.filters.length >= 1">
                     <v-col cols="12">
                         <v-chip-group :mobile=false multiple filter class="chips" selected-class="scheduleSelected" v-if="topic.filters.length >= 1">
-                        <v-chip  v-for="filter in topic.filters" :key="filter" class="scheduleDays" rounded="lg" :value="filter" >{{ filter }}</v-chip>
+                            <v-chip  v-for="filter in topic.filters" :key="filter" class="scheduleDays" rounded="lg" :value="filter" @click="FilterClick(filter)">{{ filter }}</v-chip>
                         </v-chip-group>
                     </v-col>
                 </v-row>
@@ -27,7 +27,7 @@
      
         <!-- Comments & like -->
         <v-row no-gutters class="commentsContainer mx-0 pt-10 w-100">
-            <v-col cols="12" class="d-flex mb-2">
+            <v-col cols="12" class="d-flex mb-2" v-if="currentUserId">
                 <!-- like -->
                 <HeartBtn 
                 :isActive="isLiked"    
@@ -154,6 +154,10 @@ export default {
         },
         toggleLike() {
             this.topicsStore.toggleLike(this.topic.id, this.currentUserId)
+        },
+        FilterClick(filter) {
+            // Go back to the forum with the respective filter selected
+            this.$router.push({name: "forum", query: { filters: filter}});
         }
 
     }, 

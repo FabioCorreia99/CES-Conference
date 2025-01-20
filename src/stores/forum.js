@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { useUsersStore } from '@/stores/users';
 import { useTalksStore } from "./talks";
+import { useSpeakersStore } from "./speakers";
 
 export const useTopicsStore = defineStore("topics", {
     state: () => ({
@@ -19,11 +20,15 @@ export const useTopicsStore = defineStore("topics", {
                 const talksStore = useTalksStore();
                 const talks = talksStore.talks;
 
+                const speakersStore = useSpeakersStore();
+
                 talks.forEach(talk => {
+                    const speaker = speakersStore.getSpeakerById(talk.speaker)
+
                     const newTopic = {
                         id: this.topics.length > 0 ? this.topics[this.topics.length - 1].id + 1 : 0,
-                        author: String(talk.speaker),  
-                        image: '',
+                        author: speaker.firstName + ' ' + speaker.lastName,  
+                        image: speaker.image,
                         title: talk.title,
                         desc: talk.summary,
                         filters: talk.filters,
