@@ -1,5 +1,5 @@
 <template>
-    <v-dialog max-width="25rem">
+    <v-dialog max-width="60rem" max-height="60rem" min-height="20rem">
         <!--Card-->
         <template v-slot:activator="{ props: activatorProps }"> 
         <v-hover v-slot="{ isHovering, props }">
@@ -18,38 +18,56 @@
                 <v-card-text class="cardText pt-2">{{ summary }}</v-card-text>
                 <v-card-actions v-if="logged" class="d-flex justify-end align-end pa-2 pt-0" @click.stop>
                     <HeartBtn @clicked="clickedHeart" :isActive="liked"/>
-                    <button>{{ talkId }}</button>
                 </v-card-actions>
             </v-card>
         </v-hover>
         </template>
         <!--Dialog-->
         <template v-slot:default="{ isActive }">
-            <v-card
-            prepend-icon="mdi-package"
-            text="When using the activator slot, you must bind the slot props to the activator element."
-            title="Slot Activator"
-            >
-                <template v-slot:actions>
-                    <v-btn
-                        class="ml-auto"
-                        text="Close"
-                        @click="isActive.value = false"
-                    ></v-btn>
-                </template>
+            <v-card>
+
+                <div class="w-100 diaTitle mt-8 d-flex justify-center align-center">
+                    <h1 class="diaTitle_text">{{ speaker.firstName }} {{ speaker.lastName }}</h1>
+                </div>
+                <v-container>
+                    <v-row >
+                        <v-col class="ml-4"  cols="4">
+                            <SpeakersCard 
+                                :id="speaker.id" 
+                                :name="speaker.firstName + ` `+ speaker.lastName" 
+                                :subTitle="speaker.company.title"
+                                :image="speaker.image"/>
+                        </v-col>
+                        <v-col class="d-flex flex-column align-center justify-center ga-12 descText">
+                            <h3 class="align-self-start ">ROOM:  <span class="roomText">{{ room }}</span></h3>
+                            <p class="w-100" v-html="desc"></p>
+                            <div class="w-100 d-flex justify-space-around align-center">
+                                <div class="d-flex justify-start ga-16">
+                                    <span v-for="filter in filters" :key="filter"> {{ filter }}</span>
+                                    
+                                </div>
+                                <OrangeBtn value="check Forum"/>
+                            </div>
+                        </v-col>
+                    </v-row>
+                </v-container>
             </v-card>
         </template>
     </v-dialog>
 </template>
 
 <script>
-// usersStore.authentication && usersStore.getUserLogged?.likedTalks.includes(talk.id) || false
     import HeartBtn from '@/components/HeartBtn.vue';
+    import SpeakersCard from '@/components/SpeakersCard.vue';
+    import OrangeBtn from '@/components/OrangeBtn.vue';
+
     import { useUsersStore } from '@/stores/users';
 
     export default {
         components: {
-            HeartBtn
+            HeartBtn,
+            SpeakersCard,
+            OrangeBtn
         },
         data() {
             return {
@@ -67,6 +85,9 @@
             summary: {
                 type: String,
             },
+            desc: {
+                type: String,
+            },
             speaker:{
                 type: Object,
             },
@@ -77,6 +98,12 @@
             logged:{
                 type: Boolean,
                 default: false,
+            },
+            room:{
+                type: String,
+            },
+            filters:{
+                type: Array,
             }
         },
         methods: {
@@ -94,6 +121,33 @@
 </script>
 
 <style scoped>
+.roomText{
+    color: var(--color-dark-blue);
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+}
+.descText{
+    color: var(--color-dark-blue);
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5rem;
+    letter-spacing: 0.0225rem;
+}
+.diaTitle{
+    height: 4.75rem !important;
+    background-color: var(--color-light-blue) !important;
+}
+.diaTitle_text{
+    color: var(--color-white);
+    text-align: center;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
 .cardText{
     height: 5.5rem !important;
 }

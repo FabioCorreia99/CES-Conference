@@ -54,8 +54,10 @@
                     :liked="usersStore.authentication && usersStore.getUserLogged?.likedTalks.includes(talk.id) || false"
                     :logged="usersStore.authentication"
                     :talkId="talk.id" 
-                    :title="talk.title" 
+                    :title="talk.title"
                     :summary="talk.summary" 
+                    :desc="talk.desc" 
+                    :room="talk.room"
                     :speaker="speakersStore.getSpeakerById(talk.speaker)"
                   />
                 </v-col>
@@ -69,6 +71,9 @@
                     :talkId="talk.id" 
                     :title="talk.title" 
                     :summary="talk.summary" 
+                    :desc="talk.desc" 
+                    :room="talk.room"
+                    :filters="talk.filters"
                     :speaker="speakersStore.getSpeakerById(talk.speaker)"
                   />
                 </v-col>
