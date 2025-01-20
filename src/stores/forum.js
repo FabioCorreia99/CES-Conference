@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { useUsersStore } from '@/stores/users';
+import { useTalksStore } from "./talks";
 
 export const useTopicsStore = defineStore("topics", {
     state: () => ({
@@ -11,6 +12,32 @@ export const useTopicsStore = defineStore("topics", {
         }
     },
     actions: {
+        createTopicsFromTalks() {
+             
+            if (this.topics.length === 0) {
+                // If no topics exist, create them
+                const talksStore = useTalksStore();
+                const talks = talksStore.talks;
+
+                talks.forEach(talk => {
+                    const newTopic = {
+                        id: this.topics.length > 0 ? this.topics[this.topics.length - 1].id + 1 : 0,
+                        author: talk.speaker,  
+                        image: '',
+                        title: talk.title,
+                        desc: talk.summary,
+                        filters: talk.filters,
+                        likes: [],
+                        comments: [],
+                    };
+
+                    this.topics.push(newTopic);
+                });
+
+                this.saveTopics();
+            } 
+
+        },
         addTopic(userId, title, desc, filters) {
             const usersStore = useUsersStore();
             const author = usersStore.getUserById(userId).name;
@@ -64,5 +91,6 @@ export const useTopicsStore = defineStore("topics", {
             }
             
         }
-    }
+    },
+    persist: true,
 })

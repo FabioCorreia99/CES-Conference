@@ -15,6 +15,7 @@
                 <div class="d-flex justify-center align-center my-1 w-50">
                     <v-text-field
                         class="mt-9 mb-0"
+                        id="searchBar"
                         rounded="lg"
                         label="/Search..."
                         prepend-inner-icon="mdi-magnify"
@@ -51,10 +52,10 @@
                     
             </v-col>
         </v-row>
-      <v-container class="mt-12" v-if="!showCreate">
+      <v-container class="mt-12" v-if="!isLoading && !showCreate">
         <v-row>
             <v-col cols="12">
-                <v-chip-group :mobile=false multiple filter class="mx-lg-16 chips" selected-class="scheduleSelected" v-model="topicSelected" >
+                <v-chip-group :mobile=false multiple filter class="chips" selected-class="scheduleSelected" v-model="topicSelected" >
                 <v-chip  v-for="filter in talksStore.filters" :key="filter" class="scheduleDays" rounded="lg" :value="filter" >{{ filter }}</v-chip>
                 </v-chip-group>
             </v-col>
@@ -112,13 +113,20 @@ export default {
             talksStore: useTalksStore(),
             topicsStore: useTopicsStore(),
             topicSelected: [],
+            isLoading: true,
         }
     },
     computed: {
         filteredTopics() {
             const input = this.search.toLowerCase();
 
-            return this.topicsStore.topics.filter((topic) => topic.title.toLowerCase().includes(input));
+            return this.topicsStore.getTopics.filter((topic) => {
+                const textSearch = topic.title.toLowerCase().includes(input);
+
+                const tagsSearch = this.topicSelected.length === 0 || this.topicSelected.every(filter => topic.filters.includes(filter));
+                
+                return textSearch && tagsSearch;
+            });
         }
     },
     methods: {
@@ -137,7 +145,11 @@ export default {
             this.$router.push({name: "forum"});
         },
 
-    }
+    },
+    mounted() {
+        this.topicsStore.createTopicsFromTalks(); 
+        this.isLoading = false; 
+    },
 
 }
 </script>

@@ -48,7 +48,7 @@
                     required
                     class="pr-6 pl-3">
                 </v-textarea>
-                <SubmitBtn value="Post" @submit="submitComment"/>
+                <SubmitBtn value="Post" @submit="submitComment" id="submitBtn"/>
             </v-col>
             <!-- topic comments -->
             <v-col cols="12" class="mb-2">
@@ -172,4 +172,8 @@ export default {
 .commentsContainer {
     padding: 0 8rem;
 }
+::v-deep(#submitBtn) {
+    margin-right: 0;
+}
+
 </style>
