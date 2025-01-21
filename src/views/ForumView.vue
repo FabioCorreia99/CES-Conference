@@ -12,10 +12,9 @@
                 <h1 class="introTitle my-12">Forum</h1>
                 <h6 class="textTitle my-12 w-75">Be part of the action - share your thoughts, and engage with a global community of tech enthusiasts, all in one place.</h6>
 
-                <div class="d-flex justify-center align-center my-1 w-50">
+                <div class="d-flex justify-center align-center my-1" id="searchBar">
                     <v-text-field
                         class="mt-9 mb-0"
-                        id="searchBar"
                         rounded="lg"
                         label="/Search..."
                         prepend-inner-icon="mdi-magnify"
@@ -23,9 +22,9 @@
                         v-model="search"
                     ></v-text-field>
 
-                    <div class="d-flex mx-3">
+                    <div class="d-flex ml-3">
                         
-                        <v-col cols="auto">
+                        <v-col cols="auto" class="pa-0">
 
                             <v-hover v-slot="{ isHovering, props }">
                                 <v-btn 
@@ -181,6 +180,16 @@ span{
 }
 .on-hover {
     color: #F2A714 !important; /* Aplica o estilo ao texto */
+}
+#searchBar {
+    width: 50% !important;
+}
+
+@media only screen and (max-width: 1024px) {
+    #searchBar {
+        width: 100% !important;
+        flex-wrap: wrap;
+    }
 }
 
 </style>

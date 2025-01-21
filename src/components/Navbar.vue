@@ -239,4 +239,12 @@ a.active::after {
   width: 97px;
   text-align: center;
 }
+
+@media only screen and (max-width: 1024px) {
+    #searchBar {
+        width: 100% !important;
+        flex-wrap: wrap;
+    }
+}
+
 </style>

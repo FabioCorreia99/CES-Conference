@@ -120,4 +120,11 @@ export default {
     font-weight: 300;
     line-height: normal;
 }
+
+@media only screen and (max-width: 1024px) {
+    .bg-intro {
+        padding: 0;
+    }   
+}
+
 </style>
