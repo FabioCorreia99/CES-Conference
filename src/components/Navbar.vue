@@ -222,6 +222,37 @@ a.active::after {
   animation: pulse 1s infinite;
 }
 
+#navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(100px);
+  border-radius: 20px;
+}
+
+.nav-logo {
+  height: 30px;
+  width: 121px;
+}
+
+.links {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  transition: all 0.3s ease-in-out;
+}
+
+.links-collapsed {
+  display: none;
+}
+
+.menu-button {
+  display: none;
+  cursor: pointer;
+}
+
 @keyframes pulse {
   0% {
     opacity: 1;
@@ -241,10 +272,34 @@ a.active::after {
 }
 
 @media only screen and (max-width: 1024px) {
-    #searchBar {
-        width: 100% !important;
-        flex-wrap: wrap;
-    }
+  .menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 30px;
+  }
+
+  .links {
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 16px;
+    border-radius: 0 0 10px 10px;
+    z-index: 999;
+    text-align: center;
+  }
+
+  .links-collapsed {
+    display: none;
+  }
+
+  .links a {
+    padding: 8px 0;
+  }   
 }
 
 </style>

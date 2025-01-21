@@ -7,7 +7,7 @@
   <v-app>
     <!-- Layout Principal -->
     <v-container>
-      <v-app-bar title="Profile Settings" dark app></v-app-bar>
+      <v-app-bar title="Profile Settings" dark app class="mt-0"></v-app-bar>
 
       <!-- Navegação Lateral -->
       <v-navigation-drawer app>
@@ -135,4 +135,5 @@ export default {
 .v-main {
   overflow-y: auto; /* Para permitir rolagem se necessário */
 }
+
 </style>
