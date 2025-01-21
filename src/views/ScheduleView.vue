@@ -86,7 +86,6 @@
     
 
   </v-main>
-  <h6>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit ipsam harum dolor aliquam at incidunt laborum enim officiis magnam commodi soluta voluptatum, aspernatur velit ducimus necessitatibus voluptas aperiam facere fuga?</h6>
 </v-app>
 
 <link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">

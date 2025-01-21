@@ -18,6 +18,7 @@ export const useTalksStore = defineStore("talks", {
                 talk.hour == hour && 
                 (filters.length === 0 || filters.every(filter => talk.filters.includes(filter)))), // verifica se todo o array 'filters' está no talk.filters
         getTalksByDayandHourLiked: (state) => (day, hour, likes) => state.talks.filter(talk => talk.day == day && talk.hour == hour && likes.includes(talk.id)),// Verifica se o ID da talk está no array 'likes'
+        getLikedTalks: (state) => (likes) => state.talks.filter(talk => likes.includes(talk.id)) // retorna as talks que estão no array likes
     },
     actions: {
         addTalk(title, speaker, summary, desc, filters, room, day, hour) {
