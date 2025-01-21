@@ -62,6 +62,17 @@ export default {
       ,">");
       tl.to(".afterAnimation",{opacity: 1, ease: "power2.out"}
       ,">");
+
+      gsap.from(".count", { 
+        innerText: 0, duration: 4, 
+        snap: {
+          innerText:1
+        },
+        scrollTrigger: {
+          trigger: ".count", // O elemento que aciona o início da animação
+          start: "top 80%", // Inicia quando o topo do elemento está a 80% da altura da tela
+        }
+      });
     }, main.value); // <- Scope!
   },
   beforeUnmount() {
@@ -78,8 +89,8 @@ export default {
     <header class="position-absolute">
       <Navbar />
     </header>
-    <v-main>
-      <v-container fluid class="w-100 mt-0 pt-0">
+    <v-main class="overflow-hidden">
+    <v-container fluid class="w-100 mt-0 pt-0">
       <v-row class="mt-0 mx-auto d-flex justify-space-around box-container">
         <!-- Imagem Esquerda -->
         <v-col class="left d-flex justify-end" cols="4">
@@ -103,6 +114,26 @@ export default {
           <img class="masterImg" :src="rightImg">
         </v-col>
       </v-row>
+    </v-container>
+
+    <div class="py-10 statsBar mb-12 d-flex justify-space-around align-center">
+      <div class="pa-3 d-flex flex-column align-center">
+        <h1 class="statsTitle mb-3">+<span class="count">1024</span></h1>
+        <h1 class="statsSubTitle mt-3">Attendees</h1>
+      </div>
+      <div class="pa-3 d-flex flex-column align-center">
+        <h1 class="statsTitle ">+<span class="count">100</span></h1>
+        <h1 class="statsSubTitle mt-6">Speakers</h1>
+      </div>
+      <div class="pa-3 d-flex flex-column align-center">
+        <h1 class="statsTitle mb-3">+<span class="count">56</span></h1>
+        <h1 class="statsSubTitle mt-3">Partners</h1>
+      </div>
+      <div class="pa-3 d-flex flex-column align-center">
+        <h1 class="statsTitle mb-3">+<span class="count">126</span></h1>
+        <h1 class="statsSubTitle mt-3">Forum Topics</h1>
+      </div>      
+    </div>
 
       <v-row class="body">
         <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
@@ -166,7 +197,6 @@ export default {
           <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
           <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
         </v-row>
-      </v-container>
     </v-main>
   </v-app>
 
@@ -175,6 +205,27 @@ export default {
 
 
 <style>
+.statsSubTitle{
+  color: var(--color-white);
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.statsTitle, .count{
+  color: var(--color-white);
+  font-size: 4rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.875rem; /* 46.875% */
+}
+
+.statsBar{
+  width: 100% !important;
+  margin-top: 40rem !important;
+  background-color: #26466D !important;
+}
 .mainTitles{
   padding-top: 6rem !important;
 }
@@ -186,9 +237,7 @@ html, body {
   padding: 0;
   overflow-x: hidden; /* Para evitar rolagem horizontal */
 }
-.intro{
-  margin-bottom: 50rem !important;
-}
+
 .masterImg{
   height: 75vh;
   width: 20rem;
