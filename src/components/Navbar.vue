@@ -319,11 +319,16 @@ a.active::after {
   text-align: center;
 }
 
+#navbar-small {
+  visibility: hidden;
+}
+
 @media only screen and (max-width: 1024px) {
   #navbar-large {
     display: none;
   }
   #navbar-small {
+    visibility: visible;
     position: fixed;
     top: 1rem;
     left: 50%;

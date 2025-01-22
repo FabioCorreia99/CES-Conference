@@ -13,6 +13,7 @@ import SpeakerProfileView from "@/views/SpeakerProfileView.vue";
 import ForumView from "@/views/ForumView.vue";
 import ForumTopicView from "@/views/ForumTopicView.vue";
 import ForumCreateView from "@/views/ForumCreateView.vue";
+import BuyTicketView from "@/views/BuyTicketView.vue";
 import { useUsersStore } from "@/stores/users";
 
 const router = createRouter({
@@ -103,6 +104,12 @@ const router = createRouter({
       component: AdminProfileView,
       props: true,
       meta: { requiresAuth: true, requiresAdmin: true }, // Proteção de rota para admin
+    },
+    {
+      path: "/buyTickets",
+      name: "buyTickets",
+      component: BuyTicketView,
+      meta: { requiresAuth: true },
     },
   ],
 });
