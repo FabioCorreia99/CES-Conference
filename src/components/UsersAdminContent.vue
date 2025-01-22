@@ -25,10 +25,11 @@
               @input="updateUserName(user.id, user.name)"
             ></v-text-field>
           </td>
+
           <td>
-            <v-btn icon color="red" @click="deleteUser(user.id)">
-              <TrashIcon class="delete-icon" />
-            </v-btn>
+            <span @click="deleteUser(user.id)" class="delete-icon">
+              <TrashIcon />
+            </span>
           </td>
         </tr>
       </tbody>
@@ -101,5 +102,7 @@ h2 {
 .v-table th {
   background-color: #f2f2f2;
   font-weight: bold;
+  font-size: 16px;
 }
+
 </style>

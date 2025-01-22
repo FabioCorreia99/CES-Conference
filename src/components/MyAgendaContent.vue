@@ -6,6 +6,7 @@
         <tr>
           <th>Title</th>
           <th>Speaker</th>
+          <th>Day</th>
           <th>Time</th>
           <th>Actions</th>
         </tr>
@@ -14,11 +15,12 @@
         <tr v-for="talk in likedTalks" :key="talk.id">
           <td>{{ talk.title }}</td>
           <td>{{ talk.speaker }}</td>
+          <td>{{ talk.day }}</td>
           <td>{{ talk.hour }}</td>
           <td>
-            <v-btn color="error" @click="removeFromAgenda(talk.id)">
-              Remove
-            </v-btn>
+            <span @click="removeFromAgenda(talk.id)" class="delete-icon">
+              <TrashIcon />
+            </span>
           </td>
         </tr>
       </tbody>
@@ -29,8 +31,12 @@
 <script>
 import { useTalksStore } from "@/stores/talks";
 import { useUsersStore } from "@/stores/users";
+import { TrashIcon } from "@heroicons/vue/24/solid";
 
 export default {
+  components: {
+    TrashIcon,
+  },
   setup() {
     const talksStore = useTalksStore();
     const usersStore = useUsersStore();
@@ -66,7 +72,9 @@ export default {
 th {
   text-align: left;
   padding: 10px;
-  background-color: #f4f4f4;
+  background-color: #f2f2f2;
+  font-weight: bold;
+  font-size: 16px;
 }
 
 td {
@@ -74,10 +82,10 @@ td {
   border-bottom: 1px solid #ddd;
 }
 
-.no-talks-message {
-  text-align: center;
-  font-style: italic;
+.delete-icon svg {
+  width: 24px;
+  height: 24px;
   color: #888;
-  margin-top: 20px;
+  cursor: pointer;
 }
 </style>
