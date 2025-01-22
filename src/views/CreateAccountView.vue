@@ -82,11 +82,9 @@
                   :handleClick="createAccount"
                 />
               </div>
+              <!-- Exibir mensagem de erro, se existir -->
               <p v-if="errorMessage" class="error-message">
                 {{ errorMessage }}
-              </p>
-              <p v-if="successMessage" class="success-message">
-                {{ successMessage }}
               </p>
             </form>
           </div>
@@ -296,12 +294,6 @@ export default {
 
 .error-message {
   color: red;
-  font-size: 0.9rem;
-  font-weight: bold;
-}
-
-.success-message {
-  color: green;
   font-size: 0.9rem;
   font-weight: bold;
 }
