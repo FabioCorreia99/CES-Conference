@@ -1,11 +1,11 @@
 <template>
-  <nav id="navbar">
+  <nav id="navbar-large">
     <RouterLink
       :to="{ name: 'home' }"
       id="LogoLink"
       :class="{ active: isCurrentRoute('home') }"
     >
-      <img src="../assets/media/Logo.svg" alt="CES logo" class="nav-logo" />
+      <img src="@/assets/media/Logo.svg" alt="CES logo" class="nav-logo" />
     </RouterLink>
     <div class="links">
       <RouterLink
@@ -33,23 +33,14 @@
         :class="{ active: isCurrentRoute('about') }"
         >About</RouterLink
       >
-      <div class="profile" v-if="this.user">
-        <v-avatar size="x-small" :image="avatar"></v-avatar>
+      <div class="profile" v-if="user">
+        
+        <v-avatar id="profileAvatar" size="x-small" :image="avatar" @click="goToProfile()" tabindex="7" aria-label="User Profile" role="button"></v-avatar>
 
-        <div
-          id="menu"
-          @mouseover="hoverColor = '#F2A714'"
-          @mouseleave="hoverColor = '#ffff'"
-          @click="goToProfile()"
-        >
-          <Bars3Icon :style="{ color: hoverColor }" />
-          <!-- <v-select
-                        id="profileDropdown"
-                        :items="['profile', 'logout']"
-                        variant="default"
-                    ></v-select> -->
-        </div>
+        <ArrowRightStartOnRectangleIcon @click="logout()" style="display: block;width: 25px; height: 25px;cursor: pointer;" tabindex="8" aria-label="Log out" role="button" />
+
       </div>
+      <!-- Se ainda não tiver feito login -->
       <RouterLink
         v-else
         :to="{ name: 'login' }"
@@ -59,26 +50,89 @@
       >
     </div>
 
-    <!-- <div id="menu" @click="toggleNAV()" @mouseover="hoverColor = '#F2A714'" @mouseleave="hoverColor = '#ffff'">
-            <Bars3Icon :style="{color: hoverColor}" />
-        </div> -->
   </nav>
+
+  <nav id="navbar-small">
+    <RouterLink
+      :to="{ name: 'home' }"
+      id="LogoLink"
+      :class="{ active: isCurrentRoute('home') }"
+    >
+      <img src="@/assets/media/Logo.svg" alt="CES logo" class="nav-logo" />
+    </RouterLink>
+
+    <div id="menu" @click="toggleNAV()">
+      <Bars3Icon :style="{color: hoverColor}" />
+    </div>
+
+  </nav>
+
+  <div id="overlay" v-show="isNavOpen" @click.self="toggleNAV()">
+        <div class="overlay-links">
+          <RouterLink
+            :to="{ name: 'schedule' }"
+            :class="{ active: isCurrentRoute('schedule') }"
+            >Schedule</RouterLink
+          >
+          <RouterLink
+            :to="{ name: 'speakers' }"
+            :class="{ active: isCurrentRoute('speakers') }"
+            >Speakers</RouterLink
+          >
+          <RouterLink
+            :to="{ name: 'forum' }"
+            :class="{ active: isCurrentRoute('forum') }"
+            >Forum</RouterLink
+          >
+          <RouterLink
+            :to="{ name: 'partners' }"
+            :class="{ active: isCurrentRoute('partners') }"
+            >Partners</RouterLink
+          >
+          <RouterLink
+            :to="{ name: 'about' }"
+            :class="{ active: isCurrentRoute('about') }"
+            >About</RouterLink
+          >
+          <div class="profile" v-if="user">
+            
+            <v-avatar id="profileAvatar" size="x-small" :image="avatar" @click="goToProfile()" tabindex="7" aria-label="User Profile" role="button"></v-avatar>
+
+            <ArrowRightStartOnRectangleIcon @click="logout()" style="display: block;width: 25px; height: 25px;cursor: pointer;" tabindex="8" aria-label="Log out" role="button" />
+
+          </div>
+
+          <!-- Se ainda não tiver feito login -->
+          <RouterLink
+            v-else
+            :to="{ name: 'login' }"
+            id="LoginLink"
+            :class="{ active: isCurrentRoute('login') }"
+            >Register</RouterLink
+          >
+
+      </div>
+    </div>
+
 </template>
 
 <script>
 import { useRoute } from "vue-router";
-import { Bars3Icon } from "@heroicons/vue/24/solid";
+import { Bars3Icon, ArrowRightStartOnRectangleIcon } from "@heroicons/vue/24/solid";
 import { useUsersStore } from "@/stores/users";
+import { computed } from "vue";
+import { gsap } from "gsap";
 
 export default {
   components: {
     Bars3Icon,
+    ArrowRightStartOnRectangleIcon,
   },
   data() {
     return {
-      isNavOpen: JSON.parse(sessionStorage.getItem("isNavOpen")) || true,
       hoverColor: "#ffff",
       avatar: this.user ? new URL(this.user.picture, import.meta.url).href : "",
+      isNavOpen: false,
     };
   },
   setup() {
@@ -86,8 +140,7 @@ export default {
     const isCurrentRoute = (name) => route.name === name;
 
     const userStore = useUsersStore();
-    const userID = userStore.currentUserId;
-    const user = userStore.getUserById(userID);
+    const user = computed(() => userStore.getUserById(userStore.currentUserId));
 
     return {
       isCurrentRoute,
@@ -97,18 +150,6 @@ export default {
   },
 
   methods: {
-    toggleNAV() {
-      this.isNavOpen = !this.isNavOpen;
-      sessionStorage.setItem("isNavOpen", JSON.stringify(this.isNavOpen));
-
-      const links = document.querySelector(".links");
-
-      if (this.isNavOpen) {
-        links.style.display = "flex";
-      } else {
-        links.style.display = "none";
-      }
-    },
     goToProfile() {
       if (this.isAdmin) {
         this.$router.push({
@@ -122,17 +163,40 @@ export default {
         });
       }
     },
-  },
-  mounted() {
-    document.querySelector(".links").style.display = this.isNavOpen
-      ? "flex"
-      : "none";
+    logout() {
+      const userStore = useUsersStore();
+      userStore.logout();
+    },
+    toggleNAV() {
+      const overlay = document.querySelector("#overlay");
+
+      if (!this.isNavOpen) {
+        this.isNavOpen = true;
+        // Slide up animation
+        gsap.fromTo(
+          overlay,
+          { y: "100%", opacity: 0 }, // Start at the bottom
+          { y: "0%", opacity: 1, duration: 0.5, ease: "power2.out" } // Slide into view
+        );
+      } else {
+        // Slide down animation
+        gsap.to(overlay, {
+          y: "100%",
+          opacity: 0,
+          duration: 0.5,
+          ease: "power2.in",
+          onComplete: () => {
+            this.isNavOpen = false; // Close after animation completes
+          },
+        });
+      }
+    }
   },
 };
 </script>
 
 <style scoped>
-#navbar {
+#navbar-large {
   position: fixed;
   display: flex;
   justify-content: center;
@@ -155,7 +219,7 @@ export default {
 }
 
 #menu {
-  display: flex;
+  display: block;
   align-items: center;
   justify-content: center;
   width: 34px;
@@ -191,9 +255,8 @@ export default {
   align-items: center;
 }
 
-#profileDropdown {
-  position: absolute;
-  visibility: hidden;
+#profileAvatar {
+  cursor: pointer;
 }
 
 .links {
@@ -218,18 +281,7 @@ a::after {
 
 a:hover::after,
 a.active::after {
-  /* background-color: hsla(160, 100%, 37%, 0.2); */
   animation: pulse 1s infinite;
-}
-
-#navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 16px;
-  background-color: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(100px);
-  border-radius: 20px;
 }
 
 .nav-logo {
@@ -242,10 +294,6 @@ a.active::after {
   gap: 16px;
   flex-wrap: wrap;
   transition: all 0.3s ease-in-out;
-}
-
-.links-collapsed {
-  display: none;
 }
 
 .menu-button {
@@ -272,34 +320,47 @@ a.active::after {
 }
 
 @media only screen and (max-width: 1024px) {
-  .menu-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 30px;
-  }
-
-  .links {
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 16px;
-    border-radius: 0 0 10px 10px;
-    z-index: 999;
-    text-align: center;
-  }
-
-  .links-collapsed {
+  #navbar-large {
     display: none;
   }
+  #navbar-small {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    height: fit-content;
+    width: fit-content;
+    padding: 8px 16px 8px 16px;
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(100px);
+    border-radius: 20px;
+    z-index: 9999;
+  }
+  #overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95);
+    transform: translateY(100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
 
-  .links a {
-    padding: 8px 0;
-  }   
+  .overlay-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem; /* Spacing between links */
+  }
+
 }
 
 </style>
