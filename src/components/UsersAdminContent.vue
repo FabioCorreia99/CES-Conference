@@ -81,9 +81,10 @@ h2 {
   color: #26466d;
 }
 
-.delete-icon {
+.delete-icon svg{
   width: 24px;
   height: 24px;
+  color: #888;
   cursor: pointer;
 }
 
