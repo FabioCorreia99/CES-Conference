@@ -1,15 +1,83 @@
 <template>
-    <div>
-        My agenda
-    </div>
+  <div>
+    <h3>Personal Agenda</h3>
+    <v-table class="my-agenda-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Speaker</th>
+          <th>Time</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="talk in likedTalks" :key="talk.id">
+          <td>{{ talk.title }}</td>
+          <td>{{ talk.speaker }}</td>
+          <td>{{ talk.hour }}</td>
+          <td>
+            <v-btn color="error" @click="removeFromAgenda(talk.id)">
+              Remove
+            </v-btn>
+          </td>
+        </tr>
+      </tbody>
+    </v-table>
+  </div>
 </template>
 
 <script>
-    export default {
+import { useTalksStore } from "@/stores/talks";
+import { useUsersStore } from "@/stores/users";
 
-    }
+export default {
+  setup() {
+    const talksStore = useTalksStore();
+    const usersStore = useUsersStore();
+
+    const userLogged = usersStore.getUserLogged;
+    const likedTalksIds = userLogged?.likedTalks || [];
+    const likedTalks = talksStore.getLikedTalks(likedTalksIds);
+
+    console.log("User logged:", userLogged);
+    console.log("Liked Talks IDs:", likedTalksIds);
+    console.log("Liked Talks:", likedTalks);
+
+    // Remove uma talk dos favoritos
+    const removeFromAgenda = (id) => {
+      usersStore.removeLikedTalk(id);
+    };
+
+    return {
+      likedTalks,
+      removeFromAgenda,
+    };
+  },
+};
 </script>
 
 <style scoped>
+.my-agenda-table {
+  width: 100%;
+  margin-top: 20px;
+  border: 1px solid #ddd;
+}
 
+th {
+  text-align: left;
+  padding: 10px;
+  background-color: #f4f4f4;
+}
+
+td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.no-talks-message {
+  text-align: center;
+  font-style: italic;
+  color: #888;
+  margin-top: 20px;
+}
 </style>
