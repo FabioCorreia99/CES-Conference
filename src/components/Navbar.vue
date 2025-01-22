@@ -34,7 +34,7 @@
         >About</RouterLink
       >
       <div class="profile" v-if="user">
-        
+
         <v-avatar id="profileAvatar" size="x-small" :image="avatar" @click="goToProfile()" tabindex="7" aria-label="User Profile" role="button"></v-avatar>
 
         <ArrowRightStartOnRectangleIcon @click="logout()" style="display: block;width: 25px; height: 25px;cursor: pointer;" tabindex="8" aria-label="Log out" role="button" />
@@ -95,7 +95,7 @@
             >About</RouterLink
           >
           <div class="profile" v-if="user">
-            
+
             <v-avatar id="profileAvatar" size="x-small" :image="avatar" @click="goToProfile()" tabindex="7" aria-label="User Profile" role="button"></v-avatar>
 
             <ArrowRightStartOnRectangleIcon @click="logout()" style="display: block;width: 25px; height: 25px;cursor: pointer;" tabindex="8" aria-label="Log out" role="button" />
@@ -166,6 +166,7 @@ export default {
     logout() {
       const userStore = useUsersStore();
       userStore.logout();
+      this.$router.push({ name: 'home' }); // Redireciona para a Home após logout
     },
     toggleNAV() {
       const overlay = document.querySelector("#overlay");
