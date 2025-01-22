@@ -7,7 +7,7 @@
   <v-app>
     <!-- Layout Principal -->
     <v-container>
-      <v-app-bar title="Profile Settings" dark app></v-app-bar>
+      <v-app-bar title="Admin Settings" dark app class="mt-0"></v-app-bar>
 
       <!-- Navegação Lateral -->
       <v-navigation-drawer app>
@@ -15,25 +15,21 @@
           <v-list-item
             title="Users"
             class="nav-item"
-            :class="{ 'active-item': currentContent === 'Users' }"
             @click="currentContent = 'Users'"
           ></v-list-item>
           <v-list-item
             title="Partners"
             class="nav-item"
-            :class="{ 'active-item': currentContent === 'Partners' }"
             @click="currentContent = 'Partners'"
           ></v-list-item>
           <v-list-item
             title="Forum Topic"
             class="nav-item"
-            :class="{ 'active-item': currentContent === 'Forum Topic' }"
             @click="currentContent = 'Forum Topic'"
           ></v-list-item>
           <v-list-item
             title="Talks"
             class="nav-item"
-            :class="{ 'active-item': currentContent === 'Talks' }"
             @click="currentContent = 'Talks'"
           ></v-list-item>
         </v-list>
@@ -42,8 +38,10 @@
           <v-btn block color="error" @click="logoutUser"> Logout </v-btn>
         </div>
       </v-navigation-drawer>
+
       <v-main class="admin-content">
-        <UsersAdminContent v-if="currentContent === 'Users'" />
+        <UsersAdminContent v-if="currentContent === 'Users'" :users="users" />
+
         <PartnersAdminContent v-if="currentContent === 'Partners'" />
         <ForumAdminContent v-if="currentContent === 'Forum Topic'" />
         <TalksAdminContent v-if="currentContent === 'Talks'" />
@@ -73,6 +71,11 @@ export default {
       store: useUsersStore(),
     };
   },
+  computed: {
+    users() {
+      return this.store.users || []; // Verifica se existe a propriedade users
+    },
+  },
   props: {
     adminId: {
       type: String,
@@ -85,7 +88,6 @@ export default {
       this.$router.push("/login");
     },
   },
-  mounted() {},
 };
 </script>
 
@@ -93,17 +95,14 @@ export default {
 .logout-container {
   position: absolute;
   bottom: 20px;
+  left: 0;
   width: 100%;
   padding: 0 16px;
+  text-align: center;
 }
 
 .admin-content {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 0 20px;
-  padding: 20px;
-  margin-top: 100px;
+  margin-top: 30px;
 }
 
 .v-main {

@@ -123,17 +123,15 @@ export default {
 .logout-container {
   position: absolute;
   bottom: 20px;
+  left: 0;
   width: 100%;
   padding: 0 16px;
+  text-align: center;
 }
 
 .profile-content {
-  padding: 20px;
-  margin-top: 100px;
+  margin-top: 30px;
 }
 
-.v-main {
-  overflow-y: auto; /* Para permitir rolagem se necessário */
-}
 
 </style>
