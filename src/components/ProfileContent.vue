@@ -13,7 +13,6 @@
         />
       </v-avatar>
       <div class="profile-buttons">
-        <!-- Botão Customizado -->
         <BlueBtnToOrange
           :handleClick="triggerFileUpload"
           :value="'change picture'"
@@ -36,6 +35,8 @@
       v-model="profile.name"
       outlined
       class="profile-input"
+      rounded="lg"
+      variant="solo"
     ></v-text-field>
 
     <h3 class="mb-4">About me</h3>
@@ -44,6 +45,8 @@
       outlined
       rows="4"
       class="profile-textarea"
+      rounded="lg"
+      variant="solo"
     ></v-textarea>
 
     <!-- Botão Salvar -->

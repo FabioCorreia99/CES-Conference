@@ -6,6 +6,8 @@
       v-model="email"
       outlined
       class="settings-input"
+      rounded="lg"
+      variant="solo"
     ></v-text-field>
 
     <!-- Campo de Password -->
@@ -17,6 +19,8 @@
         outlined
         type="password"
         class="settings-input"
+        rounded="lg"
+        variant="solo"
       ></v-text-field>
       <v-text-field
         v-model="newPassword"
@@ -24,6 +28,8 @@
         outlined
         type="password"
         class="settings-input"
+        rounded="lg"
+        variant="solo"
       ></v-text-field>
     </div>
 

@@ -10,7 +10,7 @@
       <v-app-bar title="Profile Settings" dark app class="mt-0"></v-app-bar>
 
       <!-- Navegação Lateral -->
-      <v-navigation-drawer app>
+      <v-navigation-drawer app width="180">
         <v-list>
           <v-list-item
             title="Profile"
@@ -35,7 +35,7 @@
         </v-list>
 
         <div class="logout-container">
-          <v-btn block color="error" @click="logoutUser"> Logout </v-btn>
+          <RedBtnToWhite :handleClick="logoutUser" :value="'logout'" />
         </div>
       </v-navigation-drawer>
 
@@ -63,6 +63,7 @@
 
 <script>
 import Navbar from "@/components/Navbar.vue";
+import RedBtnToWhite from "@/components/RedBtnToWhite.vue";
 import ProfileContent from "@/components/ProfileContent.vue";
 import MyAgendaContent from "@/components/MyAgendaContent.vue";
 import MyTicketContent from "@/components/MyTicketContent.vue";
@@ -72,6 +73,7 @@ import { useUsersStore } from "@/stores/users";
 export default {
   components: {
     Navbar,
+    RedBtnToWhite,
     ProfileContent,
     MyAgendaContent,
     MyTicketContent,
@@ -123,15 +125,6 @@ export default {
 .logout-container {
   position: absolute;
   bottom: 20px;
-  left: 0;
-  width: 100%;
   padding: 0 16px;
-  text-align: center;
 }
-
-.profile-content {
-  margin-top: 30px;
-}
-
-
 </style>

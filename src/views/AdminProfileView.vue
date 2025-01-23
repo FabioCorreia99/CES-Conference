@@ -10,7 +10,7 @@
       <v-app-bar title="Admin Settings" dark app class="mt-0"></v-app-bar>
 
       <!-- Navegação Lateral -->
-      <v-navigation-drawer app>
+      <v-navigation-drawer app width="180">
         <v-list>
           <v-list-item
             title="Users"
@@ -35,7 +35,7 @@
         </v-list>
 
         <div class="logout-container">
-          <v-btn block color="error" @click="logoutUser"> Logout </v-btn>
+          <RedBtnToWhite :handleClick="logoutUser" :value="'logout'" />
         </div>
       </v-navigation-drawer>
 
@@ -52,6 +52,7 @@
 
 <script>
 import Navbar from "@/components/Navbar.vue";
+import RedBtnToWhite from "@/components/RedBtnToWhite.vue";
 import UsersAdminContent from "@/components/UsersAdminContent.vue";
 import PartnersAdminContent from "@/components/PartnersAdminContent.vue";
 import ForumAdminContent from "@/components/ForumAdminContent.vue";
@@ -60,6 +61,7 @@ import { useUsersStore } from "@/stores/users";
 export default {
   components: {
     Navbar,
+    RedBtnToWhite,
     UsersAdminContent,
     PartnersAdminContent,
     ForumAdminContent,
@@ -95,17 +97,6 @@ export default {
 .logout-container {
   position: absolute;
   bottom: 20px;
-  left: 0;
-  width: 100%;
   padding: 0 16px;
-  text-align: center;
-}
-
-.admin-content {
-  margin-top: 30px;
-}
-
-.v-main {
-  overflow-y: auto;
 }
 </style>
