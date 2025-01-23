@@ -16,9 +16,7 @@ import ForumCreateView from "@/views/ForumCreateView.vue";
 import BuyTicketView from "@/views/BuyTicketView.vue";
 import { useUsersStore } from "@/stores/users";
 
-const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
+const routes =  [
     {
       path: "/",
       name: "home",
@@ -111,7 +109,19 @@ const router = createRouter({
       component: BuyTicketView,
       meta: { requiresAuth: true },
     },
-  ],
+];
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    // Se houver uma posição salva, retorna para ela (ex.: ao usar o botão "voltar")
+    if (savedPosition) {
+      return savedPosition;
+    }
+    // Caso contrário, rola para o topo
+    return { top: 0 };
+  },
 });
 
 router.beforeEach((to, from, next) => {
