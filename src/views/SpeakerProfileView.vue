@@ -4,7 +4,7 @@
         <Navbar />
     </header>
     
-    <v-main>
+    <v-main class="overflow-hidden">
         <v-row class="bg-intro mx-0 pt-10 w-100">
             <v-col class="mt-16" cols="8">
                 <div class="">
