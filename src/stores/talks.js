@@ -12,17 +12,17 @@ export const useTalksStore = defineStore("talks", {
         getTalksByFilter: (state) => (filter) => state.talks.filter(talk => talk.filters.includes(filter)),
         getTalksByDay: (state) => (day) =>  state.talks.filter(talk => talk.day === day),
         getTalksByDayandHour: (state) => (day,hour) =>  state.talks.filter(talk => talk.day == day && talk.hour == hour),
-        getTalksByDayandHourFilted: (state) => (day, hour, filters) => 
-            state.talks.filter(talk => 
+        getTalksByDayandHourFilted: (state) => (day, hour, filters) =>
+            state.talks.filter(talk =>
                 talk.day == day &&
-                talk.hour == hour && 
+                talk.hour == hour &&
                 (filters.length === 0 || filters.every(filter => talk.filters.includes(filter)))), // verifica se todo o array 'filters' está no talk.filters
         getTalksByDayandHourLiked: (state) => (day, hour, likes) => state.talks.filter(talk => talk.day == day && talk.hour == hour && likes.includes(talk.id)),// Verifica se o ID da talk está no array 'likes'
         getLikedTalks: (state) => (likes) => state.talks.filter(talk => likes.includes(talk.id)) // retorna as talks que estão no array likes
     },
     actions: {
         addTalk(title, speaker, summary, desc, filters, room, day, hour) {
-            
+
             const newTalk ={
                 id: this.talks.length > 0 ? this.talks[this.talks.length - 1].id + 1 :  0 ,
                 title,
@@ -33,201 +33,214 @@ export const useTalksStore = defineStore("talks", {
                 room,
                 day,
                 hour,
-            }        
+            }
             this.talks.push(newTalk);
         },
-        removeTalk(talk) {
-            const talkIndex = this.talks.indexOf(t => t.id === talk.id);
+        removeTalk(id) {
+            const talkIndex = this.talks.findIndex((t) => t.id === id);
 
             if (talkIndex === -1) {
-                console.log("Talk not found!");
-                return;
+              console.log("Talk not found!");
+              return;
             }
-            
+
             this.talks.splice(talkIndex, 1);
-        },
+          },
+
+          updateTalk(updatedTalk) {
+            const talkIndex = this.talks.findIndex(
+              (talk) => talk.id === updatedTalk.id
+            );
+
+            if (talkIndex === -1) {
+              console.error(`Talk with ID ${updatedTalk.id} not found for update!`);
+              return;
+            }
+
+            this.talks[talkIndex] = { ...this.talks[talkIndex], ...updatedTalk };
+          },
         init(){
             if (this.talks.length == 0) {
                 const scheduleData = [
-                    { 
-                        title: "The Future of AI in Everyday Life", 
-                        speaker: 1, 
-                        summary: "Explore how AI is reshaping our daily interactions, bringing automation and intelligence to a variety of domains, including healthcare, transportation, and education.", 
-                        desc: "Discover the <b>latest</b> advancements in <b>AI</b>, exploring its challenges, future implications, and transformative power across industries. \n\nLearn how businesses are integrating <b>AI</b> into their workflows to enhance productivity and create innovative solutions. \n\nFinally, examine the ethical considerations and governance required to build trust in <b>AI</b> technologies.", 
-                        filters: ["AI", "Future", "Tech"], 
-                        room: "A101", 
-                        day: 7, 
-                        hour: "9:00" 
+                    {
+                        title: "The Future of AI in Everyday Life",
+                        speaker: 1,
+                        summary: "Explore how AI is reshaping our daily interactions, bringing automation and intelligence to a variety of domains, including healthcare, transportation, and education.",
+                        desc: "Discover the <b>latest</b> advancements in <b>AI</b>, exploring its challenges, future implications, and transformative power across industries. \n\nLearn how businesses are integrating <b>AI</b> into their workflows to enhance productivity and create innovative solutions. \n\nFinally, examine the ethical considerations and governance required to build trust in <b>AI</b> technologies.",
+                        filters: ["AI", "Future", "Tech"],
+                        room: "A101",
+                        day: 7,
+                        hour: "9:00"
                     },
-                    { 
-                        title: "Building Scalable Web Applications", 
-                        speaker: 2, 
-                        summary: "Learn the secrets of scalable web design, focusing on best practices, tools, and strategies for building robust and maintainable systems that meet high demand.", 
-                        desc: "Understand the <b>key</b> principles behind <b>scalable</b> systems, delving into architecture patterns like microservices and serverless. \n\nExplore real-world case studies of businesses scaling their web platforms to millions of users. \n\nFinally, gain insights into common pitfalls and strategies for maintaining performance under pressure.", 
-                        filters: ["Web", "Code"], 
-                        room: "B102", 
-                        day: 7, 
-                        hour: "10:00" 
+                    {
+                        title: "Building Scalable Web Applications",
+                        speaker: 2,
+                        summary: "Learn the secrets of scalable web design, focusing on best practices, tools, and strategies for building robust and maintainable systems that meet high demand.",
+                        desc: "Understand the <b>key</b> principles behind <b>scalable</b> systems, delving into architecture patterns like microservices and serverless. \n\nExplore real-world case studies of businesses scaling their web platforms to millions of users. \n\nFinally, gain insights into common pitfalls and strategies for maintaining performance under pressure.",
+                        filters: ["Web", "Code"],
+                        room: "B102",
+                        day: 7,
+                        hour: "10:00"
                     },
-                    { 
-                        title: "Effective Leadership in Tech Teams", 
-                        speaker: 3, 
-                        summary: "Leadership skills for thriving tech teams, focusing on motivation, communication, and creating a culture of innovation and accountability.", 
-                        desc: "Enhance your <b>leadership</b> skills to <b>motivate</b> and guide technical teams, fostering collaboration and trust. \n\nLearn how to manage conflicts effectively and adapt to the evolving needs of diverse team dynamics. \n\nFinally, explore frameworks for setting clear goals and aligning them with organizational priorities.", 
-                        filters: ["Leadership", "Tech", "Teams"], 
-                        room: "C103", 
-                        day: 7, 
-                        hour: "11:00" 
+                    {
+                        title: "Effective Leadership in Tech Teams",
+                        speaker: 3,
+                        summary: "Leadership skills for thriving tech teams, focusing on motivation, communication, and creating a culture of innovation and accountability.",
+                        desc: "Enhance your <b>leadership</b> skills to <b>motivate</b> and guide technical teams, fostering collaboration and trust. \n\nLearn how to manage conflicts effectively and adapt to the evolving needs of diverse team dynamics. \n\nFinally, explore frameworks for setting clear goals and aligning them with organizational priorities.",
+                        filters: ["Leadership", "Tech", "Teams"],
+                        room: "C103",
+                        day: 7,
+                        hour: "11:00"
                     },
-                    { 
-                        title: "Quantum Computing Demystified", 
-                        speaker: 4, 
-                        summary: "An introduction to quantum computing, simplifying complex principles and exploring its potential to revolutionize industries like cryptography and optimization.", 
-                        desc: "Get a <b>clear</b> understanding of <b>quantum</b> principles, from superposition to entanglement, in this engaging talk. \n\nExplore practical applications such as solving complex optimization problems and securing communication. \n\nLearn about the current state of quantum hardware and what lies ahead in its development.", 
-                        filters: ["Future", "Tech"], 
-                        room: "A104", 
-                        day: 7, 
-                        hour: "13:00" 
+                    {
+                        title: "Quantum Computing Demystified",
+                        speaker: 4,
+                        summary: "An introduction to quantum computing, simplifying complex principles and exploring its potential to revolutionize industries like cryptography and optimization.",
+                        desc: "Get a <b>clear</b> understanding of <b>quantum</b> principles, from superposition to entanglement, in this engaging talk. \n\nExplore practical applications such as solving complex optimization problems and securing communication. \n\nLearn about the current state of quantum hardware and what lies ahead in its development.",
+                        filters: ["Future", "Tech"],
+                        room: "A104",
+                        day: 7,
+                        hour: "13:00"
                     },
-                    { 
-                        title: "The Rise of Edge Computing", 
-                        speaker: 5, 
-                        summary: "Learn how edge computing complements cloud solutions by processing data closer to the source, enabling faster decision-making and reduced latency.", 
-                        desc: "Explore <b>innovative</b> use cases for <b>edge</b> computing in real-world scenarios, such as IoT, autonomous vehicles, and smart cities. \n\nUnderstand how edge computing enhances security and reliability in critical systems. \n\nFinally, discover trends and predictions for the future of edge technologies in a connected world.", 
-                        filters: ["Edge", "Cloud", "Tech"], 
-                        room: "B105", 
-                        day: 7, 
-                        hour: "14:00" 
+                    {
+                        title: "The Rise of Edge Computing",
+                        speaker: 5,
+                        summary: "Learn how edge computing complements cloud solutions by processing data closer to the source, enabling faster decision-making and reduced latency.",
+                        desc: "Explore <b>innovative</b> use cases for <b>edge</b> computing in real-world scenarios, such as IoT, autonomous vehicles, and smart cities. \n\nUnderstand how edge computing enhances security and reliability in critical systems. \n\nFinally, discover trends and predictions for the future of edge technologies in a connected world.",
+                        filters: ["Edge", "Cloud", "Tech"],
+                        room: "B105",
+                        day: 7,
+                        hour: "14:00"
                     },
-                    { 
-                        title: "Cybersecurity Trends for 2025", 
-                        speaker: 6, 
-                        summary: "Stay ahead of cybersecurity threats by understanding evolving tactics, technologies, and best practices for securing systems and data.", 
-                        desc: "Discover the <b>latest</b> in <b>cybersecurity</b> defense mechanisms, from AI-driven threat detection to zero-trust architectures. \n\nLearn from real-world breaches and understand the strategies attackers use to compromise systems. \n\nFinally, gain practical insights into strengthening organizational resilience against cyber threats.", 
-                        filters: ["Cyber", "Security", "Trends"], 
-                        room: "C106", 
-                        day: 7, 
-                        hour: "15:00" 
+                    {
+                        title: "Cybersecurity Trends for 2025",
+                        speaker: 6,
+                        summary: "Stay ahead of cybersecurity threats by understanding evolving tactics, technologies, and best practices for securing systems and data.",
+                        desc: "Discover the <b>latest</b> in <b>cybersecurity</b> defense mechanisms, from AI-driven threat detection to zero-trust architectures. \n\nLearn from real-world breaches and understand the strategies attackers use to compromise systems. \n\nFinally, gain practical insights into strengthening organizational resilience against cyber threats.",
+                        filters: ["Cyber", "Security", "Trends"],
+                        room: "C106",
+                        day: 7,
+                        hour: "15:00"
                     },
-                    { 
-                        title: "Building Resilient Systems", 
-                        speaker: 7, 
-                        summary: "Creating systems that can withstand challenges, ensuring uptime and reliability even in the face of unexpected disruptions.", 
-                        desc: "Learn <b>proven</b> techniques for building <b>resilient</b> systems in tech, focusing on redundancy, fault tolerance, and recovery mechanisms. \n\nExplore case studies showcasing successful implementations in diverse industries. \n\nFinally, understand the trade-offs and considerations when designing for resilience.", 
-                        filters: ["Systems", "Code"], 
-                        room: "A107", 
-                        day: 7, 
-                        hour: "16:00" 
+                    {
+                        title: "Building Resilient Systems",
+                        speaker: 7,
+                        summary: "Creating systems that can withstand challenges, ensuring uptime and reliability even in the face of unexpected disruptions.",
+                        desc: "Learn <b>proven</b> techniques for building <b>resilient</b> systems in tech, focusing on redundancy, fault tolerance, and recovery mechanisms. \n\nExplore case studies showcasing successful implementations in diverse industries. \n\nFinally, understand the trade-offs and considerations when designing for resilience.",
+                        filters: ["Systems", "Code"],
+                        room: "A107",
+                        day: 7,
+                        hour: "16:00"
                     },
-                    { 
-                        title: "Innovations in AR and VR", 
-                        speaker: 8, 
-                        summary: "How AR and VR are transforming industries, from entertainment and education to healthcare and real estate.", 
-                        desc: "Dive into the <b>transformative</b> power of <b>AR</b> and <b>VR</b> technologies, examining breakthroughs in hardware and software. \n\nUnderstand how these immersive experiences are being applied to solve real-world problems. \n\nFinally, gain insights into the challenges and opportunities of developing AR/VR solutions.", 
-                        filters: ["VR", "Future"], 
-                        room: "B108", 
-                        day: 7, 
-                        hour: "17:00" 
+                    {
+                        title: "Innovations in AR and VR",
+                        speaker: 8,
+                        summary: "How AR and VR are transforming industries, from entertainment and education to healthcare and real estate.",
+                        desc: "Dive into the <b>transformative</b> power of <b>AR</b> and <b>VR</b> technologies, examining breakthroughs in hardware and software. \n\nUnderstand how these immersive experiences are being applied to solve real-world problems. \n\nFinally, gain insights into the challenges and opportunities of developing AR/VR solutions.",
+                        filters: ["VR", "Future"],
+                        room: "B108",
+                        day: 7,
+                        hour: "17:00"
                     },
-                    { 
-                        title: "Mastering API Design", 
-                        speaker: 9, 
-                        summary: "Design APIs that developers love, focusing on usability, consistency, and adhering to modern standards.", 
-                        desc: "Understand <b>core</b> principles of <b>API</b> design and usability, from REST to GraphQL and beyond. \n\nExplore tools and frameworks that simplify API development and ensure scalability. \n\nFinally, learn about testing and documentation strategies to streamline developer onboarding.", 
-                        filters: ["API", "Design", "Code"], 
-                        room: "C109", 
-                        day: 7, 
-                        hour: "18:00" 
+                    {
+                        title: "Mastering API Design",
+                        speaker: 9,
+                        summary: "Design APIs that developers love, focusing on usability, consistency, and adhering to modern standards.",
+                        desc: "Understand <b>core</b> principles of <b>API</b> design and usability, from REST to GraphQL and beyond. \n\nExplore tools and frameworks that simplify API development and ensure scalability. \n\nFinally, learn about testing and documentation strategies to streamline developer onboarding.",
+                        filters: ["API", "Design", "Code"],
+                        room: "C109",
+                        day: 7,
+                        hour: "18:00"
                     },
-                    { 
-                        title: "The Ethics of Artificial Intelligence", 
-                        speaker: 10, 
-                        summary: "Discussing ethical dilemmas in AI, including bias, privacy, and accountability in automated decision-making.", 
-                        desc: "Examine <b>critical</b> ethical issues in the <b>development</b> of AI technologies, ensuring fairness and transparency. \n\nLearn about frameworks and guidelines for responsible AI use. \n\nFinally, discuss the societal impact and the role of governments and organizations in shaping ethical AI.", 
-                        filters: ["Ethics", "AI", "Tech"], 
-                        room: "A110", 
-                        day: 8, 
-                        hour: "9:00" 
+                    {
+                        title: "The Ethics of Artificial Intelligence",
+                        speaker: 10,
+                        summary: "Discussing ethical dilemmas in AI, including bias, privacy, and accountability in automated decision-making.",
+                        desc: "Examine <b>critical</b> ethical issues in the <b>development</b> of AI technologies, ensuring fairness and transparency. \n\nLearn about frameworks and guidelines for responsible AI use. \n\nFinally, discuss the societal impact and the role of governments and organizations in shaping ethical AI.",
+                        filters: ["Ethics", "AI", "Tech"],
+                        room: "A110",
+                        day: 8,
+                        hour: "9:00"
                     },
-                    { 
-                        title: "Future of Blockchain", 
-                        speaker: 11, 
-                        summary: "Explore how blockchain technology is being applied beyond cryptocurrencies in areas like supply chain, healthcare, and finance.", 
-                        desc: "Dive deep into <b>blockchain</b> applications revolutionizing industries beyond <b>cryptocurrency</b>. \n\nUnderstand its potential in streamlining supply chain processes and ensuring data integrity in healthcare. \n\nFinally, discover emerging trends and the future outlook for blockchain innovation.", 
-                        filters: [ "Future", "Tech"], 
-                        room: "B111", 
-                        day: 8, 
-                        hour: "10:00" 
+                    {
+                        title: "Future of Blockchain",
+                        speaker: 11,
+                        summary: "Explore how blockchain technology is being applied beyond cryptocurrencies in areas like supply chain, healthcare, and finance.",
+                        desc: "Dive deep into <b>blockchain</b> applications revolutionizing industries beyond <b>cryptocurrency</b>. \n\nUnderstand its potential in streamlining supply chain processes and ensuring data integrity in healthcare. \n\nFinally, discover emerging trends and the future outlook for blockchain innovation.",
+                        filters: [ "Future", "Tech"],
+                        room: "B111",
+                        day: 8,
+                        hour: "10:00"
                     },
-                    { 
-                        title: "Emerging Trends in Cloud", 
-                        speaker: 12, 
-                        summary: "An in-depth look at the future of cloud computing, focusing on serverless, multi-cloud, and green computing initiatives.", 
-                        desc: "Uncover the <b>latest</b> innovations in <b>cloud</b> technology, from multi-cloud strategies to energy-efficient architectures. \n\nLearn about the impact of serverless computing and how it enables scalability and cost efficiency. \n\nFinally, understand how green computing initiatives are shaping the cloud's future.", 
-                        filters: ["Cloud", "Trends", "Tech"], 
-                        room: "A112", 
-                        day: 8, 
-                        hour: "11:00" 
+                    {
+                        title: "Emerging Trends in Cloud",
+                        speaker: 12,
+                        summary: "An in-depth look at the future of cloud computing, focusing on serverless, multi-cloud, and green computing initiatives.",
+                        desc: "Uncover the <b>latest</b> innovations in <b>cloud</b> technology, from multi-cloud strategies to energy-efficient architectures. \n\nLearn about the impact of serverless computing and how it enables scalability and cost efficiency. \n\nFinally, understand how green computing initiatives are shaping the cloud's future.",
+                        filters: ["Cloud", "Trends", "Tech"],
+                        room: "A112",
+                        day: 8,
+                        hour: "11:00"
                     },
-                    { 
-                        title: "Revolutionizing Healthcare with IoT", 
-                        speaker: 13, 
-                        summary: "Learn how IoT devices are transforming the healthcare industry by improving patient outcomes and operational efficiency.", 
-                        desc: "Explore real-world use cases of <b>IoT</b> in <b>healthcare</b>, from remote monitoring devices to predictive analytics. \n\nUnderstand how these technologies enhance patient outcomes while optimizing hospital operations. \n\nFinally, examine the challenges and solutions in deploying IoT at scale in healthcare settings.", 
-                        filters: ["IoT", "Innovation"], 
-                        room: "C113", 
-                        day: 8, 
-                        hour: "13:00" 
+                    {
+                        title: "Revolutionizing Healthcare with IoT",
+                        speaker: 13,
+                        summary: "Learn how IoT devices are transforming the healthcare industry by improving patient outcomes and operational efficiency.",
+                        desc: "Explore real-world use cases of <b>IoT</b> in <b>healthcare</b>, from remote monitoring devices to predictive analytics. \n\nUnderstand how these technologies enhance patient outcomes while optimizing hospital operations. \n\nFinally, examine the challenges and solutions in deploying IoT at scale in healthcare settings.",
+                        filters: ["IoT", "Innovation"],
+                        room: "C113",
+                        day: 8,
+                        hour: "13:00"
                     },
-                    { 
-                        title: "The Art of Code Review", 
-                        speaker: 14, 
-                        summary: "Master the practice of code review, improving collaboration, code quality, and team dynamics in software projects.", 
-                        desc: "Learn the <b>best</b> practices for conducting <b>effective</b> code reviews that foster learning and collaboration. \n\nExplore tools and techniques that streamline the review process and enhance code quality. \n\nFinally, understand the cultural aspects of code reviews and how to integrate them into your team workflows.", 
-                        filters: ["Code", "Review", "Quality"], 
-                        room: "B114", 
-                        day: 8, 
-                        hour: "14:00" 
+                    {
+                        title: "The Art of Code Review",
+                        speaker: 14,
+                        summary: "Master the practice of code review, improving collaboration, code quality, and team dynamics in software projects.",
+                        desc: "Learn the <b>best</b> practices for conducting <b>effective</b> code reviews that foster learning and collaboration. \n\nExplore tools and techniques that streamline the review process and enhance code quality. \n\nFinally, understand the cultural aspects of code reviews and how to integrate them into your team workflows.",
+                        filters: ["Code", "Review", "Quality"],
+                        room: "B114",
+                        day: 8,
+                        hour: "14:00"
                     },
-                    { 
-                        title: "DevOps for Software Development", 
-                        speaker: 15, 
-                        summary: "Discover how DevOps practices streamline software development and improve collaboration between teams.", 
-                        desc: "Understand the <b>principles</b> of <b>DevOps</b> and its role in modern software development. \n\nExplore tools and techniques that enable continuous integration and deployment. \n\nFinally, learn how DevOps fosters collaboration between development and operations teams to deliver value faster.", 
-                        filters: ["Software"], 
-                        room: "A115", 
-                        day: 8, 
-                        hour: "15:00" 
+                    {
+                        title: "DevOps for Software Development",
+                        speaker: 15,
+                        summary: "Discover how DevOps practices streamline software development and improve collaboration between teams.",
+                        desc: "Understand the <b>principles</b> of <b>DevOps</b> and its role in modern software development. \n\nExplore tools and techniques that enable continuous integration and deployment. \n\nFinally, learn how DevOps fosters collaboration between development and operations teams to deliver value faster.",
+                        filters: ["Software"],
+                        room: "A115",
+                        day: 8,
+                        hour: "15:00"
                     },
-                    { 
-                        title: "Harnessing Big Data for Business", 
-                        speaker: 16, 
-                        summary: "Learn how big data analytics can transform decision-making and drive innovation in businesses across industries.", 
-                        desc: "Dive into the <b>power</b> of <b>big data</b> analytics to uncover patterns, trends, and actionable insights. \n\nExplore tools and platforms that make big data processing efficient and scalable. \n\nFinally, discover how businesses leverage these insights to stay competitive and innovate.", 
-                        filters: ["Analytics", "Business"], 
-                        room: "C116", 
-                        day: 8, 
-                        hour: "16:00" 
+                    {
+                        title: "Harnessing Big Data for Business",
+                        speaker: 16,
+                        summary: "Learn how big data analytics can transform decision-making and drive innovation in businesses across industries.",
+                        desc: "Dive into the <b>power</b> of <b>big data</b> analytics to uncover patterns, trends, and actionable insights. \n\nExplore tools and platforms that make big data processing efficient and scalable. \n\nFinally, discover how businesses leverage these insights to stay competitive and innovate.",
+                        filters: ["Analytics", "Business"],
+                        room: "C116",
+                        day: 8,
+                        hour: "16:00"
                     },
-                    { 
-                        title: "The Intersection of AI and Ethics", 
-                        speaker: 17, 
-                        summary: "Explore the ethical implications of AI technologies, focusing on fairness, accountability, and transparency.", 
-                        desc: "Examine <b>key</b> ethical issues surrounding <b>AI</b>, including bias, privacy, and decision-making accountability. \n\nLearn about frameworks and practices to ensure ethical AI deployment. \n\nFinally, discuss the societal impact and strategies for aligning AI innovations with human values.", 
-                        filters: ["AI", "Ethics", "Innovation"], 
-                        room: "B117", 
-                        day: 8, 
-                        hour: "17:00" 
+                    {
+                        title: "The Intersection of AI and Ethics",
+                        speaker: 17,
+                        summary: "Explore the ethical implications of AI technologies, focusing on fairness, accountability, and transparency.",
+                        desc: "Examine <b>key</b> ethical issues surrounding <b>AI</b>, including bias, privacy, and decision-making accountability. \n\nLearn about frameworks and practices to ensure ethical AI deployment. \n\nFinally, discuss the societal impact and strategies for aligning AI innovations with human values.",
+                        filters: ["AI", "Ethics", "Innovation"],
+                        room: "B117",
+                        day: 8,
+                        hour: "17:00"
                     },
-                    { 
-                        title: "The Path to Sustainable Technology", 
-                        speaker: 18, 
-                        summary: "Discover how technology can contribute to sustainability, focusing on green computing, energy efficiency, and ethical design.", 
-                        desc: "Explore the <b>role</b> of <b>technology</b> in driving sustainability across industries. \n\nLearn about green computing initiatives and energy-efficient designs. \n\nFinally, understand the importance of ethical considerations in creating sustainable tech solutions.", 
-                        filters: ["Sustainability", "Tech"], 
-                        room: "A118", 
-                        day: 8, 
-                        hour: "18:00" 
+                    {
+                        title: "The Path to Sustainable Technology",
+                        speaker: 18,
+                        summary: "Discover how technology can contribute to sustainability, focusing on green computing, energy efficiency, and ethical design.",
+                        desc: "Explore the <b>role</b> of <b>technology</b> in driving sustainability across industries. \n\nLearn about green computing initiatives and energy-efficient designs. \n\nFinally, understand the importance of ethical considerations in creating sustainable tech solutions.",
+                        filters: ["Sustainability", "Tech"],
+                        room: "A118",
+                        day: 8,
+                        hour: "18:00"
                     },
                     {
                         title: "Revolutionary AI in Healthcare",
@@ -612,12 +625,12 @@ export const useTalksStore = defineStore("talks", {
                 ];
 
                 this.filters = ["AI", "Accessibility", "Animation", "CSS", "Cloud", "Code", "Data", "Design", "Ethics", "Frontend", "Future", "HTML", "Innovation", "IoT", "JavaScript", "Leadership", "Programming", "Science", "Security", "State", "Sustainability", "Tech", "Vue", "Web"]
-                
+
                 // Adicionar as talks ao array
                 scheduleData.forEach(talk => {
                     this.addTalk(talk.title, talk.speaker, talk.summary, talk.desc, talk.filters, talk.room, talk.day, talk.hour);
                 });
-            }   
+            }
         },
     }
 })
