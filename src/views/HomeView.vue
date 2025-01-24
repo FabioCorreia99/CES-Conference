@@ -37,21 +37,26 @@ export default {
           name:"John David",
           text: "“Amazing event with great insights into AI and IoT! I learned so much and connected with incredible people.”",
           picture: new URL("../assets/media/speakers/BillGates.jpg", import.meta.url).href,
+          stars: 5,
         },
         {
           name:"Emily Carter",
           text: "“Loved the startup fair and meeting innovative founders.”",
           picture: new URL("../assets/media/speakers/Emma Brown.jpg", import.meta.url).href,
+          stars: 5,
+
         },
         {
           name:"Michael Johnson",
           text: "“The workshops were very informative and inspiring. The opportunity to network with such a diverse group of people is unmatched.”",
           picture: new URL("../assets/media/speakers/James Turner.png", import.meta.url).href,
+          stars: 4,
         },
         {
           name:"Sophia Lee",
           text: "“Great mix of panels and exhibits, highly recommend! I look forward to attending again.”",
           picture: new URL("../assets/media/speakers/Grace Hall.jpg", import.meta.url).href,
+          stars: 5,
         }     
       ]
     }
@@ -109,7 +114,7 @@ export default {
         },
         scrollTrigger: {
           trigger: ".count", // O elemento que aciona o início da animação
-          start: "top 80%", // Inicia quando o topo do elemento está a 80% da altura da tela
+          start: "top 80%",
         }
       });
 
@@ -123,9 +128,9 @@ export default {
           opacity: 0,
           scrollTrigger: {
             trigger: element, // Cada elemento será seu próprio trigger
-            start: "top 75%", // Ajuste o início conforme necessário
-            markers: true, // Mostra os marcadores para depuração
-            toggleActions: "play reverse play reverse", // Reproduz e reverte conforme a rolagem
+            start: "top 75%", 
+            markers: true,
+            toggleActions: "play reverse play reverse", // repete a animação
           },
         });
       });
@@ -144,7 +149,6 @@ export default {
           pin: true,// foca o scroll na animação
           scrub: 1,// associa a minha animação ao scroll
           snap: 1 / (sections.length - 1),
-          // base vertical scrolling on how wide the container is so it feels more natural.
           markers:true,
           end: () => "+=" + (slidesContainer.scrollWidth - innerWidth),
       }
@@ -192,6 +196,7 @@ export default {
       </v-row>
     </v-container>
 
+    <!-- Secção de Stats-->
     <div class="py-10 statsBar mb-12 d-flex justify-space-around align-center textWhite">
       <div class="pa-3 d-flex flex-column align-center">
         <h1 class="statsTitle mb-3">+<span class="count">1024</span></h1>
@@ -211,6 +216,7 @@ export default {
       </div>      
     </div>
 
+    <!-- Apresentação do Schedule-->
     <v-container  fluid class="scheduleSection">
       <h1 class="textDarkBlue mx-auto text-center scheduleTitle lft">Schedule</h1>
       <v-row class="my-16 ">
@@ -227,9 +233,10 @@ export default {
       </v-row>
     </v-container>
 
+    <!-- Apresentação dos Speakers -->
     <div class="w-100 SPcontainer textDarkBlue">
       <div class="w-100 speakerContainer d-flex justify-start mt-0">
-        <h1 class="panel h-50 speakerTitle speakerMasterTitle">Meet the visionaries shaping the future of technology.</h1>
+        <h1 class="panel h-100 speakerTitle speakerMasterTitle">Meet the visionaries shaping the future of technology.</h1>
         <div class="panel w-100 my-0 mx-12" v-for="sp in speakersStore.getFirstTenSpeakers">
           <SpeakersCard 
           :id="sp.id" 
@@ -254,8 +261,10 @@ export default {
             <h1 class="textDarkBlue feedText">{{ feedback.text }}</h1>
             <div class="d-flex flex-column justitfy-center align-center">
               <v-avatar :image="feedback.picture" size="80"></v-avatar>
-              
-
+              <div  class="d-flex justify-center my-2">
+                <v-icon v-for="s in feedback.stars" :key="s" icon="mdi-star" color="yellow" size="small"></v-icon>
+              </div>
+              <h3 class="textDarkBlue feedName">{{ feedback.name }}</h3>
             </div>
           </div>
         </v-sheet>
@@ -273,7 +282,14 @@ export default {
 
 
 <style>
-.feddTitle{
+.feedName{
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.feedTitle{
   font-size: 2.25rem;
   font-style: normal;
   font-weight: 400;
@@ -317,8 +333,9 @@ export default {
   text-align: center;
 }
 .speakerMasterTitle{
-  height: 9rem !important;
-  width: 50%;
+  padding-top: 7rem !important;
+  height: 100% !important;
+  width: 100% !important;
   flex: 0 0 100%; /* Garante que o tamanho não seja comprimido */
 }
 .SPcontainer, .scheduleSection, .opinionSection{
