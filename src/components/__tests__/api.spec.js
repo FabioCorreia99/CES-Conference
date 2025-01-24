@@ -24,7 +24,7 @@ describe('DummyJSON API', () => {
     expect(data.users).toBeInstanceOf(Array);
     expect(data.users.length).toBeLessThanOrEqual(limit);
 
-    // Verifica um campo específico em um dos usuários
+    // Verifica um campo específico num dos utilizadores
     const user = data.users[0];
     expect(user).toHaveProperty('id');
     expect(user).toHaveProperty('firstName');

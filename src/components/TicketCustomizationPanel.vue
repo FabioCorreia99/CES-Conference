@@ -1,22 +1,28 @@
 <template>
-
+    <div>
         <div class="options">
 
-            <input type="checkbox" id="displayLogo" value="true" v-model="hasLogo" class="mr-1" @change="updateTicket('hasLogo', hasLogo)"/>
-            <label for="displayLogo" class="mr-2 labelText">Display CES logo</label>
+            <div class="logoWrapper">
+                <input type="checkbox" id="displayLogo" value="true" v-model="hasLogo" class="mr-1" @change="updateTicket('hasLogo', hasLogo)"/>
+                <label for="displayLogo" class="mr-2 ">Display CES logo</label>
+            </div>
 
-            <input type="checkbox" id="displayName" value='true' v-model="displayName" class="mr-1" @change="updateTicket('name', displayName)"/>
-            <label for="displayName" class="mr-2 labelText">Display name</label>
+            <div class="nameWrapper">
+                <input type="checkbox" id="displayName" value='true' v-model="displayName" class="mr-1" @change="updateTicket('name', displayName)"/>
+                <label for="displayName" class="mr-2 ">Display name</label>
+            </div>
 
-            <input type="checkbox" id="displayOccupation" value="true" v-model="displayOccupation" class="mr-1" @change="updateTicket('occupation', displayOccupation)"/>
-            <label for="displayOccupation" class="mr-2 labelText">Display occupation</label>
+            <div class="occupationWrapper">
+                <input type="checkbox" id="displayOccupation" value="true" v-model="displayOccupation" class="mr-1" @change="updateTicket('occupation', displayOccupation)"/>
+                <label for="displayOccupation" class="mr-2 ">Display occupation</label>
+            </div>
 
         </div>
 
         <div class="colorOptions">
             <div class="primaryColor">
-            
-                <h3 class="labelText">Primary color</h3>
+
+                <h3 class="">Primary color</h3>
 
                 <div class="colorWrapper">
                     <div class="color" id="black" @click="updateTicket('primaryColor', 'black')"></div>
@@ -31,7 +37,7 @@
 
             <div class="secondaryColor">
                 
-                <h3 class="labelText">Secondary color</h3>
+                <h3 class="">Secondary color</h3>
 
                 <div class="colorWrapper">
                     <div class="color" id="black" @click="updateTicket('secondaryColor', 'black')"></div>
@@ -44,6 +50,7 @@
 
             </div>
         </div>
+    </div>
         
 </template>
 
@@ -90,12 +97,11 @@ import { useUsersStore } from '@/stores/users';
 
 <style scoped>
 .options {
-    position: fixed;
     display: flex;
-    
+    flex-direction: column;  
 }
 .colorOptions {
-    margin-top: 5rem;
+    margin-top: 2rem;
 }
 .labelText {
     color: #26466D;

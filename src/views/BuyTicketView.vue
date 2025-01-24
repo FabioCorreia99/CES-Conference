@@ -12,14 +12,14 @@
                 <!-- Header -->
                 <v-col cols="12" class="mt-12">
                     
-                    <h1>Payment Details</h1>
-                    <h4 class="mb-2">Complete your purchase by providing your payment details</h4>
+                    <h1 class="blueText">Payment Details</h1>
+                    <h4 class="mb-2 blueText">Complete your purchase by providing your payment details</h4>
 
                 </v-col>
             </v-row>
 
             <v-row id="firstRow">
-                <v-col cols="12" md="4" class="formContainer"> 
+                <v-col cols="12" md="3" class="formContainer"> 
                     <!-- User Info Form -->
                     <v-form ref="buyTicketForm" @submit.prevent="">
                         <!-- First & Last Name -->
@@ -61,24 +61,70 @@
                     </v-form>
                 </v-col>
 
-                <v-col cols="12" md="8" class="formContainer"> 
-                    <h2>Customize your ticket</h2>
-                    <h4 class="mb-2">Your ticket, your choice</h4>
-
-                    <div id="customizeTicketContainer">
+                <v-col cols="12" md="6" class="formContainer customTicketContainer"> 
+                    <div class="customTicketTitles">
+                        <h2 class="blueText">Customize your ticket</h2>
+                        <h4 class="mb-2 blueText">Your ticket, your choice</h4>
+                    </div>
+                    
+                    <div class="customTicketOptions">
                         <TicketCustomizationPanel 
                             :ticket="user.ticket"
                         />
-                        
+                    </div>
+                    
+                    <div class="TicketComponent">
                         <Ticket
                         :primaryColor="user.ticket.primaryColor"
                         :secondaryColor="user.ticket.secondaryColor"
                         :hasLogo="user.ticket.hasLogo"
                         :name="user.ticket.name ? user.name : ''"
                         :occupation="user.ticket.occupation ? occupation : ''"
+                        style="transform: scale(0.65);"
                         />
                     </div>
                     
+                </v-col>
+
+            </v-row>
+
+            <v-row id="secondRow">
+                
+                <v-col cols="12" md="3" class="formContainer"> 
+                    
+                    <h1 class="blueText">Payment method</h1>
+                    <h4 class="mb-2 blueText">Select your preferred payment method and pay securely</h4>
+
+                    <div class="methodsWrapper">
+                        <div class="paymentMethod">
+                            <img src="@\assets\media\PayPal.svg" alt="PayPal">
+                        </div>
+
+                        <div class="paymentMethod">
+                            <img src="@\assets\media\Google Pay.svg" alt="Google Pay">
+                        </div>
+
+                        <div class="PromotionCode">
+                            <h2>Promo Code</h2>
+                        </div>
+                    </div>
+
+                </v-col>
+
+                <v-col cols="12" md="3" class="formContainer"> 
+                    
+                    <h1 class="blueText">Total</h1>
+                    <hr class="blueText">
+
+                    <h3 class="blueText">Day(s)</h3>
+                    <h3 class="blueText">Discount</h3>
+
+                </v-col>
+
+                <v-col cols="12" md="3" class="formContainer"> 
+                    
+                    
+
                 </v-col>
 
             </v-row>
@@ -135,13 +181,64 @@ export default {
     border-radius: 10px;
 }
 
+.blueText {
+    color: #26466D;
+}
+
 #firstRow {
     gap: 1rem;
 }
 
-#customizeTicketContainer {
+#secondRow {
+    margin-top: 2rem;
+    gap: 1rem;
+}
+
+.customTicketContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.customTicketTitles {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.customTicketOptions {
+    grid-area: 2 / 1 / 6 / 2;
+}
+
+.TicketComponent {
+    grid-area: 1 / 2 / 6 / 4;
+    margin-top: -4rem;
+    min-width: 153.4px;
+    min-height: 265.85px;
+    max-width: 153.4px;
+    max-height: 265.85px;
+    justify-self: center;
+
+}
+
+.methodsWrapper {
     display: flex;
-    justify-content: space-between;
+    gap: 1rem;
+}
+
+.paymentMethod {
+    width: 91px;
+    height: 36px;
+    cursor: pointer;
+}
+.PromotionCode {
+    display: flex;
+    justify-content: center;
+    color: #26466D;
+    width: 182px;
+    height: 36px;
+    border: 1px solid #26466D;
+    border-radius: 10px;
 }
 
 @media only screen and (min-width: 961px) {
@@ -149,6 +246,7 @@ export default {
         flex-wrap: nowrap;
         gap: 1rem;
     }
+    
 }
 
 </style>

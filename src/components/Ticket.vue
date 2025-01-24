@@ -43,8 +43,10 @@
 
 <style scoped>
 #ticket {
-    width: 236px;
-    height: 409px;
+    min-width: 236px;
+    min-height: 409px;
+    max-width: 236px;
+    max-height: 409px;
     background-color: white;
     position: relative;
     display: flex;

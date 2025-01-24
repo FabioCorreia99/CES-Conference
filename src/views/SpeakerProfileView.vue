@@ -36,8 +36,6 @@
 <script>
 import Navbar from '@/components/Navbar.vue';
 import Footer from '@/components/Footer.vue';
-import Footer from '@/components/Footer.vue';
-
 
 import { useSpeakersStore } from '@/stores/speakers.js';
 
