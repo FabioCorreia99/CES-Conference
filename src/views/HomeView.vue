@@ -8,6 +8,7 @@ import Navbar from '@/components/Navbar.vue';
 import OrangeBtn from '@/components/OrangeBtn.vue';
 import BlueBtnToOrange from '@/components/BlueBtnToOrange.vue';
 import SpeakersCard from '@/components/SpeakersCard.vue';
+import Footer from '@/components/Footer.vue';
 
 import { gsap } from "gsap";
 
@@ -22,7 +23,8 @@ export default {
     Navbar,
     OrangeBtn,
     SpeakersCard,
-    BlueBtnToOrange
+    BlueBtnToOrange,
+    Footer
   },
   data() {
     return {
@@ -274,6 +276,8 @@ export default {
     </v-carousel>
               
     </v-main>
+
+    <Footer/>
   </v-app>
 
 <link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">

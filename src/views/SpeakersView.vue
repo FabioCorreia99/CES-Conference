@@ -33,6 +33,8 @@
         </v-row>
       </v-container>
     </v-main>
+
+    <Footer/>
   </v-app>
 
 
@@ -44,6 +46,8 @@ import { ref,onBeforeUnmount } from 'vue';
 import Navbar from '@/components/Navbar.vue';
 import SpeakersCard from '@/components/SpeakersCard.vue';
 import { useSpeakersStore } from '@/stores/speakers.js';
+import Footer from '@/components/Footer.vue';
+
 import { gsap } from "gsap";
 
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -57,7 +61,8 @@ export default {
     name: "SpeakersView",
     components: {
         Navbar,
-        SpeakersCard
+        SpeakersCard,
+        Footer
     },
     data() {
         return {

@@ -86,6 +86,7 @@
     
 
   </v-main>
+  <Footer/>
 </v-app>
 
 <link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
@@ -96,6 +97,7 @@ import Navbar from '@/components/Navbar.vue';
 import SpeakersCard from '@/components/SpeakersCard.vue';
 import TalksCard from '@/components/TalksCard.vue';
 import HeartBtn from '@/components/HeartBtn.vue';
+import Footer from '@/components/Footer.vue';
 
 import { useTalksStore } from '@/stores/talks.js';
 import { useSpeakersStore } from '../stores/speakers';
@@ -108,7 +110,8 @@ export default {
         Navbar,
         SpeakersCard,
         TalksCard,
-        HeartBtn
+        HeartBtn,
+        Footer
     },
     data() {
       return {
