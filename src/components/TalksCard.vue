@@ -44,9 +44,8 @@
                             <div class="w-100 d-flex justify-space-around align-center">
                                 <div class="d-flex justify-start ga-16">
                                     <span v-for="filter in filters" :key="filter"> {{ filter }}</span>
-                                    
                                 </div>
-                                <OrangeBtn value="check Forum"/>
+                                <OrangeBtn @click="goToForum(talkId)" value="check Forum"/>
                             </div>
                         </v-col>
                     </v-row>
@@ -114,6 +113,9 @@
                 else{
                     this.store.removeLikedTalk(this.talkId)
                 }
+            },
+            goToForum(id){
+                this.$router.push({ name: "forumTopic", params:{topicId: id} });
             }
         },
     }
