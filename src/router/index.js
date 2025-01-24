@@ -21,31 +21,32 @@ const routes =  [
       path: "/",
       name: "home",
       component: HomeView,
+      meta: { title: 'CES Conference' }
     },
     {
       path: "/schedule",
       name: "schedule",
       component: ScheduleView,
+      meta: { title: 'CES Schedule' }
     },
     {
       path: "/speakers",
       name: "speakers",
       component: SpeakersView,
+      meta: { title: 'CES Speakers' }
+
     },
     {
       path: "/:speakerId",
       name: "SpeakerProfile",
       component: SpeakerProfileView,
-    },
-    {
-      path: "/schedule",
-      name: "schedule",
-      component: ScheduleView,
+      meta: { title: 'CES Speaker' }
     },
     {
       path: "/forum",
       name: "forum",
       component: ForumView,
+      meta: { title: 'CES Forum' },
       children: [
         {
           path: "Create",
@@ -61,11 +62,14 @@ const routes =  [
       name: "forumTopic",
       component: ForumTopicView,
       props: true,
+      meta: { title: 'CES Topic' }
+
     },
     {
       path: "/partners",
       name: "partners",
       component: PartnersView,
+      meta: { title: 'CES Partners' },
       children: [
         {
           path: "PartnersForm",
@@ -78,23 +82,29 @@ const routes =  [
       path: "/about",
       name: "about",
       component: AboutView,
+      meta: { title: 'CES About' }
     },
     {
       path: "/login",
       name: "login",
       component: LoginView,
+      meta: { title: 'CES Login' }
     },
     {
       path: "/create-account",
       name: "createAccount",
       component: CreateAccountView,
+      meta: { title: 'CES Register' }
     },
     {
       path: "/profile/:userId",
       name: "profileSettings",
       component: ProfileSettingsView,
       props: true,
-      meta: { requiresAuth: true },
+      meta: { 
+        requiresAuth: true,
+        title: "CES Profile"
+      },
     },
     {
       path: "/admin-profile/:adminId",
@@ -107,7 +117,10 @@ const routes =  [
       path: "/buyTickets",
       name: "buyTickets",
       component: BuyTicketView,
-      meta: { requiresAuth: true },
+      meta: { 
+        requiresAuth: true,
+        title: "CES Ticket"
+      },
     },
 ];
 
@@ -126,6 +139,10 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const store = useUsersStore();
+
+  //Actualiza o title
+  const defaultTitle = 'CES Conference';
+  document.title = to.meta.title || defaultTitle;
 
   // Verificar autenticação para rotas protegidas
   if (to.meta.requiresAuth && !store.authentication) {
