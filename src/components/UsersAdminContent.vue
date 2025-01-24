@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="user in nonAdminUsers" :key="user.id">
+        <tr v-for="user in paginatedUsers" :key="user.id">
           <td>{{ user.id }}</td>
           <td>{{ user.Email }}</td>
           <td>
@@ -22,48 +22,81 @@
               variant="plain"
               placeholder="Indefinido"
               class="no-border"
-              @input="updateUserName(user.id, user.name)"
             ></v-text-field>
           </td>
-
           <td>
-            <span @click="deleteUser(user.id)" class="delete-icon">
-              <TrashIcon />
-            </span>
+            <v-btn icon variant="text" @click="deleteUser(user.id)">
+              <v-icon class="icon-style">mdi-delete</v-icon>
+            </v-btn>
           </td>
         </tr>
       </tbody>
     </v-table>
+
+    <!-- Paginação -->
+    <div class="pagination">
+      <v-btn :disabled="page === 1" @click="prevPage">Anterior</v-btn>
+      <span>Página {{ page }} de {{ totalPages }}</span>
+      <v-btn :disabled="page === totalPages" @click="nextPage">Seguinte</v-btn>
+    </div>
   </v-container>
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css"
+    rel="stylesheet"
+  />
 </template>
 
 <script>
 import { useUsersStore } from "@/stores/users";
-import { TrashIcon } from "@heroicons/vue/24/solid";
 
 export default {
-  components: {
-    TrashIcon,
+  props: {
+    users: {
+      type: Array,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      store: useUsersStore(), // Instância da store dos utilizadores
+      page: 1, // Página atual
+      itemsPerPage: 10, // Número de utilizadores por página
+    };
   },
   computed: {
+    // Filtra apenas os utilizadores que não são administradores
     nonAdminUsers() {
-      const store = useUsersStore();
-      return store.users.filter((user) => user.role !== "admin");
+      return this.users.filter((user) => user.role !== "admin");
+    },
+    // Obtém os utilizadores paginados
+    paginatedUsers() {
+      const start = (this.page - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.nonAdminUsers.slice(start, end);
+    },
+    // Calcula o total de páginas necessárias
+    totalPages() {
+      return Math.ceil(this.nonAdminUsers.length / this.itemsPerPage);
     },
   },
   methods: {
-    deleteUser(userId) {
-      if (confirm("Are you sure you want to delete this user?")) {
-        const store = useUsersStore();
-        store.users = store.users.filter((user) => user.id !== userId);
-        alert("User deleted successfully!");
-      }
+    // Retrocede uma página na lista de utilizadores
+    prevPage() {
+      if (this.page > 1) this.page--;
     },
-    updateUserName(userId, newName) {
-      const store = useUsersStore();
-      const user = store.users.find((u) => u.id === userId);
-      if (user) {
-        user.name = newName.trim() !== "" ? newName : "Indefinido";
+    // Avança para a próxima página na lista de utilizadores
+    nextPage() {
+      if (this.page < this.totalPages) this.page++;
+    },
+    // Remove um utilizador da lista
+    deleteUser(userId) {
+      if (confirm("Tem a certeza que deseja eliminar este utilizador?")) {
+        this.store.users = this.store.users.filter(
+          (user) => user.id !== userId
+        );
+        alert("Utilizador eliminado com sucesso!");
+        if (this.page > this.totalPages) this.page--; // Ajusta a página após eliminação
       }
     },
   },
@@ -71,17 +104,7 @@ export default {
 </script>
 
 <style scoped>
-.v-container {
-  max-width: 100%;
-  padding-left: 16px; /* Ajusta conforme necessário para ficar junto à navbar */
-}
-
-h2 {
-  margin-bottom: 20px;
-  color: #26466d;
-}
-
-.delete-icon svg{
+.icon-style {
   width: 24px;
   height: 24px;
   color: #888;
@@ -106,4 +129,22 @@ h2 {
   font-size: 16px;
 }
 
+.v-table {
+  border-radius: 10px;
+}
+
+.icon-style {
+  width: 24px;
+  height: 24px;
+  color: #888;
+  cursor: pointer;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 20px;
+}
 </style>

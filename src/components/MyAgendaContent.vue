@@ -18,46 +18,53 @@
           <td>{{ talk.day }}</td>
           <td>{{ talk.hour }}</td>
           <td>
-            <span @click="removeFromAgenda(talk.id)" class="delete-icon">
-              <TrashIcon />
-            </span>
+            <v-btn
+              icon
+              variant="text"
+              @click="removeFromAgenda(talk.id)"
+              class="delete-btn"
+            >
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
           </td>
         </tr>
       </tbody>
     </v-table>
   </div>
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css"
+    rel="stylesheet"
+  />
 </template>
 
 <script>
 import { useTalksStore } from "@/stores/talks";
 import { useUsersStore } from "@/stores/users";
-import { TrashIcon } from "@heroicons/vue/24/solid";
 
 export default {
-  components: {
-    TrashIcon,
-  },
-  setup() {
+  data() {
     const talksStore = useTalksStore();
     const usersStore = useUsersStore();
 
-    const userLogged = usersStore.getUserLogged;
-    const likedTalksIds = userLogged?.likedTalks || [];
-    const likedTalks = talksStore.getLikedTalks(likedTalksIds);
-
-    console.log("User logged:", userLogged);
-    console.log("Liked Talks IDs:", likedTalksIds);
-    console.log("Liked Talks:", likedTalks);
-
-    // Remove uma talk dos favoritos
-    const removeFromAgenda = (id) => {
-      usersStore.removeLikedTalk(id);
-    };
-
     return {
-      likedTalks,
-      removeFromAgenda,
+      talksStore,
+      usersStore,
+      userLogged: usersStore.getUserLogged,
     };
+  },
+  computed: {
+    // Obtém as talks favoritas do utilizador logado
+    likedTalks() {
+      const likedTalksIds = this.userLogged?.likedTalks || [];
+      return this.talksStore.getLikedTalks(likedTalksIds);
+    },
+  },
+  methods: {
+    // Remove uma talk dos favoritos
+    removeFromAgenda(id) {
+      this.usersStore.removeLikedTalk(id);
+    },
   },
 };
 </script>
@@ -82,9 +89,7 @@ td {
   border-bottom: 1px solid #ddd;
 }
 
-.delete-icon svg {
-  width: 24px;
-  height: 24px;
+.delete-btn {
   color: #888;
   cursor: pointer;
 }

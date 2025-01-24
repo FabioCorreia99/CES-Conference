@@ -18,9 +18,9 @@
             @click="currentContent = 'Users'"
           ></v-list-item>
           <v-list-item
-            title="Partners"
+            title="Talks"
             class="nav-item"
-            @click="currentContent = 'Partners'"
+            @click="currentContent = 'Talks'"
           ></v-list-item>
           <v-list-item
             title="Forum Topic"
@@ -28,9 +28,9 @@
             @click="currentContent = 'Forum Topic'"
           ></v-list-item>
           <v-list-item
-            title="Talks"
+            title="Partners"
             class="nav-item"
-            @click="currentContent = 'Talks'"
+            @click="currentContent = 'Partners'"
           ></v-list-item>
         </v-list>
 
@@ -41,10 +41,9 @@
 
       <v-main class="admin-content">
         <UsersAdminContent v-if="currentContent === 'Users'" :users="users" />
-
-        <PartnersAdminContent v-if="currentContent === 'Partners'" />
-        <ForumAdminContent v-if="currentContent === 'Forum Topic'" />
         <TalksAdminContent v-if="currentContent === 'Talks'" />
+        <ForumAdminContent v-if="currentContent === 'Forum Topic'" />
+        <PartnersAdminContent v-if="currentContent === 'Partners'" />
       </v-main>
     </v-container>
   </v-app>
