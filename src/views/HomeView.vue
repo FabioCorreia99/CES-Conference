@@ -6,6 +6,8 @@ import { useTalksStore } from '@/stores/talks.js';
 
 import Navbar from '@/components/Navbar.vue';
 import OrangeBtn from '@/components/OrangeBtn.vue';
+import BlueBtnToOrange from '@/components/BlueBtnToOrange.vue';
+import SpeakersCard from '@/components/SpeakersCard.vue';
 
 import { gsap } from "gsap";
 
@@ -18,14 +20,48 @@ let ctx;
 export default {
   components: {
     Navbar,
-    OrangeBtn
+    OrangeBtn,
+    SpeakersCard,
+    BlueBtnToOrange
   },
   data() {
     return {
       speakersStore: useSpeakersStore(),
       talksStore: useTalksStore(),
       leftImg: new URL("../assets/media/left.png", import.meta.url).href,
-      rightImg: new URL("../assets/media/right.png", import.meta.url).href
+      rightImg: new URL("../assets/media/right.png", import.meta.url).href,
+      scheduleImg: new URL("../assets/media/schedule.jpg", import.meta.url).href,
+      partnersImg: new URL("../assets/media/partners.jpg", import.meta.url).href,
+      feedBacks: [
+        {
+          name:"John David",
+          text: "“Amazing event with great insights into AI and IoT! I learned so much and connected with incredible people.”",
+          picture: new URL("../assets/media/speakers/BillGates.jpg", import.meta.url).href,
+        },
+        {
+          name:"Emily Carter",
+          text: "“Loved the startup fair and meeting innovative founders.”",
+          picture: new URL("../assets/media/speakers/Emma Brown.jpg", import.meta.url).href,
+        },
+        {
+          name:"Michael Johnson",
+          text: "“The workshops were very informative and inspiring. The opportunity to network with such a diverse group of people is unmatched.”",
+          picture: new URL("../assets/media/speakers/James Turner.png", import.meta.url).href,
+        },
+        {
+          name:"Sophia Lee",
+          text: "“Great mix of panels and exhibits, highly recommend! I look forward to attending again.”",
+          picture: new URL("../assets/media/speakers/Grace Hall.jpg", import.meta.url).href,
+        }     
+      ]
+    }
+  },
+  methods: {
+    goToSpeakersPage() {
+      this.$router.push({name: "speakers"});
+    },
+    goToSchedulePage(){
+      this.$router.push({name: "schedule"});
     }
   },
   created () {
@@ -73,6 +109,43 @@ export default {
           start: "top 80%", // Inicia quando o topo do elemento está a 80% da altura da tela
         }
       });
+
+      // Animação: Secção schedule
+      gsap.utils.toArray([".lft", ".rgt"]).forEach((element) => {
+        const isLeft = element.classList.contains("lft"); // Verifica se é "lft" ou "rgt"
+
+        gsap.from(element, {
+          x: isLeft ? -500 : 500, // Define a direção do movimento com base na classe
+          duration: 1,
+          opacity: 0,
+          scrollTrigger: {
+            trigger: element, // Cada elemento será seu próprio trigger
+            start: "top 75%", // Ajuste o início conforme necessário
+            markers: true, // Mostra os marcadores para depuração
+            toggleActions: "play reverse play reverse", // Reproduz e reverte conforme a rolagem
+          },
+        });
+      });
+
+      // Animação : Horizontal Scroll - Speakers
+      let sections = gsap.utils.toArray(".panel");
+      let slidesContainer = document.querySelector(".speakerContainer");
+
+      gsap.to(sections, {
+      xPercent: -100 * (sections.length - 1),
+      ease: "none",
+      x: () => -1 * (slidesContainer.scrollWidth - innerWidth),
+      scrollTrigger: {
+          trigger: ".speakerContainer",
+          start: "center center",
+          pin: true,// foca o scroll na animação
+          scrub: 1,// associa a minha animação ao scroll
+          snap: 1 / (sections.length - 1),
+          // base vertical scrolling on how wide the container is so it feels more natural.
+          markers:true,
+          end: () => "+=" + (slidesContainer.scrollWidth - innerWidth),
+      }
+      }); 
     }, main.value); // <- Scope!
   },
   beforeUnmount() {
@@ -100,12 +173,12 @@ export default {
         <v-col class="d-flex justify-center" cols="3">
           <div class="masterImg center d-flex justify-start flex-column align-center ga-16">  
             <div class="mainTitles d-flex justify-center flex-column align-center ma-0 afterAnimation">
-              <h1 class=" masterTitleDate">JANUARY 7-9</h1>
-              <h1 class="masterTitleLocal">PORTO, PORTUGAL</h1>
+              <h1 class="textWhite masterTitleDate">JANUARY 7-9</h1>
+              <h1 class="textWhite masterTitleLocal">PORTO, PORTUGAL</h1>
             </div>
-            <h1 class="afterAnimation masterDesc">CES: Inspiring <b>developers</b>, shaping tomorrow</h1>
+            <h1 class="textWhite afterAnimation masterDesc">CES: Inspiring <b>developers</b>, shaping tomorrow</h1>
             <div class="afterAnimation">
-              <OrangeBtn value="Buy Ticket" route="home"/>
+              <OrangeBtn value="Buy Ticket"/>
             </div>
           </div> 
         </v-col>
@@ -116,7 +189,7 @@ export default {
       </v-row>
     </v-container>
 
-    <div class="py-10 statsBar mb-12 d-flex justify-space-around align-center">
+    <div class="py-10 statsBar mb-12 d-flex justify-space-around align-center textWhite">
       <div class="pa-3 d-flex flex-column align-center">
         <h1 class="statsTitle mb-3">+<span class="count">1024</span></h1>
         <h1 class="statsSubTitle mt-3">Attendees</h1>
@@ -135,78 +208,121 @@ export default {
       </div>      
     </div>
 
-      <v-row class="body">
-        <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-        <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-        <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-          <h1>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus deserunt odio facilis omnis, beatae consectetur dolorum deleniti accusantium quam vero nam numquam quia perspiciatis impedit distinctio, doloribus dolores ea nesciunt?</h1>
-        </v-row>
+    <v-container  fluid class="scheduleSection">
+      <h1 class="textDarkBlue mx-auto text-center scheduleTitle lft">Schedule</h1>
+      <v-row class="my-16 ">
+        <v-col class="d-flex justify-space-between align-center flex-column lft" cols="6">
+          <div class="textDarkBlue d-flex flex-column align-center justify-center mx-6">
+            <h1 class="scheduleText mt-4 mb-8">Plan your perfect CES experience</h1>
+            <h2 class="w-75 scheduleSubText text-center"> Experience the pulse of innovation with a schedule designed to highlight the best of tech.</h2>
+          </div>
+          <BlueBtnToOrange :handle-click="goToSchedulePage" value="View Schedule"/>
+        </v-col>
+        <v-col class="rgt" cols="6"> 
+          <img :width="576" :src="scheduleImg"></img> 
+        </v-col>
+      </v-row>
+    </v-container>
+
+    <div class="w-100 SPcontainer textDarkBlue">
+      <div class="w-100 speakerContainer d-flex justify-start mt-0">
+        <h1 class="panel h-50 speakerTitle speakerMasterTitle">Meet the visionaries shaping the future of technology.</h1>
+        <div class="panel w-100 my-0 mx-12" v-for="sp in speakersStore.getFirstTenSpeakers">
+          <SpeakersCard 
+          :id="sp.id" 
+          :name="sp.firstName + ` `+ sp.lastName" 
+          :subTitle="sp.company.title"
+          :image="sp.image"/>
+        </div>
+      </div>
+      <h1 class="speakerTitle">Click to see all Speakers</h1>
+      <div class="w-100 d-flex justify-center my-12">
+        <BlueBtnToOrange :handle-click="goToSpeakersPage" value="See all speakers"/>
+      </div>
+    </div>
+
+    <v-carousel class="mb-16 opinionSection" hide-delimiters>
+      <v-carousel-item v-for="feedback in feedBacks" :key="feedback.name">
+        <v-sheet color="rgba(189, 199, 211, 0.20)" height="100%" tile>
+          <div class="d-flex fill-height flex-column justify-space-around align-center ga-8">
+            <h1 class="textDarkBlue feedTitle">
+               Feedbacks<v-icon color="red" icon="mdi-heart-circle-outline"></v-icon>
+            </h1>
+            <h1 class="textDarkBlue feedText">{{ feedback.text }}</h1>
+            <div class="d-flex flex-column justitfy-center align-center">
+              <v-avatar :image="feedback.picture" size="80"></v-avatar>
+              
+
+            </div>
+          </div>
+        </v-sheet>
+      </v-carousel-item>
+      
+
+    </v-carousel>
+              
     </v-main>
   </v-app>
 
+<link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
 </template>
 
 
 
 <style>
-.statsSubTitle{
+.feddTitle{
+  font-size: 2.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.feedText{
+  text-align: center;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+.textDarkBlue{
+  color: var(--color-dark-blue);
+}
+.textWhite{
   color: var(--color-white);
+}
+.scheduleText{
+  font-size: 1.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2rem; /* 106.667% */
+}
+.scheduleSubText{
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 2rem;
+}
+.scheduleTitle{
+  font-size: 2.25rem;
+  font-weight: 600;
+  line-height: normal;
+}
+.speakerTitle{
+  font-size: 5rem;
+  font-style: bold;
+  font-weight: 800;
+  line-height: 4rem; /* 46.875% */
+  text-align: center;
+}
+.speakerMasterTitle{
+  height: 9rem !important;
+  width: 50%;
+  flex: 0 0 100%; /* Garante que o tamanho não seja comprimido */
+}
+.SPcontainer, .scheduleSection, .opinionSection{
+  margin-top: 15rem !important;
+}
+
+.statsSubTitle{
   font-size: 2rem;
   font-style: normal;
   font-weight: 600;
@@ -214,7 +330,6 @@ export default {
 }
 
 .statsTitle, .count{
-  color: var(--color-white);
   font-size: 4rem;
   font-style: normal;
   font-weight: 600;
@@ -226,10 +341,7 @@ export default {
   margin-top: 40rem !important;
   background-color: #26466D !important;
 }
-.mainTitles{
-  padding-top: 6rem !important;
-}
-.box-container{
+.mainTitles, .box-container{
   padding-top: 6rem !important;
 }
 html, body {
@@ -252,7 +364,6 @@ html, body {
   opacity: 0;
 }
 .masterTitleDate{
-  color: #EEF6F2;
   text-align: center;
   font-size: 8rem;
   font-style: normal;
@@ -260,16 +371,13 @@ html, body {
   line-height: normal;
 }
 .masterTitleLocal{
-  color: #EEF6F2;
   font-size: 3.5rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
 }
 .masterDesc {
-  color: #EEF6F2;
   text-align: center;
-  font-family: "Source Sans 3";
   font-size: 2.5rem;
   font-style: normal;
   font-weight: 300;

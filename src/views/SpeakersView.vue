@@ -20,10 +20,10 @@
                 </div>
             </v-col>
         </v-row>
-    <v-container class="mt-10">
+    <v-container class="mt-10 pa-xs-0">
         <!-- Speakers grid -->
-        <v-row class="speakersContainer"> 
-          <v-col class="speaker" v-for="sp in speakersStore.speakers" :key="sp.id" sm="3" cols="6" ref="main">
+        <v-row class="speakersContainer pa-xs-0"> 
+          <v-col class="speaker d-flex justify-center " v-for="sp in speakersStore.speakers" :key="sp.id" xs="6" sm="6" md="4" lg="3" ref="main">
             <SpeakersCard 
                 :id="sp.id" 
                 :name="sp.firstName + ` `+ sp.lastName" 

@@ -115,7 +115,7 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
   scrollBehavior(to, from, savedPosition) {
-    // Se houver uma posição salva, retorna para ela (ex.: ao usar o botão "voltar")
+    // Se houver uma posição salva, retorna para ela (ex.: ao usar o botão "voltar")  
     if (savedPosition) {
       return savedPosition;
     }
