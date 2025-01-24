@@ -10,9 +10,9 @@
         <!-- Barra Superior -->
         <div class="terminal-header">
           <div class="terminal-controls">
-            <MinusIcon class="control-icon" />
-            <Square2StackIcon class="control-icon" />
-            <XMarkIcon class="control-icon" />
+            <v-icon class="control-icon">mdi-minus</v-icon>
+            <v-icon class="control-icon">mdi-window-restore</v-icon>
+            <v-icon class="control-icon">mdi-close</v-icon>
           </div>
         </div>
         <!-- Corpo do Terminal -->
@@ -81,28 +81,26 @@
         </div>
       </div>
     </v-container>
+    <Footer />
   </div>
+  <link
+    href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css"
+    rel="stylesheet"
+  />
 </template>
 
 <script>
 import LoginNavbar from "@/components/LoginNavbar.vue";
+import Footer from "@/components/Footer.vue";
 import BlueBtnToOrange from "@/components/BlueBtnToOrange.vue";
-import {
-  MinusIcon,
-  Square2StackIcon,
-  XMarkIcon,
-} from "@heroicons/vue/24/solid";
-
 import { useUsersStore } from "@/stores/users";
 
 export default {
   name: "LoginView",
   components: {
     LoginNavbar,
+    Footer,
     BlueBtnToOrange,
-    MinusIcon,
-    Square2StackIcon,
-    XMarkIcon,
   },
   data() {
     return {

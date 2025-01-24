@@ -160,6 +160,7 @@
         </v-row>
       </v-container>
     </v-main>
+    <Footer />
   </v-app>
   <link
     href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css"
@@ -169,11 +170,13 @@
 
 <script>
 import Navbar from "@/components/Navbar.vue";
+import Footer from "@/components/Footer.vue";
 import { ref, computed, watch } from "vue";
 
 export default {
   components: {
     Navbar,
+    Footer,
   },
   setup() {
     const searchQuery = ref("");
