@@ -51,6 +51,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const main = ref();
 let ctx;
+let observer;
 
 export default {
     name: "SpeakersView",
@@ -71,28 +72,41 @@ export default {
         };
     },
     mounted() {
-        const observer = new IntersectionObserver((entries, self) => {
-            let targets = entries.map(entry => {
-                if (entry.isIntersecting) {
-                    return entry.target;
-                }
-            });
-            gsap.to(targets, {
+        ctx = gsap.context(() => {
+            observer = new IntersectionObserver((entries) => {
+                // Filtra apenas os elementos que estão entrando na viewport
+                let targets = entries
+                .filter(entry => entry.isIntersecting)
+                .map(entry => entry.target);
+
+                // Aplica a animação aos elementos que entraram na viewport
+                gsap.to(targets, {
                 opacity: 1,
                 stagger: 0.2
-            })
-        });
+                });
 
-        // Seleciona todos os cartões e define seu estado inicial
-        const cards = document.querySelectorAll('.speaker-card');
-        gsap.set(cards, { opacity: 0 }); // Define o estado inicial para todos os cartões
+                // Desconecta os elementos já observados para evitar múltiplas observações
+                entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    observer.unobserve(entry.target); // Para de observar o elemento
+                }
+                });
+            });
 
-        // Observa cada cartão individualmente
-        cards.forEach(card => {
-            observer.observe(card); // Vincula o observer a cada cartão
-        });
+            // Seleciona todos os cartões e define seu estado inicial
+            const cards = document.querySelectorAll('.speaker-card');
+            gsap.set(cards, { opacity: 0 }); // Define o estado inicial para todos os cartões
+
+            // Observa cada cartão individualmente
+            cards.forEach(card => {
+                observer.observe(card); // Vincula o observer a cada cartão
+            });
+            });
     },
     beforeUnmount() {
+        if (observer) {
+            observer.disconnect(); // Desconecta o IntersectionObserver
+        }
         if (ctx) {
             ctx.revert(); // Reverte o contexto GSAP
         }
