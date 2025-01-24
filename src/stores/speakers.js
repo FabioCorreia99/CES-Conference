@@ -12,6 +12,7 @@ export const useSpeakersStore = defineStore("speakers", {
     persist: true,
     getters: {
         getSpeakerById: (state) => (id) => state.speakers.find(speaker => speaker.id == id),
+        getFirstTenSpeakers: (state) => state.speakers.slice(0, 10),
     },
     actions: {
         async fetchPersons() {

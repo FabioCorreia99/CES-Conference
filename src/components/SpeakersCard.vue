@@ -1,6 +1,6 @@
 <template>
     <v-hover v-slot="{ isHovering, props }">
-        <v-card class="pa-4 my-4 speaker-card" :elevation="isHovering ? 16 : 6" max-height="400" max-width="225" rounded="lg" v-bind="props">
+        <v-card class="pa-4 my-4 speaker-card" :elevation="isHovering ? 16 : 6" :height="height" :width="width" rounded="lg" v-bind="props">
             <v-img :alt="name" :src="image" cover max-width="193" max-height="250" rounded="lg"></v-img>
             <v-card-item density="comfortable" class="w-100 px-1">
                 <v-card-title>{{ name }}</v-card-title>
@@ -32,10 +32,24 @@ import BlueBtn from '@/components/BlueBtn.vue';
             },
             image:{
                 type: String
+            },
+            height:{
+                type: Number,
+                default: 350
+            },
+            width:{
+                type: Number,
+                default: 225
             }
         },
     }
 </script>
 
 <style>
+@media only screen and (min-width: 500px) and (max-width: 700px) {
+    .speaker-card{
+        width: 175px !important;
+        height: 300px !important;
+    }
+}
 </style>
