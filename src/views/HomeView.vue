@@ -60,6 +60,9 @@ export default {
     goToSpeakersPage() {
       this.$router.push({name: "speakers"});
     },
+    goToBuyTicketPage() {
+      this.$router.push({name: "buyTickets"});
+    },
     goToSchedulePage(){
       this.$router.push({name: "schedule"});
     }
@@ -178,7 +181,7 @@ export default {
             </div>
             <h1 class="textWhite afterAnimation masterDesc">CES: Inspiring <b>developers</b>, shaping tomorrow</h1>
             <div class="afterAnimation">
-              <OrangeBtn value="Buy Ticket"/>
+              <OrangeBtn value="Buy Ticket" @click="goToBuyTicketPage"/>
             </div>
           </div> 
         </v-col>

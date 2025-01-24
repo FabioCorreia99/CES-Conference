@@ -65,7 +65,20 @@
                     <h2>Customize your ticket</h2>
                     <h4 class="mb-2">Your ticket, your choice</h4>
 
-                    <Ticket />
+                    <div id="customizeTicketContainer">
+                        <TicketCustomizationPanel 
+                            :ticket="user.ticket"
+                        />
+                        
+                        <Ticket
+                        :primaryColor="user.ticket.primaryColor"
+                        :secondaryColor="user.ticket.secondaryColor"
+                        :hasLogo="user.ticket.hasLogo"
+                        :name="user.ticket.name ? user.name : ''"
+                        :occupation="user.ticket.occupation ? occupation : ''"
+                        />
+                    </div>
+                    
                 </v-col>
 
             </v-row>
@@ -81,6 +94,7 @@
 import Navbar from '@/components/Navbar.vue';
 import Ticket from '@/components/Ticket.vue';
 import TicketCustomizationPanel from '@/components/TicketCustomizationPanel.vue';
+import { useUsersStore } from '@/stores/users';
 
 export default {
     name: "BuyTicketView",
@@ -95,8 +109,23 @@ export default {
             name: "",
             email: "",
             occupation: "",
+            usersStore: useUsersStore(),
         }
     },
+    computed: {
+        user() {
+            return this.usersStore.getUserById(this.usersStore.currentUserId);
+        }
+    },
+    created() {
+        
+        if (this.user) {
+            this.name = this.user.name || "";
+            this.email = this.user.Email || "";
+        }
+        
+    },
+    
 };
 </script>
 
@@ -108,6 +137,11 @@ export default {
 
 #firstRow {
     gap: 1rem;
+}
+
+#customizeTicketContainer {
+    display: flex;
+    justify-content: space-between;
 }
 
 @media only screen and (min-width: 961px) {

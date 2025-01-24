@@ -35,9 +35,8 @@
             primaryColor: {type: String, default: "#26466D"},
             secondaryColor: {type: String, default: "#F2A714"},
             hasLogo: {type: Boolean, default: true},
-            name: {type: String, default: "nome"},
-            occupation: {type: String, default: "trabalho"},
-            hasAvatar: {type: Boolean, default: false},
+            name: {type: String},
+            occupation: {type: String},
         }
     }
 </script>
