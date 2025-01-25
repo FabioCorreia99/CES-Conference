@@ -97,7 +97,6 @@ export default {
         anticipatePin: 1,
         pinType: "fixed",
         scrub: 1,
-        markers:1,
           snap: {
             snapTo: 1, // Encaixa no final do ScrollTrigger (progresso 1)
             duration: { min: 1, max: 2 }, // Duração do snap
@@ -124,23 +123,6 @@ export default {
         }
       });
 
-      // Animação: Secção schedule
-      gsap.utils.toArray([".lft", ".rgt"]).forEach((element) => {
-        const isLeft = element.classList.contains("lft"); // Verifica se é "lft" ou "rgt"
-
-        gsap.from(element, {
-          x: isLeft ? -500 : 500, // Define a direção do movimento com base na classe
-          duration: 1,
-          opacity: 0,
-          scrollTrigger: {
-            trigger: element, // Cada elemento será seu próprio trigger
-            start: "top 75%", 
-            markers: true,
-            toggleActions: "play reverse play reverse", // repete a animação
-          },
-        });
-      });
-
       // Animação : Horizontal Scroll - Speakers
       let sections = gsap.utils.toArray(".panel");
       let slidesContainer = document.querySelector(".speakerContainer");
@@ -155,9 +137,39 @@ export default {
           pin: true,// foca o scroll na animação
           scrub: 1,// associa a minha animação ao scroll
           snap: 1 / (sections.length - 1),
-          markers:true,
           end: () => "+=" + (slidesContainer.scrollWidth - innerWidth),
-      }
+        }
+      });
+
+      console.log(gsap.utils.toArray([".lft", ".rgt"]));
+      
+
+      // Animação: Secção schedule
+      gsap.utils.toArray(".lft").forEach((element) => {
+        gsap.from(element, {
+          x: -500 , // Define a direção do movimento com base na classe
+          duration: 1,
+          opacity: 0,
+          scrollTrigger: {
+            trigger: element, // Cada elemento será seu próprio trigger
+            start: "top 75%", 
+            toggleActions: "play reverse play reverse", // repete a animação
+          },
+        });
+      }); 
+
+      // Animação: Elementos há esquerda
+      gsap.utils.toArray(".rgt").forEach((element) => {
+        gsap.from(element, {
+          x: 500 , // Define a direção do movimento com base na classe
+          duration: 1,
+          opacity: 0,
+          scrollTrigger: {
+            trigger: element, // Cada elemento será seu próprio trigger
+            start: "top 75%", 
+            toggleActions: "play reverse play reverse", // repete a animação
+          },
+        });
       }); 
     }, main.value); // <- Scope!
   },
@@ -226,9 +238,9 @@ export default {
     <v-container class="scheduleSection">
       <h1 class="textDarkBlue mx-auto text-center scheduleTitle lft">Schedule</h1>
       <v-row class="my-16 ">
-        <v-col class="d-flex justify-space-between align-center flex-column ga-2 lft" cols="12" lg="6">
+        <v-col class="lft d-flex justify-space-between align-center flex-column ga-2 " cols="12" lg="6">
           <div class="textDarkBlue d-flex flex-column align-center justify-center mx-6">
-            <h1 class="scheduleText mt-4 mb-8">Plan your perfect CES experience</h1>
+            <h1 class="scheduleText mt-4 mb-8 text-center">Plan your perfect CES experience</h1>
             <h2 class="w-75 scheduleSubText text-center"> Experience the pulse of innovation with a schedule designed to highlight the best of tech.</h2>
           </div>
           <BlueBtnToOrange :handle-click="goToSchedulePage" value="View Schedule"/>
@@ -257,6 +269,7 @@ export default {
       </div>
     </div>
 
+    <!-- Feedback carousel-->
     <v-carousel class="mb-16 opinionSection" hide-delimiters>
       <v-carousel-item v-for="feedback in feedBacks" :key="feedback.name">
         <v-sheet color="rgba(189, 199, 211, 0.20)" height="100%" tile>
@@ -277,6 +290,7 @@ export default {
       </v-carousel-item>
     </v-carousel>
 
+    <!-- Partners Section -->
     <div class="partnersSection">
         <h1 class="mb-12 partTitle textDarkBlue text-center">Premium Partners</h1>
         <v-slide-group mobile>
@@ -290,13 +304,14 @@ export default {
       </v-slide-group>     
     </div>
 
+    <!-- Ticket Cards -->
     <v-container fluid class="ticketSection">
       <div class="text-center ">
         <h1 class="my-2 textDarkBlue text-h2"><span class="textYellow">Flexibe</span>Tickets</h1>
         <h2 class="mb-12 textDarkBlue text-body-1">Choose what works, skip what doesn’t</h2>
         <v-row class="align-center">
           <!-- Card Esquerda -->
-          <v-col sm="12" md="4" col="12" class="d-flex justify-sm-center justify-center justify-md-end">
+          <v-col sm="12" md="4" col="12" class="lft d-flex justify-sm-center justify-center justify-md-end">
             <v-card class="ticketCard" rounded="lg" width="21rem" height="20.6rem">
               <v-card-title class="textWhite text-center mt-2 text-sm-h5 text-h4 font-weight-bold"><u>Dairy Ticket</u></v-card-title>
               <v-card-text class="mt-6">
@@ -324,7 +339,7 @@ export default {
           </v-badge>
           </v-col>
           <!-- Card Direita -->
-          <v-col sm="12" md="4" col="12"  class="d-flex justify-sm-center justify-center justify-md-start">
+          <v-col sm="12" md="4" col="12"  class="rgt d-flex justify-sm-center justify-center justify-md-start">
             <v-card class="ticketCard" rounded="lg" width="21rem" height="20.6rem">
               <v-card-title class="textWhite text-center mt-2 text-sm-h5 text-h4 font-weight-bold"><u>2 Days Ticket</u></v-card-title>
               <v-card-text class="mt-6">
@@ -338,7 +353,25 @@ export default {
           </v-col>
         </v-row>
       </div>
-    </v-container>          
+    </v-container>   
+    
+    <!-- Apresentação do Schedule-->
+    <v-container class="partWithUsSection">
+      <h1 class="textDarkBlue mx-auto text-center scheduleTitle lft">Partner With CES</h1>
+      <v-row class="my-16 ">
+        <v-col class="lft d-flex justify-start justify-md-center justify-sm-center" cols="12"  lg="6"> 
+          <img class="SchImg" :width="576" :src="partnersImg"></img> 
+        </v-col>
+        <v-col class="rgt d-flex justify-space-between align-center flex-column ga-2 " cols="12" lg="6">
+          <div class="textDarkBlue d-flex flex-column align-center justify-center mx-6">
+            <h1 class="scheduleText mt-4 mb-8 text-center">Join the world’s most innovative technology event and showcase your company to a global audience.</h1>
+            <h2 class="w-75 scheduleSubText text-center">By partnering with CES, you’ll gain unparalleled visibility, connect with industry leaders, and position your brand at the forefront of innovation.</h2>
+          </div>
+          <BlueBtnToOrange :handle-click="goToSchedulePage" value="Become a Partner"/>
+        </v-col>
+      </v-row>
+    </v-container>
+    
     </v-main>
     <Footer/>
   </v-app>
@@ -416,7 +449,7 @@ export default {
   width: 100% !important;
   flex: 0 0 100%; /* Garante que o tamanho não seja comprimido */
 }
-.SPcontainer, .scheduleSection, .opinionSection, .partnersSection, .ticketSection{
+.SPcontainer, .scheduleSection, .opinionSection, .partnersSection, .ticketSection, .partWithUsSection{
   margin-top: 15rem !important;
 }
 
