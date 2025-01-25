@@ -58,6 +58,7 @@
                     :summary="talk.summary" 
                     :desc="talk.desc" 
                     :room="talk.room"
+                    :filters="talk.filters"
                     :speaker="speakersStore.getSpeakerById(talk.speaker)"
                   />
                 </v-col>

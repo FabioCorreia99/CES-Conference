@@ -28,6 +28,26 @@
                 <v-img :src="sp.image"  max-width="200" max-height="250" rounded="lg"></v-img>
             </v-col>
         </v-row>
+        <v-container>
+            <h1 class="partText mt-12">Participations</h1>
+            <v-row class="mt-16">
+                <v-col cols="12">
+                    <div class="w-100" v-for="talk in talkStores.getTalksBySpeaker(sp.id)">
+                        <TalksCard
+                            :liked="usersStore.authentication && usersStore.getUserLogged?.likedTalks.includes(talk.id) || false"
+                            :logged="usersStore.authentication"
+                            :talkId="talk.id" 
+                            :title="talk.title"
+                            :summary="talk.summary" 
+                            :desc="talk.desc" 
+                            :room="talk.room"
+                            :filters="talk.filters"
+                            :speaker="speakersStore.getSpeakerById(talk.speaker)"
+                        />
+                    </div>
+                </v-col>
+            </v-row>
+        </v-container>
     </v-main>
     <Footer/>
 </v-app>
@@ -36,18 +56,24 @@
 <script>
 import Navbar from '@/components/Navbar.vue';
 import Footer from '@/components/Footer.vue';
+import TalksCard from '@/components/TalksCard.vue';
+
 
 import { useSpeakersStore } from '@/stores/speakers.js';
-
+import { useTalksStore } from '@/stores/talks.js';
+import { useUsersStore } from '@/stores/users';
 
 export default {
     components: {
         Navbar,
-        Footer
+        Footer,
+        TalksCard
     },
     data() {
         return {
             speakersStore: useSpeakersStore(),
+            talkStores: useTalksStore(),
+            usersStore: useUsersStore(),
             sp: {},
             desc: 1
         }
@@ -67,6 +93,13 @@ export default {
 </script>
 
 <style scoped>
+.partText{
+    color: #26466D;
+    font-size: 1.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
 .title{
   color: #26466D;
   font-family: "Source Code Pro";
