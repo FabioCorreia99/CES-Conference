@@ -1,14 +1,12 @@
 <template>
-    <v-btn variant="text" 
-        icon 
+    <v-btn variant="text"
+        icon
         @click="toggleIcon">
-        <v-icon 
+        <v-icon
             size="x-large"
             color="red"
             >{{ icon }}</v-icon>
     </v-btn>
-
-<link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
 </template>
 
 <script>
@@ -17,7 +15,7 @@
         props: {
             isActive: {
                 type: Boolean,
-                default: false, 
+                default: false,
             },
         },
         data() {

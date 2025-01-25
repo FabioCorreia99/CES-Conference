@@ -63,7 +63,7 @@ export default {
           text: "“Great mix of panels and exhibits, highly recommend! I look forward to attending again.”",
           picture: new URL("../assets/media/speakers/Grace Hall.jpg", import.meta.url).href,
           stars: 5,
-        }     
+        }
       ]
     }
   },
@@ -112,8 +112,8 @@ export default {
       tl.to(".afterAnimation",{opacity: 1, ease: "power2.out"}
       ,">");
 
-      gsap.from(".count", { 
-        innerText: 0, duration: 4, 
+      gsap.from(".count", {
+        innerText: 0, duration: 4,
         snap: {
           innerText:1
         },
@@ -142,7 +142,7 @@ export default {
       });
 
       console.log(gsap.utils.toArray([".lft", ".rgt"]));
-      
+
 
       // Animação: Secção schedule
       gsap.utils.toArray(".lft").forEach((element) => {
@@ -152,11 +152,11 @@ export default {
           opacity: 0,
           scrollTrigger: {
             trigger: element, // Cada elemento será seu próprio trigger
-            start: "top 75%", 
+            start: "top 75%",
             toggleActions: "play reverse play reverse", // repete a animação
           },
         });
-      }); 
+      });
 
       // Animação: Elementos há esquerda
       gsap.utils.toArray(".rgt").forEach((element) => {
@@ -166,11 +166,11 @@ export default {
           opacity: 0,
           scrollTrigger: {
             trigger: element, // Cada elemento será seu próprio trigger
-            start: "top 75%", 
+            start: "top 75%",
             toggleActions: "play reverse play reverse", // repete a animação
           },
         });
-      }); 
+      });
     }, main.value); // <- Scope!
   },
   beforeUnmount() {
@@ -196,7 +196,7 @@ export default {
         </v-col>
         <!-- Imagem Centro -->
         <v-col class="d-flex justify-center" cols="3">
-          <div class="masterImg center d-flex justify-start flex-column align-center ga-16">  
+          <div class="masterImg center d-flex justify-start flex-column align-center ga-16">
             <div class="mainTitles d-flex justify-center flex-column align-center ma-0 afterAnimation">
               <h1 class="textWhite masterTitleDate">JANUARY 7-9</h1>
               <h1 class="textWhite masterTitleLocal">PORTO, PORTUGAL</h1>
@@ -205,7 +205,7 @@ export default {
             <div class="afterAnimation">
               <OrangeBtn value="Buy Ticket" @click="goToBuyTicketPage"/>
             </div>
-          </div> 
+          </div>
         </v-col>
         <!-- Imagem Direita -->
         <v-col class="d-flex justify-start right" cols="4">
@@ -231,7 +231,7 @@ export default {
       <div class="pa-3 d-flex flex-column align-center">
         <h1 class="statsTitle mb-3">+<span class="count">126</span></h1>
         <h1 class="statsSubTitle mt-3">Forum Topics</h1>
-      </div>      
+      </div>
     </div>
 
     <!-- Apresentação do Schedule-->
@@ -245,8 +245,8 @@ export default {
           </div>
           <BlueBtnToOrange :handle-click="goToSchedulePage" value="View Schedule"/>
         </v-col>
-        <v-col class="rgt d-flex justify-start justify-md-center justify-sm-center" cols="12"  lg="6"> 
-          <img class="SchImg" :width="576" :src="scheduleImg"></img> 
+        <v-col class="rgt d-flex justify-start justify-md-center justify-sm-center" cols="12"  lg="6">
+          <img class="SchImg" :width="576" :src="scheduleImg"></img>
         </v-col>
       </v-row>
     </v-container>
@@ -256,9 +256,9 @@ export default {
       <div class="w-100 speakerContainer d-flex justify-start mt-0">
         <h1 class="panel h-100 speakerTitle speakerMasterTitle">Meet the visionaries shaping the future of technology.</h1>
         <div class="panel w-100 my-0 mx-12" v-for="sp in speakersStore.getFirstTenSpeakers">
-          <SpeakersCard 
-          :id="sp.id" 
-          :name="sp.firstName + ` `+ sp.lastName" 
+          <SpeakersCard
+          :id="sp.id"
+          :name="sp.firstName + ` `+ sp.lastName"
           :subTitle="sp.company.title"
           :image="sp.image"/>
         </div>
@@ -295,13 +295,13 @@ export default {
         <h1 class="mb-12 partTitle textDarkBlue text-center">Premium Partners</h1>
         <v-slide-group mobile>
           <v-slide-group-item v-for="partner in partnersStore.partners" :key="partner.id">
-            <PartnersCard 
-            :brand="partner.brand" 
-            :img="partner.image" 
+            <PartnersCard
+            :brand="partner.brand"
+            :img="partner.image"
             :desc="partner.desc"
             :site="partner.site"/>
           </v-slide-group-item>
-      </v-slide-group>     
+      </v-slide-group>
     </div>
 
     <!-- Ticket Cards -->
@@ -353,14 +353,14 @@ export default {
           </v-col>
         </v-row>
       </div>
-    </v-container>   
-    
+    </v-container>
+
     <!-- Apresentação do Schedule-->
     <v-container class="partWithUsSection">
       <h1 class="textDarkBlue mx-auto text-center scheduleTitle lft">Partner With CES</h1>
       <v-row class="my-16 ">
-        <v-col class="lft d-flex justify-start justify-md-center justify-sm-center" cols="12"  lg="6"> 
-          <img class="SchImg" :width="576" :src="partnersImg"></img> 
+        <v-col class="lft d-flex justify-start justify-md-center justify-sm-center" cols="12"  lg="6">
+          <img class="SchImg" :width="576" :src="partnersImg"></img>
         </v-col>
         <v-col class="rgt d-flex justify-space-between align-center flex-column ga-2 " cols="12" lg="6">
           <div class="textDarkBlue d-flex flex-column align-center justify-center mx-6">
@@ -371,12 +371,11 @@ export default {
         </v-col>
       </v-row>
     </v-container>
-    
+
     </v-main>
     <Footer/>
   </v-app>
 
-<link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
 </template>
 
 

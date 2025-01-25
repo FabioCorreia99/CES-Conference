@@ -22,23 +22,19 @@
         </v-row>
     <v-container class="mt-10 pa-xs-0">
         <!-- Speakers grid -->
-        <v-row class="speakersContainer pa-xs-0"> 
+        <v-row class="speakersContainer pa-xs-0">
           <v-col class="speaker d-flex justify-center " v-for="sp in speakersStore.speakers" :key="sp.id" xs="6" sm="6" md="4" lg="3" ref="main">
-            <SpeakersCard 
-                :id="sp.id" 
-                :name="sp.firstName + ` `+ sp.lastName" 
+            <SpeakersCard
+                :id="sp.id"
+                :name="sp.firstName + ` `+ sp.lastName"
                 :subTitle="sp.company.title"
                 :image="sp.image"/>
           </v-col>
         </v-row>
       </v-container>
     </v-main>
-
     <Footer/>
   </v-app>
-
-
-<link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
 </template>
 
 <script>
@@ -143,7 +139,7 @@ export default {
 @media only screen and (max-width: 1024px) {
     .bg-intro {
         padding: 0;
-    }   
+    }
 }
 
 </style>

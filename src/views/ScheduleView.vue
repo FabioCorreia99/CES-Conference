@@ -18,7 +18,7 @@
               <v-chip class="scheduleDays" rounded="lg" value="9">/day 9</v-chip>
           </v-chip-group class="chips"  color="primary">
           <div v-if="usersStore.authentication">
-            <HeartBtn v-on:clicked="active"/>  
+            <HeartBtn v-on:clicked="active"/>
           </div>
         </div>
       </v-col>
@@ -32,19 +32,19 @@
     </v-row>
     <!-- Secção do calendario -->
     <v-row class="mt-12">
-      <v-expansion-panels 
-        focusable 
-        class="w-100" 
-        multiple  
-        bg-color="rgba(189, 199, 211, 0.3)" 
-        elevation="0" 
+      <v-expansion-panels
+        focusable
+        class="w-100"
+        multiple
+        bg-color="rgba(189, 199, 211, 0.3)"
+        elevation="0"
         collapse-icon="mdi-chevron-up"
-        expand-icon="mdi-chevron-down" 
+        expand-icon="mdi-chevron-down"
         v-model="panels"
       >
         <v-expansion-panel v-for="hour in hours" class="scheduleMenu mb-4" :value="hour">
-          <!-- Titulo --> 
-          <v-expansion-panel-title class="text-h6">{{ hour }}</v-expansion-panel-title> 
+          <!-- Titulo -->
+          <v-expansion-panel-title class="text-h6">{{ hour }}</v-expansion-panel-title>
           <!-- Corpo -->
           <v-expansion-panel-text>
             <v-row v-if="isFavActive"> <!-- Criação dos Cards com gosto -->
@@ -53,10 +53,10 @@
                   <TalksCard
                     :liked="usersStore.authentication && usersStore.getUserLogged?.likedTalks.includes(talk.id) || false"
                     :logged="usersStore.authentication"
-                    :talkId="talk.id" 
+                    :talkId="talk.id"
                     :title="talk.title"
-                    :summary="talk.summary" 
-                    :desc="talk.desc" 
+                    :summary="talk.summary"
+                    :desc="talk.desc"
                     :room="talk.room"
                     :filters="talk.filters"
                     :speaker="speakersStore.getSpeakerById(talk.speaker)"
@@ -69,10 +69,10 @@
                   <TalksCard
                     :liked="usersStore.authentication && usersStore.getUserLogged?.likedTalks.includes(talk.id) || false"
                     :logged="usersStore.authentication"
-                    :talkId="talk.id" 
-                    :title="talk.title" 
-                    :summary="talk.summary" 
-                    :desc="talk.desc" 
+                    :talkId="talk.id"
+                    :title="talk.title"
+                    :summary="talk.summary"
+                    :desc="talk.desc"
                     :room="talk.room"
                     :filters="talk.filters"
                     :speaker="speakersStore.getSpeakerById(talk.speaker)"
@@ -83,9 +83,6 @@
         </v-expansion-panel>
       </v-expansion-panels>
     </v-row>
-
-    
-
   </v-main>
   <Footer/>
 </v-app>

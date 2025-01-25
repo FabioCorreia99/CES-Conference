@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    
+
     <header class="position-absolute">
         <Navbar />
     </header>
@@ -21,20 +21,20 @@
                         </v-chip-group>
                     </v-col>
                 </v-row>
-                <h6 class="textTitle my-12 w-75">{{ topic.desc }}</h6>   
+                <h6 class="textTitle my-12 w-75">{{ topic.desc }}</h6>
             </v-col>
         </v-row>
-     
+
         <!-- Comments & like -->
         <v-row no-gutters class="commentsContainer mx-0 pt-10 w-100">
             <v-col cols="12" class="d-flex mb-2" v-if="currentUserId">
                 <!-- like -->
-                <HeartBtn 
-                :isActive="isLiked"    
+                <HeartBtn
+                :isActive="isLiked"
                 @clicked="toggleLike"
                 />
                 <!-- new comment -->
-                <v-textarea 
+                <v-textarea
                     v-model="comment"
                     label="/Leave a comment"
                     underlined
@@ -52,7 +52,7 @@
             </v-col>
             <!-- topic comments -->
             <v-col cols="12" class="mb-2">
-                <CommentsCard 
+                <CommentsCard
                     v-for="(comment, index) in topic.comments"
                     :key="index"
                     :comment="comment.comment"
@@ -61,7 +61,7 @@
                 />
             </v-col>
         </v-row>
- 
+
 
     </v-main>
 
@@ -70,14 +70,12 @@
         <v-row class="bg-intro mx-0 pt-10 w-100">
             <v-col class="mt-12">
                 <h1 class="introTitle mb-1">Topic not found!</h1>
-                <h6 class="textTitle my-12 w-75">Please go back to the last page</h6>   
+                <h6 class="textTitle my-12 w-75">Please go back to the last page</h6>
             </v-col>
         </v-row>
     </v-main>
 
 </v-app>
-
-<link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
 </template>
 
 <script>
@@ -141,12 +139,12 @@ export default {
                     comment: this.comment,
                     author: this.usersStore.getUserById(this.currentUserId),
                     }
-                    
+
                     console.log(newComment.author);
 
                     this.topicsStore.addComment(this.topic.id, newComment);
                     console.log(`New comment added: ${this.comment}`);
-                
+
                     this.comment = "";
 
                 }
@@ -160,8 +158,8 @@ export default {
             this.$router.push({name: "forum", query: { filters: filter}});
         }
 
-    }, 
-    
+    },
+
 }
 </script>
 

@@ -88,7 +88,8 @@
           <v-text-field
             class="mt-2 mb-6"
             rounded="lg"
-            label="/Search..."
+            v-model="searchQuery"
+            label="Search FAQs..."
             prepend-inner-icon="mdi-magnify"
             variant="solo"
           ></v-text-field>
@@ -162,90 +163,86 @@
     </v-main>
     <Footer />
   </v-app>
-  <link
-    href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css"
-    rel="stylesheet"
-  />
 </template>
 
 <script>
 import Navbar from "@/components/Navbar.vue";
 import Footer from "@/components/Footer.vue";
-import { ref, computed, watch } from "vue";
 
 export default {
   components: {
     Navbar,
     Footer,
   },
-  setup() {
-    const searchQuery = ref("");
-    const expandedPanels = ref([]);
-    const faqs = ref([
-      {
-        question: "How can I purchase tickets for the event?",
-        answer:
-          'You can purchase tickets directly on our website through the "Buy Ticket" page. Select your ticket type, provide your details, and complete the payment.',
-      },
-      {
-        question: "Is it mandatory to create an account to register?",
-        answer:
-          "Yes, creating an account is required to register and access features like the personalized schedule and the online forum.",
-      },
-      {
-        question: "What types of tickets are available?",
-        answer: "We offer general admission tickets and student passes.",
-      },
-      {
-        question: "Where can I view the event schedule?",
-        answer:
-          'The complete schedule is available on the "Schedule" page of our website. You can personalize it by adding sessions to your personal calendar.',
-      },
-      {
-        question: "How does the online forum work?",
-        answer:
-          "The online forum allows participants to interact with the speakers and other users to discuss topics covered in the talks in real time.",
-      },
-      {
-        question: "Where will the event take place?",
-        answer:
-          'The event will be held at Las Vegas Convention Center in EUM. Details about the address and directions will be available on the "About" page.',
-      },
-      {
-        question: "How long is the event?",
-        answer:
-          "The event will run for 2 or 3 days, featuring sessions, talks, workshops, and the startup exhibition.",
-      },
-      {
-        question: "What are the main themes of the event?",
-        answer:
-          "The themes include Artificial Intelligence and Machine Learning, Internet of Things (IoT), Frontend and UI/UX, Leadership and Team Management, and more.",
-      },
-      {
-        question: "Is the event accessible for people with reduced mobility?",
-        answer:
-          "Yes, the event venue is fully accessible. Please contact us if you need additional assistance.",
-      },
-    ]);
-
-    // Computed property to filter FAQs
-    const filteredFaqs = computed(() => {
-      return faqs.value.filter((faq) =>
-        faq.question.toLowerCase().includes(searchQuery.value.toLowerCase())
-      );
-    });
-
-    // Watch to reset the expanded panels when search query changes
-    watch(searchQuery, () => {
-      expandedPanels.value = [];
-    });
-
+  data() {
     return {
-      searchQuery,
-      faqs,
-      filteredFaqs,
-      expandedPanels,
+      searchQuery: "",
+      expandedPanels: [],
+      faqs: [
+        {
+          question: "How can I purchase tickets for the event?",
+          answer:
+            'You can purchase tickets directly on our website through the "Buy Ticket" page. Select your ticket type, provide your details, and complete the payment.',
+        },
+        {
+          question: "Is it mandatory to create an account to register?",
+          answer:
+            "Yes, creating an account is required to register and access features like the personalized schedule and the online forum.",
+        },
+        {
+          question: "What types of tickets are available?",
+          answer: "We offer general admission tickets and student passes.",
+        },
+        {
+          question: "Where can I view the event schedule?",
+          answer:
+            'The complete schedule is available on the "Schedule" page of our website. You can personalize it by adding sessions to your personal calendar.',
+        },
+        {
+          question: "How does the online forum work?",
+          answer:
+            "The online forum allows participants to interact with the speakers and other users to discuss topics covered in the talks in real time.",
+        },
+        {
+          question: "Where will the event take place?",
+          answer:
+            'The event will be held at Las Vegas Convention Center in EUM. Details about the address and directions will be available on the "About" page.',
+        },
+        {
+          question: "How long is the event?",
+          answer:
+            "The event will run for 2 or 3 days, featuring sessions, talks, workshops, and the startup exhibition.",
+        },
+        {
+          question: "What are the main themes of the event?",
+          answer:
+            "The themes include Artificial Intelligence and Machine Learning, Internet of Things (IoT), Frontend and UI/UX, Leadership and Team Management, and more.",
+        },
+        {
+          question: "Is the event accessible for people with reduced mobility?",
+          answer:
+            "Yes, the event venue is fully accessible. Please contact us if you need additional assistance.",
+        },
+      ],
     };
+  },
+  computed: {
+    filteredFaqs() {
+      const query = this.searchQuery.toLowerCase().trim();
+      if (!query) {
+        return this.faqs;
+      }
+      return this.faqs.filter(
+        (faq) =>
+          faq.question.toLowerCase().includes(query) ||
+          faq.answer.toLowerCase().includes(query)
+      );
+    },
+  },
+  watch: {
+    searchQuery() {
+      this.expandedPanels = []; // Fechar os painéis quando há uma nova pesquisa
+    },
   },
 };
 </script>

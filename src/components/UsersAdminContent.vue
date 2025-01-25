@@ -40,11 +40,6 @@
       <v-btn :disabled="page === totalPages" @click="nextPage">Seguinte</v-btn>
     </div>
   </v-container>
-
-  <link
-    href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css"
-    rel="stylesheet"
-  />
 </template>
 
 <script>

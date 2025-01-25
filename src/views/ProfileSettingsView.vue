@@ -68,10 +68,6 @@
       </v-main>
     </v-container>
   </v-app>
-  <link
-    href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css"
-    rel="stylesheet"
-  />
 </template>
 
 <script>

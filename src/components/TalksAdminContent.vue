@@ -71,11 +71,6 @@
       <v-btn :disabled="page === totalPages" @click="nextPage">Next</v-btn>
     </div>
   </v-container>
-
-  <link
-    href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css"
-    rel="stylesheet"
-  />
 </template>
 
 <script>
