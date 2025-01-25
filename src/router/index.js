@@ -70,13 +70,6 @@ const routes =  [
       name: "partners",
       component: PartnersView,
       meta: { title: 'CES Partners' },
-      children: [
-        {
-          path: "PartnersForm",
-          name: "PartnersForm",
-          component: PartnersFormView,
-        },
-      ],
     },
     {
       path: "/about",
@@ -121,6 +114,11 @@ const routes =  [
         requiresAuth: true,
         title: "CES Ticket"
       },
+    },
+    {
+      path: "/PartnersForm",
+      name: "PartnersForm",
+      component: PartnersFormView,
     },
 ];
 
