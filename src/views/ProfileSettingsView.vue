@@ -7,10 +7,19 @@
   <v-app>
     <!-- Layout Principal -->
     <v-container>
-      <v-app-bar title="Profile Settings" dark app class="mt-0"></v-app-bar>
+      <v-app-bar dark app class="mt-0">
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+        <v-toolbar-title>Profile Settings</v-toolbar-title>
+      </v-app-bar>
 
       <!-- Navegação Lateral -->
-      <v-navigation-drawer app width="180">
+      <v-navigation-drawer
+        v-model="drawer"
+        app
+        temporary
+        :permanent="$vuetify.display.mdAndUp"
+        width="180"
+      >
         <v-list>
           <v-list-item
             title="Profile"
@@ -59,6 +68,10 @@
       </v-main>
     </v-container>
   </v-app>
+  <link
+    href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css"
+    rel="stylesheet"
+  />
 </template>
 
 <script>
@@ -82,6 +95,7 @@ export default {
   data() {
     return {
       currentContent: "Profile", // Conteúdo padrão
+      drawer: true, // Controla a visibilidade do drawer
       defaultPicture: "https://placehold.co/120",
       store: useUsersStore(),
       profile: {
@@ -105,6 +119,10 @@ export default {
     saveChanges(updatedData) {
       this.store.updateUser({ id: this.store.currentUserId, ...updatedData });
       alert("Changes saved successfully!");
+    },
+    changeContent(content) {
+      this.currentContent = content;
+      this.drawer = false; // Fecha o menu após selecionar
     },
   },
   mounted() {

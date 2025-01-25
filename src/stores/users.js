@@ -6,7 +6,7 @@ export const useUsersStore = defineStore("users", {
     users: [
       {
         id: 0,
-        Email: "user",
+        Email: "admin",
         password: "1234",
         name: "Test Admin",
         picture: "",
@@ -98,7 +98,7 @@ export const useUsersStore = defineStore("users", {
       //dados do user
       let userLogged = this.getUserLogged;
       // Sem validação pois ja é feita antes(no meu caso Fabio, mudar se usarem)
-      userLogged.likedTalks.push(idTalk);      
+      userLogged.likedTalks.push(idTalk);
       //update
       this.updateUser(userLogged);
     },

@@ -159,4 +159,22 @@ export default {
   display: flex;
   justify-content: flex-end;
 }
+
+.settings-input {
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 800px; /* Define um limite máximo */
+}
+
+@media (max-width: 1024px) {
+  .settings-input {
+    width: 80%;
+  }
+}
+
+@media (max-width: 768px) {
+  .settings-input {
+    width: 100%;
+  }
+}
 </style>
