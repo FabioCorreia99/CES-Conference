@@ -6,6 +6,8 @@ import { RouterLink, RouterView } from 'vue-router'
 
 
   <RouterView />
+
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
 </template>
 
 <style scoped>

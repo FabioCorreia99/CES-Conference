@@ -9,6 +9,7 @@
         </div>
         <v-card-actions class="d-flex justify-end align-end pa-2 pt-0 mx-0">
             <v-btn
+                :href="site"
                 icon="mdi-arrow-right-thin"
                 size="large"
                 class="mx-0"
@@ -33,10 +34,14 @@
                 type: String,
                 required: true,
             },
-            desc: {
+            site: {
                 type: String,
                 required: true,
             },
+            desc: {
+                type: String,
+                required: true,
+            }
         },
     }
 </script>

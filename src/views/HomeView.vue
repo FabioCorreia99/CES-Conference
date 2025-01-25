@@ -27,7 +27,7 @@ export default {
     SpeakersCard,
     PartnersCard,
     BlueBtnToOrange,
-    Footer
+    Footer,
   },
   data() {
     return {
@@ -223,17 +223,17 @@ export default {
     </div>
 
     <!-- Apresentação do Schedule-->
-    <v-container  fluid class="scheduleSection">
+    <v-container class="scheduleSection">
       <h1 class="textDarkBlue mx-auto text-center scheduleTitle lft">Schedule</h1>
       <v-row class="my-16 ">
-        <v-col class="d-flex justify-space-between align-center flex-column lft" cols="12"  md="6">
+        <v-col class="d-flex justify-space-between align-center flex-column ga-2 lft" cols="12" lg="6">
           <div class="textDarkBlue d-flex flex-column align-center justify-center mx-6">
             <h1 class="scheduleText mt-4 mb-8">Plan your perfect CES experience</h1>
             <h2 class="w-75 scheduleSubText text-center"> Experience the pulse of innovation with a schedule designed to highlight the best of tech.</h2>
           </div>
           <BlueBtnToOrange :handle-click="goToSchedulePage" value="View Schedule"/>
         </v-col>
-        <v-col class="rgt d-flex justify-start justify-md-center justify-sm-center" cols="12"  md="6"> 
+        <v-col class="rgt d-flex justify-start justify-md-center justify-sm-center" cols="12"  lg="6"> 
           <img class="SchImg" :width="576" :src="scheduleImg"></img> 
         </v-col>
       </v-row>
@@ -268,7 +268,7 @@ export default {
             <div class="d-flex flex-column justitfy-center align-center">
               <v-avatar :image="feedback.picture" size="80"></v-avatar>
               <div  class="d-flex justify-center my-2">
-                <v-icon v-for="s in feedback.stars" :key="s" icon="mdi-star" color="yellow" size="small"></v-icon>
+                <v-icon v-for="s in feedback.stars" :key="s" icon="mdi-star" color="orange" size="small"></v-icon>
               </div>
               <h3 class="textDarkBlue feedName">{{ feedback.name }}</h3>
             </div>
@@ -278,16 +278,68 @@ export default {
     </v-carousel>
 
     <div class="partnersSection">
+        <h1 class="mb-12 partTitle textDarkBlue text-center">Premium Partners</h1>
         <v-slide-group mobile>
           <v-slide-group-item v-for="partner in partnersStore.partners" :key="partner.id">
-            <PartnersCard :brand="partner.brand" :img="partner.image" :desc="partner.desc"/>
+            <PartnersCard 
+            :brand="partner.brand" 
+            :img="partner.image" 
+            :desc="partner.desc"
+            :site="partner.site"/>
           </v-slide-group-item>
       </v-slide-group>     
     </div>
-    
-              
-    </v-main>
 
+    <v-container fluid class="ticketSection">
+      <div class="text-center ">
+        <h1 class="my-2 textDarkBlue text-h2"><span class="textYellow">Flexibe</span>Tickets</h1>
+        <h2 class="mb-12 textDarkBlue text-body-1">Choose what works, skip what doesn’t</h2>
+        <v-row class="align-center">
+          <!-- Card Esquerda -->
+          <v-col sm="12" md="4" col="12" class="d-flex justify-sm-center justify-center justify-md-end">
+            <v-card class="ticketCard" rounded="lg" width="21rem" height="20.6rem">
+              <v-card-title class="textWhite text-center mt-2 text-sm-h5 text-h4 font-weight-bold"><u>Dairy Ticket</u></v-card-title>
+              <v-card-text class="mt-6">
+                <h4 class="textWhite text-caption text-lg-subtitle-2" > <v-icon icon="mdi-check" color="orange" size="small"></v-icon>Access to <strong>all sessions</strong> and <strong>workshops</strong> .</h4>
+                <h4 class="textWhite text-caption text-lg-subtitle-2"> <v-icon icon="mdi-check" color="orange" size="small"></v-icon><strong>Network</strong> with industry leaders.</h4>
+                <h4 class="textWhite text-caption text-lg-subtitle-2"> <v-icon icon="mdi-check" color="orange" size="small"></v-icon>Perfect for those with limited time.</h4>
+              </v-card-text>
+              <h1 class="text-h3 textWhite mb-8"><span class="textYellow">$</span>600</h1>
+              <OrangeBtn value="REGISTER NOW"/>
+            </v-card>
+          </v-col>
+          <!-- Card Central -->
+          <v-col sm="12" md="4" col="12" class="d-flex justify-center">
+            <v-badge content="Popular" offset-x="20" color="orange" text-color="white">
+            <v-card class="ticketMaster" rounded="lg" width="20.62313rem" height="24.43788rem">
+              <v-card-title class="textWhite text-center mt-2 text-sm-h5 text-h4 font-weight-bold"><u>Full Pass</u></v-card-title>
+              <v-card-text class="my-6">
+                <h4 class="textWhite text-caption text-md-subtitle-2" > <v-icon icon="mdi-check" color="orange" size="small"></v-icon>Access to <strong>all sessions</strong> and <strong>workshops</strong> .</h4>
+                <h4 class="textWhite text-caption text-md-subtitle-2"> <v-icon icon="mdi-check" color="orange" size="small"></v-icon><strong>Network</strong> with industry leaders.</h4>
+                <h4 class="textWhite text-caption text-md-subtitle-2"> <v-icon icon="mdi-check" color="orange" size="small"></v-icon>Perfect for those with limited time.</h4>
+              </v-card-text>
+              <h1 class="text-h3 textWhite mb-16"><span class="textYellow">$</span>1200</h1>
+              <OrangeBtn value="REGISTER NOW"/>
+            </v-card>
+          </v-badge>
+          </v-col>
+          <!-- Card Direita -->
+          <v-col sm="12" md="4" col="12"  class="d-flex justify-sm-center justify-center justify-md-start">
+            <v-card class="ticketCard" rounded="lg" width="21rem" height="20.6rem">
+              <v-card-title class="textWhite text-center mt-2 text-sm-h5 text-h4 font-weight-bold"><u>2 Days Ticket</u></v-card-title>
+              <v-card-text class="mt-6">
+                <h4 class="textWhite text-caption text-lg-subtitle-2" ><v-icon icon="mdi-check" color="orange" size="small"></v-icon>Access to <strong>all sessions</strong> and <strong>workshops</strong> .</h4>
+                <h4 class="textWhite text-caption text-lg-subtitle-2"> <v-icon icon="mdi-check" color="orange" size="small"></v-icon>Ideal for diving deeper into the conference.</h4>
+                <h4 class="textWhite text-caption text-lg-subtitle-2"> <v-icon icon="mdi-check" color="orange" size="small"></v-icon><strong>Flexibility</strong> to choose which days you want.</h4>
+              </v-card-text>
+              <h1 class="text-h3 textWhite mb-8"><span class="textYellow">$</span>1000</h1>
+              <OrangeBtn value="REGISTER NOW"/>
+            </v-card>
+          </v-col>
+        </v-row>
+      </div>
+    </v-container>          
+    </v-main>
     <Footer/>
   </v-app>
 
@@ -297,6 +349,14 @@ export default {
 
 
 <style>
+.ticketCard{
+  background: linear-gradient(180deg, #6590D0 0%, #33496A 100%) !important;
+}
+.ticketMaster{
+  background: linear-gradient(180deg, #26466D 0%, #4A88D3 100%) !important;
+
+}
+
 .feedName{
   font-size: 1.25rem;
   font-style: normal;
@@ -323,6 +383,9 @@ export default {
 .textWhite{
   color: var(--color-white);
 }
+.textYellow{
+  color: var(--color-orange);
+}
 .scheduleText{
   font-size: 1.875rem;
   font-style: normal;
@@ -335,7 +398,7 @@ export default {
   font-weight: 300;
   line-height: 2rem;
 }
-.scheduleTitle{
+.scheduleTitle, .partTitle{
   font-size: 2.25rem;
   font-weight: 600;
   line-height: normal;
@@ -353,7 +416,7 @@ export default {
   width: 100% !important;
   flex: 0 0 100%; /* Garante que o tamanho não seja comprimido */
 }
-.SPcontainer, .scheduleSection, .opinionSection, .partnersSection{
+.SPcontainer, .scheduleSection, .opinionSection, .partnersSection, .ticketSection{
   margin-top: 15rem !important;
 }
 

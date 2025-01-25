@@ -31,14 +31,14 @@
                 </div>
                 <v-container>
                     <v-row >
-                        <v-col class="ml-4"  cols="4">
+                        <v-col class="ml-4 d-none d-sm-flex spCol"  cols="4">
                             <SpeakersCard 
                                 :id="speaker.id" 
                                 :name="speaker.firstName + ` `+ speaker.lastName" 
                                 :subTitle="speaker.company.title"
                                 :image="speaker.image"/>
                         </v-col>
-                        <v-col class="d-flex flex-column align-center justify-center ga-12 descText">
+                        <v-col class="d-flex flex-column align-center justify-center ga-12 descText ">
                             <h3 class="align-self-start ">ROOM:  <span class="roomText">{{ room }}</span></h3>
                             <p class="w-100" v-html="desc"></p>
                             <div class="w-100 d-flex justify-space-around align-center">
@@ -162,5 +162,9 @@
     height: 6rem !important;
     }
 }
-
+@media only screen and (max-width: 793px) and (min-width: 600px) {
+  .spCol {
+    display: none !important;
+  }
+}
 </style>

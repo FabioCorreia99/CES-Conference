@@ -83,13 +83,14 @@
       <router-view v-if="!showCreate" />
 
     </v-main>
+    <Footer />
 </v-app>
 
-<link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
 </template>
 
 <script>
 import BlueBtnToOrange from "@/components/BlueBtnToOrange.vue";
+import Footer from "@/components/Footer.vue";
 import Navbar from "@/components/Navbar.vue";
 import OrangeBtn from "@/components/OrangeBtn.vue";
 import TopicCard from "@/components/TopicCard.vue";
@@ -103,6 +104,7 @@ export default {
         OrangeBtn,
         BlueBtnToOrange,
         TopicCard,
+        Footer,
     },
     data() {
         return {
@@ -179,7 +181,7 @@ span{
     color: var(--color-white) !important;
 }
 .on-hover {
-    color: #F2A714 !important; /* Aplica o estilo ao texto */
+    color: #F2A714 !important; 
 }
 #searchBar {
     width: 50% !important;

@@ -64,6 +64,53 @@
                 </div>
 
             </v-col>
+            
+        </v-row>
+
+        <v-row class="align-center">
+          <!-- Card Esquerda -->
+          <v-col sm="12" md="4" col="12" class="d-flex justify-sm-center justify-center justify-md-end">
+            <v-card class="ticketCard" rounded="lg" width="20.875rem" height="17.75.6rem">
+              <v-card-title class="textWhite text-center mt-2 text-sm-h5 text-h4"><u>Silver Partner</u></v-card-title>
+              <v-card-text class="mt-2 ml-6">
+                <h4 class="textWhite text-caption text-lg-subtitle-2" > <v-icon icon="mdi-check" color="orange" size="small"></v-icon><strong>4</strong>m2 exhibidor space</h4>
+                <h4 class="textWhite text-caption text-lg-subtitle-2"> <v-icon icon="mdi-check" color="orange" size="small"></v-icon><strong>2</strong> high chairs, <strong>1</strong> poseur table</h4>
+                <h4 class="textWhite text-caption text-lg-subtitle-2"> <v-icon icon="mdi-check" color="orange" size="small"></v-icon><strong>Wifi-fi</strong> and <strong>power</strong></h4>
+                <h4 class="textWhite text-caption text-lg-subtitle-2"> <v-icon icon="mdi-check" color="orange" size="small"></v-icon><strong>Logo visibility</strong> on our Website</h4>
+                <h4 class="textWhite text-caption text-lg-subtitle-2"> <v-icon icon="mdi-check" color="orange" size="small"></v-icon><strong>4 tickets</strong> to the conference</h4>
+                <h4 class="textWhite text-caption text-lg-subtitle-2"> <v-icon icon="mdi-check" color="orange" size="small"></v-icon>Access to <strong>15% discounted tickets</strong></h4>
+                <h4 class="textWhite text-caption text-lg-subtitle-2"> <v-icon icon="mdi-check" color="orange" size="small"></v-icon>Partner <strong>badge</strong> and <strong>banners</strong></h4>
+              </v-card-text>
+            </v-card>
+          </v-col>
+          <!-- Card Central -->
+          <v-col sm="12" md="4" col="12" class="d-flex justify-center">
+            <v-badge content="Popular" offset-x="20" color="orange" text-color="white">
+            <v-card class="ticketMaster" rounded="lg" width="21.75rem" height="22.875rem">
+              <v-card-title class="textWhite text-center mt-2 text-sm-h5 text-h4"><u>Dairy Ticket</u></v-card-title>
+              <v-card-text class="my-6 ml-6">
+                <h4 class="textWhite text-caption text-md-subtitle-2" > <v-icon icon="mdi-check" color="orange" size="small"></v-icon><strong>1 Talk </strong>in the programme</h4>
+                <h4 class="textWhite text-caption text-md-subtitle-2"> <v-icon icon="mdi-check" color="orange" size="small"></v-icon><strong>6</strong>m2 exhibitor space</h4>
+                <h4 class="textWhite text-caption text-md-subtitle-2"> <v-icon icon="mdi-check" color="orange" size="small"></v-icon><strong>2</strong> high chairs, <strong>1</strong> poseur table</h4>
+                <h4 class="textWhite text-caption text-lg-subtitle-2"> <v-icon icon="mdi-check" color="orange" size="small"></v-icon><strong>Wifi-fi</strong> and <strong>power</strong></h4>
+                <h4 class="textWhite text-caption text-lg-subtitle-2"> <v-icon icon="mdi-check" color="orange" size="small"></v-icon><strong>8 tickets</strong> to the conference</h4>
+                <h4 class="textWhite text-caption text-lg-subtitle-2"> <v-icon icon="mdi-check" color="orange" size="small"></v-icon>Access to <strong>20% discounted tickets</strong></h4>
+                <h4 class="textWhite text-caption text-lg-subtitle-2"> <v-icon icon="mdi-check" color="orange" size="small"></v-icon>Partner <strong>badge</strong> and <strong>banners</strong></h4>
+              </v-card-text>
+            </v-card>
+          </v-badge>
+          </v-col>
+          <!-- Card Direita -->
+          <v-col sm="12" md="4" col="12"  class="d-flex justify-sm-center justify-center justify-md-start">
+            <v-card class="ticketCard" rounded="lg" width="20.875rem" height="17.75.6rem">
+              <v-card-title class="textWhite text-center mt-2 text-sm-h5 text-h4"><u>2 Days Ticket</u></v-card-title>
+              <v-card-text class="mt-2 ml-6 pb-16">
+                <h4 class="textWhite text-caption text-md-subtitle-2" > <v-icon icon="mdi-check" color="orange" size="small"></v-icon><strong>2 tickets </strong>to the conference</h4>
+                <h4 class="textWhite text-caption text-md-subtitle-2"> <v-icon icon="mdi-check" color="orange" size="small"></v-icon>Access to<strong> 10% discounted tickets</strong></h4>
+                <h4 class="textWhite text-caption text-md-subtitle-2"> <v-icon icon="mdi-check" color="orange" size="small"></v-icon>Partner <strong>badge</strong> and <strong>banners</strong></h4>
+              </v-card-text>
+            </v-card>
+          </v-col>
         </v-row>
 
         <v-row class="mt-16">
@@ -116,7 +163,6 @@
     </v-main>
     <Footer />
 </v-app>
-
 </template>
 
 <script>
