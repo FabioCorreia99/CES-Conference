@@ -65,8 +65,41 @@ export const usePartnersStore = defineStore("partners", {
             },
             
         ],
+        pendingPartners: [],
     }),
     persist: true,
-    getters: {},
-    actions: {}
+    getters: {
+
+    },
+    actions: {
+        submitPartner(partnerData) {
+            const newPartner = {
+                id: this.partners.length,
+                status: "pending",
+                ...partnerData,
+                submissionDate: new Date().toISOString(),
+            }
+
+            this.pendingPartners.push(newPartner);
+
+            return newPartner;
+        },
+        aprovePartner(partnerID) {
+            const index = this.pendingPartners.findIndex(p => p.id === partnerID);
+
+            // Verify if partner is found
+            if (index !== -1) {
+                const aprovedPartner = {
+                    ...this.pendingPartners[index],
+                    status: 'aproved',
+                }
+
+                // remove from the pending partners array
+                this.pendingPartners.splice(index, 1);
+                // add to partners list
+                return aprovedPartner;
+            }
+
+        },
+    },
 })
