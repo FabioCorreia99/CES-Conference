@@ -3,11 +3,13 @@ import { ref,onBeforeUnmount } from 'vue';
 
 import { useSpeakersStore } from '../stores/speakers';
 import { useTalksStore } from '@/stores/talks.js';
+import { usePartnersStore } from '@/stores/partners.js';
 
 import Navbar from '@/components/Navbar.vue';
 import OrangeBtn from '@/components/OrangeBtn.vue';
 import BlueBtnToOrange from '@/components/BlueBtnToOrange.vue';
 import SpeakersCard from '@/components/SpeakersCard.vue';
+import PartnersCard from '@/components/PartnersCard.vue';
 import Footer from '@/components/Footer.vue';
 
 import { gsap } from "gsap";
@@ -23,11 +25,13 @@ export default {
     Navbar,
     OrangeBtn,
     SpeakersCard,
+    PartnersCard,
     BlueBtnToOrange,
     Footer
   },
   data() {
     return {
+      partnersStore: usePartnersStore(),
       speakersStore: useSpeakersStore(),
       talksStore: useTalksStore(),
       leftImg: new URL("../assets/media/left.png", import.meta.url).href,
@@ -222,15 +226,15 @@ export default {
     <v-container  fluid class="scheduleSection">
       <h1 class="textDarkBlue mx-auto text-center scheduleTitle lft">Schedule</h1>
       <v-row class="my-16 ">
-        <v-col class="d-flex justify-space-between align-center flex-column lft" cols="6">
+        <v-col class="d-flex justify-space-between align-center flex-column lft" cols="12"  md="6">
           <div class="textDarkBlue d-flex flex-column align-center justify-center mx-6">
             <h1 class="scheduleText mt-4 mb-8">Plan your perfect CES experience</h1>
             <h2 class="w-75 scheduleSubText text-center"> Experience the pulse of innovation with a schedule designed to highlight the best of tech.</h2>
           </div>
           <BlueBtnToOrange :handle-click="goToSchedulePage" value="View Schedule"/>
         </v-col>
-        <v-col class="rgt" cols="6"> 
-          <img :width="576" :src="scheduleImg"></img> 
+        <v-col class="rgt d-flex justify-start justify-md-center justify-sm-center" cols="12"  md="6"> 
+          <img class="SchImg" :width="576" :src="scheduleImg"></img> 
         </v-col>
       </v-row>
     </v-container>
@@ -271,9 +275,16 @@ export default {
           </div>
         </v-sheet>
       </v-carousel-item>
-      
-
     </v-carousel>
+
+    <div class="partnersSection">
+        <v-slide-group mobile>
+          <v-slide-group-item v-for="partner in partnersStore.partners" :key="partner.id">
+            <PartnersCard :brand="partner.brand" :img="partner.image" :desc="partner.desc"/>
+          </v-slide-group-item>
+      </v-slide-group>     
+    </div>
+    
               
     </v-main>
 
@@ -342,7 +353,7 @@ export default {
   width: 100% !important;
   flex: 0 0 100%; /* Garante que o tamanho não seja comprimido */
 }
-.SPcontainer, .scheduleSection, .opinionSection{
+.SPcontainer, .scheduleSection, .opinionSection, .partnersSection{
   margin-top: 15rem !important;
 }
 
@@ -406,5 +417,12 @@ html, body {
   font-style: normal;
   font-weight: 300;
   line-height: normal;
+}
+
+@media only screen and (max-width: 700px) {
+    .SchImg{
+        display: flex !important;
+        justify-content: start !important;
+    }
 }
 </style>
