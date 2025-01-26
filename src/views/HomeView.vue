@@ -1,5 +1,5 @@
 <script>
-import { ref,onBeforeUnmount } from 'vue';
+import { ref,onBeforeUnmount, computed } from 'vue';
 
 import { useSpeakersStore } from '../stores/speakers';
 import { useTalksStore } from '@/stores/talks.js';
@@ -216,8 +216,78 @@ export default {
       </v-row>
     </v-container>
 
+    <v-container class="mainSection">
+      <v-row class="justify-center">
+        <v-col class="mx-2 px-0 d-flex justify-center" cols="12" lg="3">
+          <v-card rounded="lg" class="px-14 py-8" color="#26466D" width="100%" max-height="16.75rem"> 
+            <h1 class="text-center text-h1">#1</h1>
+            <h1 class="text-center text-h4 ">tech event in the <strong>world</strong></h1>
+          </v-card>
+        </v-col>
+        <v-col class="px-0 d-flex justify-center" cols="12" lg="3">
+          <v-card rounded="lg" class="px-4 pt-8 d-flex justify-center flex-column" color="#EEF6F2" width="100%" height="16.75rem">
+            <h3 class="text-center textDarkBlue text-h6">create, compete and innovate at our</h3>
+            <h1 class="text-center textDarkBlue text-h4 font-weight-regular"><strong>Hackaton</strong></h1>
+
+            <div class="podium d-flex flex-column justify-center mx-auto mt-2 h-75">
+              <v-icon class="mx-auto" icon="mdi-trophy" color="yellow" size="large"></v-icon>
+              <svg  xmlns="http://www.w3.org/2000/svg" width="210" height="101" viewBox="0 0 210 101" fill="none">
+                <rect y="25.4111" width="70" height="75" fill="#6590D0"/>
+                <rect x="70" y="0.411133" width="70" height="100" fill="#F2A714"/>
+                <rect x="140" y="50.4111" width="70" height="50" fill="#26466D"/>
+              </svg>
+            </div>
+          </v-card>
+        </v-col>
+        <v-col class="mx-2 px-0 d-flex justify-center" cols="12" lg="5">
+          <v-card rounded="lg" class="px-4 pt-8 d-flex justify-center flex-column" color="#26466D" width="100%" height="16.75rem">
+            <div class="d-flex justify-center">
+              <svg class="mx-2" v-for="n in 3" xmlns="http://www.w3.org/2000/svg" width="105" height="115" viewBox="0 0 105 115" fill="none">
+                <path opacity="0.8" d="M6.99805 24.7479V89.997C6.99805 103.368 21.5276 111.747 33.1157 105.061L61.3717 88.8382L89.6295 72.5267C101.218 65.8413 101.218 49.1724 89.6295 42.3979L61.3717 26.0849L33.1157 9.86189C21.5276 2.99821 6.99805 11.3771 6.99805 24.7479Z" stroke="#F2A714" stroke-width="13.3708" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h1 class="text-center text-h5 mt-2">Fast forward into the future with live demonstrations of AI, IoT, and UI/UX technologies. </h1>
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-row class="justify-center">
+        <v-col class="mx-2 px-0 d-flex justify-center" cols="12"  lg="5">
+          <v-card rounded="lg" class="pt-8 d-flex justify-center flex-column" color="#6590D0" width="100%" height="16.75rem">
+            <div class="d-flex justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="256" height="257" viewBox="0 0 256 257" fill="none">
+                <path d="M90 218.819L98 175.219H158L166 218.819H90Z" fill="#0E1111" fill-opacity="0.3"/>
+                <path d="M207.664 241.243H48.3359L56.3359 215.947H199.664L207.664 241.243Z" fill="#666666" fill-opacity="0.3"/>
+                <path d="M252 19.5791H4V171.979H252V19.5791Z" fill="#E4EDEC"/>
+                <path d="M248 23.5791V167.939H8V23.5791H248ZM256 15.5791H0V175.939H256V15.5791Z" fill="#0E1111"/>
+                <path d="M216.96 58.1151H134.632V74.1151H216.96V58.1151Z" fill="#EEF6F2"/>
+                <path d="M216.96 97.3711H134.632V105.371H216.96V97.3711Z" fill="#EEF6F2"/>
+                <path d="M216.96 125.403H134.632V133.403H216.96V125.403Z" fill="#EEF6F2"/>
+                <path d="M58.9678 105.595V152.051L77.2878 132.203L94.3918 151.755V104.891" fill="#E04F5F"/>
+                <path d="M76.6798 113.979C97.2557 113.979 113.936 97.2991 113.936 76.7232C113.936 56.1472 97.2557 39.4672 76.6798 39.4672C56.1039 39.4672 39.4238 56.1472 39.4238 76.7232C39.4238 97.2991 56.1039 113.979 76.6798 113.979Z" fill="#F2A714"/>
+              </svg>  
+            </div>
+            <h1 class="text-center text-subtitle-2 position-absolute bottom-0 pb-2">Boost your skills with interactive sessions on leadership, team management, and frontend development using modern tools like React, Vue or Angular.</h1>
+          </v-card>
+        </v-col>
+        <v-col class="px-0 d-flex justify-center" xs="12" lg="3">
+          <v-card rounded="lg" class="pa-4 d-flex flex-column justify-center align-center" color="#EEF6F2" width="100%" max-height="16.75rem"> 
+            <h1 class="text-center text-h3 textDarkBlue pb-2 px-8 pt-10">Forum</h1>
+            <h1 class="text-center text-subtitle-2 textDarkBlue px-4 pb-6">Connect with like-minded professionals and industry leaders</h1>
+            <div class="w-100 d-flex justify-end mt-6">
+              <v-btn color="orange" variant="plain" icon="mdi-arrow-top-right-thin-circle-outline"></v-btn>
+            </div>
+          </v-card>
+        </v-col>
+        <v-col class="mx-2 px-0 d-flex justify-center" xs="12" lg="3">
+          <v-card rounded="lg" class="pa-10 d-flex flex-column justify-center align-center" color="#F2A714" width="100%" height="16.75rem"> 
+            <h1 class="text-center text-h3 my-16 textWhite">Forum <v-icon icon="mdi-arrow-right-thin-circle-outline" color="white" size="x-small"></v-icon></h1>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+
     <!-- Secção de Stats-->
-    <div class="py-10 statsBar mb-12 d-flex justify-space-around align-center textWhite">
+    <div class="py-10 SPcontainer statsBar mb-12 d-flex justify-space-around align-center textWhite">
       <div class="pa-3 d-flex flex-column align-center">
         <h1 class="statsTitle mb-3">+<span class="count">1024</span></h1>
         <h1 class="statsSubTitle mt-3">Attendees</h1>
@@ -383,6 +453,14 @@ export default {
 
 
 <style>
+.podium{
+  width: 13.125rem !important;
+  height: 6.25rem !important;
+  flex-shrink: 0 !important;
+}
+.mainSection{
+  margin-top: 40rem !important;
+}
 .ticketCard{
   background: linear-gradient(180deg, #6590D0 0%, #33496A 100%) !important;
 }
@@ -469,7 +547,6 @@ export default {
 
 .statsBar{
   width: 100% !important;
-  margin-top: 40rem !important;
   background-color: #26466D !important;
 }
 .mainTitles, .box-container{
