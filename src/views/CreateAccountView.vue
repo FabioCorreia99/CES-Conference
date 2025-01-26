@@ -145,7 +145,6 @@ export default {
 
       if (loginSuccessful) {
         // Redirecionar para a página principal ou outra vista apropriada
-        alert("Account created and logged in successfully!");
         this.$router.push("/");
       } else {
         this.errorMessage = "Something went wrong during login.";
