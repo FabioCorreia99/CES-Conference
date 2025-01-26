@@ -147,11 +147,24 @@ export default {
 
                     this.comment = "";
 
+                    let topicCreatorId = this.usersStore.getUserByName(this.topic.author).id;
+
+                    this.usersStore.addNotification(topicCreatorId,`Someone commented on "${this.topic.title}"`)
+
                 }
             }
         },
         toggleLike() {
+            let topicCreatorId = this.usersStore.getUserByName(this.topic.author).id;
+            
+            if (this.topic.likes.includes(this.currentUserId)) {
+                this.usersStore.addNotification(topicCreatorId,`Someone removed a liked from "${this.topic.title}"`)
+            } else {
+                this.usersStore.addNotification(topicCreatorId,`Someone liked "${this.topic.title}"`)
+            }
+
             this.topicsStore.toggleLike(this.topic.id, this.currentUserId)
+
         },
         FilterClick(filter) {
             // Go back to the forum with the respective filter selected

@@ -145,6 +145,7 @@ import Footer from "@/components/Footer.vue";
 import Navbar from "@/components/Navbar.vue";
 import SubmitBtn from "@/components/SubmitBtn.vue";
 import { usePartnersStore } from "@/stores/partners";
+import { useUsersStore } from "@/stores/users";
 
 export default {
   components: {
@@ -153,7 +154,9 @@ export default {
     SubmitBtn,
   },
   data() {
+    const usersStore = useUsersStore();
     return {
+      usersStore,
       partnerType: [],
       companyName: "",
       companyWebsite: "",
@@ -395,7 +398,9 @@ export default {
         this.partnersStore.submitPartner(partnerData);
 
         // Exibe um alerta de sucesso
-        alert("Your partnership request has been submitted successfully!");
+        this.usersStore.addNotification(this.usersStore.getUserLogged.id,`Your partnership request has been submitted successfully!`)
+        // Avisa admin
+        this.usersStore.addNotification(0,`You received a new Partner submission`);
 
         // Limpa os campos após submissão
         this.partnerType = "";
@@ -405,6 +410,8 @@ export default {
         this.companyPhone = "";
         this.companyCountry = "";
         this.companyGoals = "";
+
+        this.$router.push({name: "partners"});
       } catch (error) {
         console.log(error);
       }

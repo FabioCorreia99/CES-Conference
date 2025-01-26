@@ -108,9 +108,11 @@
         methods: {
             clickedHeart(e) {
                 if (e) {
+                    this.store.addNotification(this.store.getUserLogged.id,"You added a talk to your Agenda.")
                     this.store.addLikedTalk(this.talkId)
                 }
                 else{
+                    this.store.addNotification(this.store.getUserLogged.id,"You removed a talk from your Agenda.")
                     this.store.removeLikedTalk(this.talkId)
                 }
             },

@@ -38,6 +38,8 @@
         <v-avatar v-if="avatar" id="profileAvatar" size="x-small" :image="avatar" @click="goToProfile()" tabindex="7" aria-label="User Profile" role="button"></v-avatar>
         <v-icon v-else style="color: rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity));" @click="goToProfile()" tabindex="7" aria-label="User Profile" role="button">mdi-account-outline</v-icon>
 
+        <NotificationsDropdown />
+
         <v-icon style="font-size:24px;color: rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity));cursor: pointer;" @click="logout()" tabindex="8" aria-label="Log out" role="button">mdi-logout</v-icon>
 
       </div>
@@ -120,15 +122,16 @@
 
 <script>
 import { useRoute } from "vue-router";
-import { Bars3Icon, ArrowRightStartOnRectangleIcon } from "@heroicons/vue/24/solid";
+import { Bars3Icon } from "@heroicons/vue/24/solid";
 import { useUsersStore } from "@/stores/users";
 import { computed } from "vue";
 import { gsap } from "gsap";
+import NotificationsDropdown from "./NotificationsDropdown.vue";
 
 export default {
   components: {
     Bars3Icon,
-    ArrowRightStartOnRectangleIcon,
+    NotificationsDropdown,
   },
   data() {
     return {

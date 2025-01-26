@@ -19,6 +19,7 @@ export const useUsersStore = defineStore("users", {
         },
         likedTalks: [],
         role: "admin",
+        notifications: [],
       },
       {
         id: 1,
@@ -38,6 +39,18 @@ export const useUsersStore = defineStore("users", {
         },
         likedTalks: [1,4,2],
         role: "user",
+        notifications: [
+          {
+            "id": 1737911577932,
+            "message": "Bill Gates liked your post.",
+            "isRead": false
+          },
+          {
+            "id": 1737911577933,
+            "message": "Jesus liked your post.",
+            "isRead": false
+          },
+        ],
       },
     ],
     authentication: false,
@@ -55,6 +68,11 @@ export const useUsersStore = defineStore("users", {
     },
     isAuthenticated: (state) => state.authentication,
     getUserLogged: (state) => state.users.find((user) => user.id === state.currentUserId),
+    getNotifications: (state) => {
+        const user = state.users.find((user) => user.id === state.currentUserId);
+        return user.notifications || [];
+    },
+    getUserByName: (state) => (name) => state.users.find((user) => user.name.toLowerCase() === name.toLowerCase()),
   },
   actions: {
     login(email, password) {
@@ -85,6 +103,7 @@ export const useUsersStore = defineStore("users", {
         ticket: {},
         likedTalks: [],
         role: "user", // Por padrão, novos utilizadores são "user"
+        notifications: [],
       });
       return true;
     },
@@ -109,6 +128,39 @@ export const useUsersStore = defineStore("users", {
       userLogged.likedTalks = userLogged.likedTalks.filter(liked => liked != idTalk)
       // update
       this.updateUser(userLogged);
+    },
+    addNotification(recipientID, message) {
+      let user = this.getUserById(recipientID);
+      
+      if (!user) {
+        return;
+      }
+
+      const newNotification = {
+        id: Date.now(),
+        message,
+        isRead: false,
+      }
+
+      user.notifications.push(newNotification);
+
+      this.updateUser(user);
+
+    },
+    markAsRead(notificationId) {
+      let userLogged = this.getUserLogged;
+      
+      if (!userLogged) {
+        return;
+      }
+      
+      const notification = userLogged.notifications.find((n) => n.id === notificationId);
+
+      if (notification) {
+        userLogged.notifications = userLogged.notifications.filter((n) => n.id !== notification.id)
+        this.updateUser(userLogged);
+      }
+
     },
   },
   // Persiste os dados no localStorage
