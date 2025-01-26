@@ -48,7 +48,7 @@
                     required
                     class="pr-6 pl-3">
                 </v-textarea>
-                <SubmitBtn value="Post" @submit="submitComment" id="submitBtn"/>
+                <OrangeBtn value="Post" @click="submitComment" />
             </v-col>
             <!-- topic comments -->
             <v-col cols="12" class="mb-2">
@@ -82,7 +82,7 @@
 import CommentsCard from "@/components/CommentsCard.vue";
 import HeartBtn from "@/components/HeartBtn.vue";
 import Navbar from "@/components/Navbar.vue";
-import SubmitBtn from '@/components/SubmitBtn.vue';
+import OrangeBtn from "@/components/OrangeBtn.vue";
 
 import { useTopicsStore } from "@/stores/forum";
 import { useUsersStore } from "@/stores/users";
@@ -90,9 +90,9 @@ import { useUsersStore } from "@/stores/users";
 export default {
     components: {
         Navbar,
-        SubmitBtn,
         CommentsCard,
         HeartBtn,
+        OrangeBtn,
     },
     props: ["topicId"],
     computed: {
@@ -173,9 +173,6 @@ export default {
 }
 .commentsContainer {
     padding: 0 8rem;
-}
-::v-deep(#submitBtn) {
-    margin-right: 0;
 }
 
 </style>

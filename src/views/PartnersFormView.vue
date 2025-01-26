@@ -11,7 +11,7 @@
         <v-col cols="8">
           <v-form
             ref="partnerForm"
-            v-model="isFormValid"
+            v-model="isValid"
             @submit.prevent="submitForm"
           >
             <h1>What type of partnership do you want at CES?</h1>
@@ -22,6 +22,7 @@
                   type="radio"
                   v-model="partnerType"
                   value="Gold"
+                  id="goldRadio"
                   class="mr-1"
                 />
                 <h4>Gold Partner</h4>
@@ -32,6 +33,7 @@
                   type="radio"
                   v-model="partnerType"
                   value="Bronze"
+                  id="bronzeRadio"
                   class="mr-1"
                 />
                 <h4>Bronze Partner</h4>
@@ -42,6 +44,7 @@
                   type="radio"
                   v-model="partnerType"
                   value="Silver"
+                  id="silverRadio"
                   class="mr-1"
                 />
                 <h4>Silver Partner</h4>
@@ -127,9 +130,7 @@
             </h4>
 
             <SubmitBtn
-              :disabled="!isFormValid"
               value="submit"
-              @click="submitForm"
             />
           </v-form>
         </v-col>
@@ -356,10 +357,10 @@ export default {
       ],
       companyGoals: "",
       partnersStore: usePartnersStore(),
-      isFormValid: false,
+      isValid: false,
       formRules: [
         (value) => {
-          if (value?.length >= 1) {
+          if (value?.length >= 3) {
             return true;
           } else {
             return "This field is mandatory.";
@@ -370,7 +371,8 @@ export default {
   },
   methods: {
     submitForm() {
-      if (!this.$refs.partnerForm.validate()) {
+      if (!this.isValid) {
+        alert("form invalid")
         return;
       }
 

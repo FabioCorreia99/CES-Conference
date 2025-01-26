@@ -21,7 +21,7 @@
             <v-row id="firstRow" cols="12" md="3">
                 <v-col class="formContainer"> 
                     <!-- User Info Form -->
-                    <v-form ref="buyTicketForm" @submit.prevent="">
+                    <v-form ref="buyTicketForm" id="buyTicketForm" @submit.prevent="">
                         <!-- First & Last Name -->
                         <v-text-field 
                         v-model="name"
@@ -137,12 +137,12 @@
                 <v-col cols="12" md="3" class="formContainer" id="payContainer"> 
                     
                     <div class="termsWrapper">
-                        <input type="checkbox" class="mr-1"/>
+                        <input type="checkbox" id="termsCheckBox" class="mr-1"/>
                         <h5 class="blueText">I have read and agree to the <b>Terms and Conditions</b> and <b>Privacy Policy</b>.</h5>
                     </div>
 
                     <div class="termsWrapper">
-                        <input type="checkbox" class="mr-1"/>
+                        <input type="checkbox" id="newsCheckBox" class="mr-1"/>
                         <h5 class="blueText">I <b>consent</b> to receive <b>marketing emails</b>and <b>promotional offers</b> from <b>CTA/CES</b>.</h5>
                     </div>
 
