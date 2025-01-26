@@ -99,6 +99,10 @@ export default {
         name: "",
         about: "",
       },
+      settings: {
+        email: "",
+        password: "",
+      },
     };
   },
   props: {
