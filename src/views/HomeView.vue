@@ -272,7 +272,7 @@ export default {
           </v-card>
         </v-col>
         <v-col class="rgt px-0 d-flex justify-center" xs="12" lg="3">
-          <v-card rounded="lg" class="pa-4 d-flex flex-column justify-center align-center" color="#EEF6F2" width="100%" max-height="16.75rem"> 
+          <v-card :to="{name: 'forum'}" rounded="lg" class="pa-4 d-flex flex-column justify-center align-center" color="#EEF6F2" width="100%" max-height="16.75rem"> 
             <h1 class="text-center text-h3 textDarkBlue pb-2 px-8 pt-10">Forum</h1>
             <h1 class="text-center text-subtitle-2 textDarkBlue px-4 pb-6">Connect with like-minded professionals and industry leaders</h1>
             <div class="w-100 d-flex justify-end mt-6">
@@ -281,8 +281,8 @@ export default {
           </v-card>
         </v-col>
         <v-col class="rgt mx-2 px-0 d-flex justify-center" xs="12" lg="3">
-          <v-card rounded="lg" class="pa-10 d-flex flex-column justify-center align-center" color="#F2A714" width="100%" height="16.75rem"> 
-            <h1 class="text-center text-h3 my-16 textWhite">Forum <v-icon icon="mdi-arrow-right-thin-circle-outline" color="white" size="x-small"></v-icon></h1>
+          <v-card :to="{name: 'createAccount'}" rounded="lg" class="py-10  d-flex flex-column justify-center align-center" color="#F2A714" width="100%" height="16.75rem"> 
+            <h1 class="text-center text-h4 my-12 textWhite">REGISTER <v-icon icon="mdi-arrow-right-thin-circle-outline" color="white" size="x-small"></v-icon></h1>
           </v-card>
         </v-col>
       </v-row>

@@ -11,6 +11,7 @@ describe("Route Guards", () => {
     // Criar uma instância de Pinia de teste
     const pinia = createTestingPinia({
       createSpy: vi.fn, // Permite espionar chamadas às ações do store
+      // vi.fn é uma função que cria mocks (funções espiãs), permitindo capturar chamadas, argumentos passados e simular comportamentos em testes unitários
     });
     store = useUsersStore(pinia);
 
