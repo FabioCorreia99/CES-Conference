@@ -216,15 +216,17 @@ export default {
       </v-row>
     </v-container>
 
+
+    <!-- Main Section -->
     <v-container class="mainSection">
       <v-row class="justify-center">
-        <v-col class="mx-2 px-0 d-flex justify-center" cols="12" lg="3">
+        <v-col class="lft mx-2 px-0 d-flex justify-center" cols="12" lg="3">
           <v-card rounded="lg" class="px-14 py-8" color="#26466D" width="100%" max-height="16.75rem"> 
             <h1 class="text-center text-h1">#1</h1>
             <h1 class="text-center text-h4 ">tech event in the <strong>world</strong></h1>
           </v-card>
         </v-col>
-        <v-col class="px-0 d-flex justify-center" cols="12" lg="3">
+        <v-col class="lft px-0 d-flex justify-center" cols="12" lg="3">
           <v-card rounded="lg" class="px-4 pt-8 d-flex justify-center flex-column" color="#EEF6F2" width="100%" height="16.75rem">
             <h3 class="text-center textDarkBlue text-h6">create, compete and innovate at our</h3>
             <h1 class="text-center textDarkBlue text-h4 font-weight-regular"><strong>Hackaton</strong></h1>
@@ -239,19 +241,19 @@ export default {
             </div>
           </v-card>
         </v-col>
-        <v-col class="mx-2 px-0 d-flex justify-center" cols="12" lg="5">
+        <v-col class="rgt mx-2 px-0 d-flex justify-center" cols="12" lg="5">
           <v-card rounded="lg" class="px-4 pt-8 d-flex justify-center flex-column" color="#26466D" width="100%" height="16.75rem">
             <div class="d-flex justify-center">
               <svg class="mx-2" v-for="n in 3" xmlns="http://www.w3.org/2000/svg" width="105" height="115" viewBox="0 0 105 115" fill="none">
                 <path opacity="0.8" d="M6.99805 24.7479V89.997C6.99805 103.368 21.5276 111.747 33.1157 105.061L61.3717 88.8382L89.6295 72.5267C101.218 65.8413 101.218 49.1724 89.6295 42.3979L61.3717 26.0849L33.1157 9.86189C21.5276 2.99821 6.99805 11.3771 6.99805 24.7479Z" stroke="#F2A714" stroke-width="13.3708" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
-            <h1 class="text-center text-h5 mt-2">Fast forward into the future with live demonstrations of AI, IoT, and UI/UX technologies. </h1>
+            <h1 class="text-center text-h6 text-sm-h5 mt-2">Fast forward into the future with live demonstrations of AI, IoT, and UI/UX technologies. </h1>
           </v-card>
         </v-col>
       </v-row>
       <v-row class="justify-center">
-        <v-col class="mx-2 px-0 d-flex justify-center" cols="12"  lg="5">
+        <v-col class="lft mx-2 px-0 d-flex justify-center" cols="12"  lg="5">
           <v-card rounded="lg" class="pt-8 d-flex justify-center flex-column" color="#6590D0" width="100%" height="16.75rem">
             <div class="d-flex justify-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="256" height="257" viewBox="0 0 256 257" fill="none">
@@ -269,7 +271,7 @@ export default {
             <h1 class="text-center text-subtitle-2 position-absolute bottom-0 pb-2">Boost your skills with interactive sessions on leadership, team management, and frontend development using modern tools like React, Vue or Angular.</h1>
           </v-card>
         </v-col>
-        <v-col class="px-0 d-flex justify-center" xs="12" lg="3">
+        <v-col class="rgt px-0 d-flex justify-center" xs="12" lg="3">
           <v-card rounded="lg" class="pa-4 d-flex flex-column justify-center align-center" color="#EEF6F2" width="100%" max-height="16.75rem"> 
             <h1 class="text-center text-h3 textDarkBlue pb-2 px-8 pt-10">Forum</h1>
             <h1 class="text-center text-subtitle-2 textDarkBlue px-4 pb-6">Connect with like-minded professionals and industry leaders</h1>
@@ -278,7 +280,7 @@ export default {
             </div>
           </v-card>
         </v-col>
-        <v-col class="mx-2 px-0 d-flex justify-center" xs="12" lg="3">
+        <v-col class="rgt mx-2 px-0 d-flex justify-center" xs="12" lg="3">
           <v-card rounded="lg" class="pa-10 d-flex flex-column justify-center align-center" color="#F2A714" width="100%" height="16.75rem"> 
             <h1 class="text-center text-h3 my-16 textWhite">Forum <v-icon icon="mdi-arrow-right-thin-circle-outline" color="white" size="x-small"></v-icon></h1>
           </v-card>
@@ -392,7 +394,7 @@ export default {
                 <h4 class="textWhite text-caption text-lg-subtitle-2"> <v-icon icon="mdi-check" color="orange" size="small"></v-icon>Perfect for those with limited time.</h4>
               </v-card-text>
               <h1 class="text-h3 textWhite mb-8"><span class="textYellow">$</span>600</h1>
-              <OrangeBtn value="REGISTER NOW"/>
+              <OrangeBtn @click="goToBuyTicketPage" value="REGISTER NOW"/>
             </v-card>
           </v-col>
           <!-- Card Central -->
@@ -406,7 +408,7 @@ export default {
                 <h4 class="textWhite text-caption text-md-subtitle-2"> <v-icon icon="mdi-check" color="orange" size="small"></v-icon>Perfect for those with limited time.</h4>
               </v-card-text>
               <h1 class="text-h3 textWhite mb-16"><span class="textYellow">$</span>1200</h1>
-              <OrangeBtn value="REGISTER NOW"/>
+              <OrangeBtn @click="goToBuyTicketPage" value="REGISTER NOW"/>
             </v-card>
           </v-badge>
           </v-col>
@@ -420,7 +422,7 @@ export default {
                 <h4 class="textWhite text-caption text-lg-subtitle-2"> <v-icon icon="mdi-check" color="orange" size="small"></v-icon><strong>Flexibility</strong> to choose which days you want.</h4>
               </v-card-text>
               <h1 class="text-h3 textWhite mb-8"><span class="textYellow">$</span>1000</h1>
-              <OrangeBtn value="REGISTER NOW"/>
+              <OrangeBtn @click="goToBuyTicketPage" value="REGISTER NOW"/>
             </v-card>
           </v-col>
         </v-row>
@@ -625,11 +627,11 @@ html, body {
 }
 @media only screen and (max-width: 550px) {
     .count,.statsTitle{
-      font-size: 2.2rem !important;
+      font-size: 1.5rem !important;
       font-weight: 500 !important;
     }
     .statsSubTitle{
-      font-size: 1.3rem !important;
+      font-size: 1rem !important;
     }
     .masterTitleDate{
       font-size: 4rem;
