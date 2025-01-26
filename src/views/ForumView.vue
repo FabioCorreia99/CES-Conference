@@ -149,13 +149,11 @@ export default {
         queryFilters() {
             return this.$route.query.filters ? this.$route.query.filters.split(',') : [];
         },
-        // Obtém os utilizadores paginados
         paginatedTopics() {
             const start = (this.page - 1) * this.itemsPerPage;
             const end = start + this.itemsPerPage;
             return this.filteredTopics.slice(start, end);
         },
-        // Calcula o total de páginas necessárias
         totalPages() {
             return Math.ceil(this.filteredTopics.length / this.itemsPerPage);
         },

@@ -16,22 +16,32 @@
                         label="/Search..."
                         prepend-inner-icon="mdi-magnify"
                         variant="solo"
+                        v-model="searchSpeaker"
                     ></v-text-field>
                 </div>
             </v-col>
         </v-row>
-    <v-container class="mt-10 pa-xs-0">
-        <!-- Speakers grid -->
-        <v-row class="speakersContainer pa-xs-0">
-          <v-col class="speaker d-flex justify-center " v-for="sp in speakersStore.speakers" :key="sp.id" xs="6" sm="6" md="4" lg="3" ref="main">
-            <SpeakersCard
-                :id="sp.id"
-                :name="sp.firstName + ` `+ sp.lastName"
-                :subTitle="sp.company.title"
-                :image="sp.image"/>
-          </v-col>
-        </v-row>
+
+        <v-container class="mt-10 pa-xs-0">
+            <!-- Speakers grid -->
+            <v-row class="speakersContainer pa-xs-0">
+                <v-col class="speaker d-flex justify-center " v-for="sp in paginatedTopics" :key="sp.id" xs="6" sm="6" md="4" lg="3" ref="main">
+                    <SpeakersCard
+                        :id="sp.id"
+                        :name="sp.firstName + ` `+ sp.lastName"
+                        :subTitle="sp.company.title"
+                        :image="sp.image"/>
+                </v-col>
+            </v-row>
+            
+            <!-- Paginação -->
+            <div class="pagination mt-12">
+                <v-btn :disabled="page === 1" @click="prevPage" class="pageBTN">Anterior</v-btn>
+                <span id="pageNumber">Página {{ page }} de {{ totalPages }}</span>
+                <v-btn :disabled="page === totalPages" @click="nextPage" class="pageBTN">Seguinte</v-btn>
+            </div>
       </v-container>
+
     </v-main>
     <Footer/>
   </v-app>
@@ -61,8 +71,13 @@ export default {
         Footer
     },
     data() {
+        const speakersStore = useSpeakersStore();
+        
         return {
-            speakersStore: useSpeakersStore()
+            speakersStore,
+            searchSpeaker: "",
+            page: 1,
+            itemsPerPage: 16,
         }
     },
     created () {
@@ -112,10 +127,46 @@ export default {
             ctx.revert(); // Reverte o contexto GSAP
         }
     },
+    computed: {
+        filteredSpeakers() {
+            const input = this.searchSpeaker.toLowerCase();
+
+            return this.speakersStore.speakers.filter((speaker) => {
+                const textSearch = speaker.firstName.toLowerCase().includes(input) || speaker.lastName.toLowerCase().includes(input);
+                
+                return textSearch;
+            });
+        },
+        paginatedTopics() {
+            const start = (this.page - 1) * this.itemsPerPage;
+            const end = start + this.itemsPerPage;
+            return this.filteredSpeakers.slice(start, end);
+        },
+        totalPages() {
+            return Math.ceil(this.filteredSpeakers.length / this.itemsPerPage);
+        },
+    },
+    methods: {
+        prevPage() {
+            if (this.page > 1) this.page--;
+        },
+        nextPage() {
+            if (this.page < this.totalPages) this.page++;
+        },
+    }
 };
 </script>
 
 <style>
+
+.pageBTN {
+    background-color: #F2A714 !important;
+}
+#pageNumber {
+    color: black !important;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
 .bg-intro {
     padding: 0 8rem;
     background-color: rgba(189, 199, 211, 0.30);
