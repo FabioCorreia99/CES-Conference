@@ -9,7 +9,7 @@
             <v-col>
                 <h1 class="introTitle my-12">Speakers</h1>
                 <h6 class="textTitle my-12 w-75">The CES conference program spotlights technology's most influential leaders as partners and speakers, sharing insights on premier technologies and what will continue to redefine the consumer technology industry in the future.</h6>
-                <div class="d-flex justify-space-around my-1 w-50">
+                <div class="inputSp d-flex justify-space-around my-1">
                     <v-text-field
                         class="mt-12 mb-0"
                         rounded="lg"
@@ -158,7 +158,9 @@ export default {
 </script>
 
 <style>
-
+.inputSp{
+    width: 50%;
+}
 .pageBTN {
     background-color: #F2A714 !important;
 }
@@ -172,7 +174,7 @@ export default {
     background-color: rgba(189, 199, 211, 0.30);
 }
 .introTitle{
-    color: #26466D;
+    color: var(--color-dark-blue);
     font-family: "Source Code Pro";
     font-size: 6.25rem;
     font-style: normal;
@@ -191,6 +193,13 @@ export default {
     .bg-intro {
         padding: 0;
     }
+    .introTitle{
+        font-size: 4.25rem;
+    }
+    .inputSp{
+    width: 100%;
+}
+
 }
 
 </style>
