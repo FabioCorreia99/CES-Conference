@@ -247,7 +247,7 @@ export default {
           </div>
           <BlueBtnToOrange :handle-click="goToSchedulePage" value="View Schedule"/>
         </v-col>
-        <v-col class="rgt d-flex justify-start justify-md-center justify-sm-center" cols="12"  lg="6">
+        <v-col class="rgt d-flex justify-center justify-lg-start" cols="12"  lg="6">
           <img class="SchImg" :width="576" :src="scheduleImg"></img>
         </v-col>
       </v-row>
@@ -357,11 +357,11 @@ export default {
       </div>
     </v-container>
 
-    <!-- Apresentação do Schedule-->
+    <!-- Apresentação do Partners With us-->
     <v-container class="partWithUsSection">
       <h1 class="textDarkBlue mx-auto text-center scheduleTitle lft">Partner With CES</h1>
       <v-row class="my-16 ">
-        <v-col class="lft d-flex justify-start justify-md-center justify-sm-center" cols="12"  lg="6">
+        <v-col class="lft d-flex justify-center justify-lg-start" cols="12"  lg="6">
           <img class="SchImg" :width="576" :src="partnersImg"></img>
         </v-col>
         <v-col class="rgt d-flex justify-space-between align-center flex-column ga-2 " cols="12" lg="6">
@@ -518,8 +518,6 @@ html, body {
 @media only screen and (max-width: 700px) {
     .SchImg{
         width: 450px !important;
-        display: flex !important;
-        justify-content: start !important;
     }
 }
 @media only screen and (max-width: 762px) {
