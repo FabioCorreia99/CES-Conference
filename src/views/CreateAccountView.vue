@@ -52,7 +52,7 @@
             <form @submit.prevent="createAccount" class="create-account-form">
               <label for="email" class="login-label">Enter your email</label>
               <div class="input-group">
-                <ArrowRightIcon class="input-icon" />
+                <v-icon class="input-icon">mdi-arrow-right</v-icon>
                 <input
                   id="create-email"
                   type="email"
@@ -66,7 +66,7 @@
                 >Enter your password</label
               >
               <div class="input-group">
-                <ArrowRightIcon class="input-icon" />
+                <v-icon class="input-icon">mdi-arrow-right</v-icon>
                 <input
                   id="create-password"
                   type="password"
@@ -157,7 +157,7 @@ export default {
 
 <style scoped>
 .create-account-page {
-  background-color: #26466d;
+  background-color: var(--color-dark-blue);
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -216,7 +216,7 @@ export default {
   flex-direction: row;
   align-items: center;
   gap: 2rem;
-  color: #eef6f2;
+  color: var(--color-white);
 }
 
 .ascii-logo-wrapper {
@@ -225,7 +225,7 @@ export default {
 
 .ascii-logo {
   font-family: monospace;
-  color: #eef6f2;
+  color: var(--color-white);
   font-size: 0.3rem;
   white-space: pre-wrap;
   text-align: left;
@@ -233,7 +233,7 @@ export default {
 
 .welcome-message {
   text-align: left;
-  color: #eef6f2;
+  color: var(--color-white);
   font-size: 1rem;
   line-height: 1.5;
 }
@@ -248,7 +248,7 @@ export default {
 
 .login-label {
   font-size: 1rem;
-  color: #f2a714;
+  color: var(--color-orange);
   font-weight: bold;
 }
 
@@ -260,7 +260,7 @@ export default {
 .input-icon {
   width: 20px;
   height: 20px;
-  color: #f2a714;
+  color: var(--color-orange);
 }
 
 .login-input {
@@ -269,10 +269,10 @@ export default {
   height: 39px;
   padding: 0.5rem;
   font-size: 1rem;
-  border: 1px solid #eef6f2;
+  border: 1px solid var(--color-white);
   border-radius: 5px;
   background: none;
-  color: #eef6f2;
+  color: var(--color-white);
   outline: none;
 }
 
