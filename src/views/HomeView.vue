@@ -145,28 +145,28 @@ export default {
         }
       });
 
-      // Animação: Secção schedule
+      // Animação: Elementos há esquerda
       gsap.utils.toArray(".lft").forEach((element) => {
         gsap.from(element, {
-          x: -500 , // Define a direção do movimento com base na classe
+          x: -500 , // move-se em y
           duration: 1,
           opacity: 0,
           scrollTrigger: {
-            trigger: element, // Cada elemento será seu próprio trigger
+            trigger: element, // Cada elemento é o próprio trigger
             start: "top 75%",
             toggleActions: "play reverse play reverse", // repete a animação
           },
         });
       });
 
-      // Animação: Elementos há esquerda
+      // Animação: Elementos há direita
       gsap.utils.toArray(".rgt").forEach((element) => {
         gsap.from(element, {
-          x: 500 , // Define a direção do movimento com base na classe
+          x: 500 , 
           duration: 1,
           opacity: 0,
           scrollTrigger: {
-            trigger: element, // Cada elemento será seu próprio trigger
+            trigger: element, 
             start: "top 75%",
             toggleActions: "play reverse play reverse", // repete a animação
           },
@@ -217,8 +217,7 @@ export default {
 
       // Animação do Quinto Card
       const fifthCard = document.querySelector(".fifthCard");
-      const icon = fifthCard.querySelector(".rotating-icon .mdi-arrow-top-right-thin-circle-outline");
-      const text = fifthCard.querySelector(".animated-text");
+      const icon = fifthCard.querySelector(".forumIcon .mdi-arrow-top-right-thin-circle-outline");
 
       let iconAnimation = gsap.to(icon, {
         rotation: 360, 
@@ -228,7 +227,7 @@ export default {
         paused: true, // Pausa inicialmente
       });
 
-      let textAnimation = gsap.to(text, {
+      let textAnimation = gsap.to(".animated-text", {
         scale: 1.1, // Aumenta o texto em 10%
         duration: 0.5, 
         yoyo: true, 
@@ -404,7 +403,7 @@ export default {
                 color="orange" 
                 variant="plain" 
                 icon="mdi-arrow-top-right-thin-circle-outline" 
-                class="rotating-icon"
+                class="forumIcon"
               ></v-btn>
             </div>
           </v-card>
