@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Personal Agenda</h3>
+    <h3 class="mb-4">Personal Agenda</h3>
     <v-table class="my-agenda-table">
       <thead>
         <tr>
@@ -14,7 +14,7 @@
       <tbody>
         <tr v-for="talk in likedTalks" :key="talk.id">
           <td>{{ talk.title }}</td>
-          <td>{{ talk.speaker }}</td>
+          <td>{{ getSpeakerName(talk.speaker) }}</td>
           <td>{{ talk.day }}</td>
           <td>{{ talk.hour }}</td>
           <td>
@@ -36,15 +36,18 @@
 <script>
 import { useTalksStore } from "@/stores/talks";
 import { useUsersStore } from "@/stores/users";
+import { useSpeakersStore } from "@/stores/speakers";
 
 export default {
   data() {
     const talksStore = useTalksStore();
     const usersStore = useUsersStore();
+    const speakersStore = useSpeakersStore();
 
     return {
       talksStore,
       usersStore,
+      speakersStore,
       userLogged: usersStore.getUserLogged,
     };
   },
@@ -60,6 +63,16 @@ export default {
     removeFromAgenda(id) {
       this.usersStore.removeLikedTalk(id);
     },
+    // Obtém o nome do speaker
+    getSpeakerName(speakerId) {
+      const speaker = this.speakersStore.getSpeakerById(speakerId);
+      if (speaker) {
+        return speaker.firstName + " " + speaker.lastName;
+      }
+    },
+  },
+  async mounted() {
+    await this.speakersStore.fetchPersons();
   },
 };
 </script>
@@ -68,24 +81,21 @@ export default {
 .my-agenda-table {
   width: 100%;
   margin-top: 20px;
-  border: 1px solid #ddd;
+  border-radius: 10px;
 }
 
 th {
-  text-align: left;
-  padding: 10px;
-  background-color: #f2f2f2;
   font-weight: bold;
-  font-size: 16px;
+  padding: 12px;
+  background-color: var(--vt-c-text-dark-2);
 }
 
 td {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
+  padding: 12px;
 }
 
 .delete-btn {
-  color: #888;
+  color: var(--vt-c-text-light-2);
   cursor: pointer;
 }
 </style>

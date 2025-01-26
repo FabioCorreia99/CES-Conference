@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h2 class="mb-4">Manage Talks</h2>
+    <h3 class="mb-4">Manage Talks</h3>
 
     <v-table class="elevation-1">
       <thead>
@@ -143,7 +143,7 @@ export default {
 
 th {
   font-weight: bold;
-  background-color: #f5f5f5;
+  background-color: var(--vt-c-text-dark-2);
   padding: 12px;
 }
 
@@ -158,7 +158,7 @@ td {
 .icon-style {
   width: 24px;
   height: 24px;
-  color: #888;
+  color: var(--vt-c-text-light-2);
   cursor: pointer;
 }
 

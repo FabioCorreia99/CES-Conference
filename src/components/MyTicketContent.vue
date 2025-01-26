@@ -1,6 +1,6 @@
 <template>
     <div>
-        My ticket
+        <h3 class="mb-4">My Ticket</h3>
 
         <Ticket
         :primaryColor="user.ticket.primaryColor"

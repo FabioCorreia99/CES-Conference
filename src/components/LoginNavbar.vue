@@ -5,7 +5,6 @@
             <img src="../assets/media/Logo.svg" alt="CES logo" class="logo" />
         </RouterLink>
 
-        <!-- Link dinâmico -->
         <div class="d-flex align-center cta">
             <span class="cta-text">
                 {{ isLoginPage ? "Don’t have an Account?" : "Already have an account?" }}
@@ -43,13 +42,13 @@ export default {
 <style scoped>
 /* Estilo do Navbar */
 .login-navbar {
-    background-color: #26466d;
-    color: #eef6f2;
+    background-color: var(--color-dark-blue);
+    color: var(--color-white);
 }
 
 /* Estilo do Logo */
 .logo {
-    height: 40px;
+    height: 30px;
     cursor: pointer;
 }
 
@@ -63,7 +62,7 @@ export default {
 .cta-text {
     margin: 0;
     font-size: 1rem;
-    color: #eef6f2;
+    color: var(--color-white);
 }
 
 /* Estilo do link dinâmico */
@@ -84,6 +83,6 @@ export default {
 .arrow-icon {
     width: 16px;
     height: 16px;
-    color: #eef6f2;
+    color: var(--color-white);
 }
 </style>

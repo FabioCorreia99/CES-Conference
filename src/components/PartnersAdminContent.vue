@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h2 class="mb-4">Manage Partner Requests</h2>
+    <h3 class="mb-4">Manage Partner Requests</h3>
 
     <v-table class="elevation-1">
       <thead>
@@ -39,7 +39,7 @@
       <v-btn :disabled="page === totalPages" @click="nextPage">Next</v-btn>
     </div>
 
-    <h2 class="mt-8 mb-4">Approved Partners</h2>
+    <h3 class="mt-8 mb-4">Approved Partners</h3>
     <v-table class="elevation-1">
       <thead>
         <tr>
@@ -120,7 +120,8 @@ export default {
     nextPageApproved() {
       if (this.pageApproved < this.totalPagesApproved) this.pageApproved++;
     },
-    async approvePartner(id) {
+    // Aprovar um pedido de parceria
+    async approvePartner(id) { // id do pedido de parceria
       if (confirm("Approve this partner request?")) {
         const approvedPartner = await this.store.approvePartner(id);
         if (approvedPartner) {
@@ -144,7 +145,7 @@ export default {
 .icon-style {
   width: 24px;
   height: 24px;
-  color: #888;
+  color: var(--vt-c-text-light-2);
   cursor: pointer;
 }
 
@@ -154,7 +155,7 @@ export default {
 
 th {
   font-weight: bold;
-  background-color: #f5f5f5;
+  background-color: var(--vt-c-text-dark-2);
   padding: 12px;
 }
 

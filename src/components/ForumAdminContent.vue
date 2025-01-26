@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h2 class="mb-4">Manage Forum Topics</h2>
+    <h3 class="mb-4">Manage Forum Topics</h3>
 
     <v-table class="elevation-1">
       <thead>
@@ -33,7 +33,6 @@
       <span>Página {{ page }} de {{ totalPages }}</span>
       <v-btn :disabled="page === totalPages" @click="nextPage">Seguinte</v-btn>
     </div>
-
   </v-container>
 </template>
 
@@ -86,7 +85,7 @@ export default {
 .icon-style {
   width: 24px;
   height: 24px;
-  color: #888;
+  color: var(--vt-c-text-light-2);
   cursor: pointer;
 }
 
@@ -96,7 +95,7 @@ export default {
 
 th {
   font-weight: bold;
-  background-color: #f5f5f5;
+  background-color: var(--vt-c-text-dark-2);
   padding: 12px;
 }
 

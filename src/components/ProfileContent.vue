@@ -1,10 +1,8 @@
 <template>
   <div class="profile-container">
-    <h3 class="profile-title">Profile Picture</h3>
+    <h3 class="mb-4">Personal Agenda</h3>
 
-    <!-- Foto de Perfil -->
     <div class="profile-picture-section mb-10">
-      <!-- Adicionada margem aqui -->
       <v-avatar size="120" class="mb-10">
         <img
           :src="profile.picture || defaultPicture"
@@ -18,7 +16,6 @@
           :value="'change picture'"
         />
 
-        <!-- Botão Padrão para Delete -->
         <RedBtnToWhite :handleClick="deletePicture" :value="'delete picture'" />
       </div>
       <input
@@ -49,7 +46,6 @@
       variant="solo"
     ></v-textarea>
 
-    <!-- Botão Salvar -->
     <div class="save-section">
       <OrangeBtn @click="saveChanges" :value="'save'" />
     </div>
@@ -99,10 +95,6 @@ export default {
   align-items: left;
 }
 
-.profile-title {
-  margin-bottom: 20px;
-}
-
 .profile-picture-section {
   display: flex;
   flex-direction: column;
@@ -118,13 +110,13 @@ export default {
 
 .profile-buttons {
   display: flex;
-  gap: 15px; /* Ajuste o valor conforme necessário */
+  gap: 15px;
 }
 
 .profile-picture {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Garante proporção */
+  object-fit: cover; /* Garante proporção da imagem */
   border-radius: 50%; /* Torna a imagem circular */
 }
 

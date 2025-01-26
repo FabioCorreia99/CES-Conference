@@ -33,7 +33,7 @@
       ></v-text-field>
     </div>
 
-    <h3>Delete Account</h3>
+    <h3 class="mb-4">Delete Account</h3>
     <!-- Botão de Eliminar Conta -->
     <div class="remove-account">
       <RedBtnToWhite :handleClick="deleteAccount" :value="'Delete Account'" />
@@ -89,7 +89,7 @@ export default {
       }
 
       // Atualizar o email
-      if (this.email.trim() === "") {
+      if (this.email.trim() === "") { // trim() remove espaços em branco
         alert("Email cannot be empty!");
         return;
       }
@@ -98,7 +98,7 @@ export default {
       // Persistir alterações no Pinia
       this.usersStore.updateUser(this.currentUser);
 
-      // Resetar os campos de password
+      // Reseta os campos de password
       this.currentPassword = "";
       this.newPassword = "";
 
@@ -120,7 +120,7 @@ export default {
           (user) => user.id !== this.currentUser.id
         );
 
-        // Deslogar o utilizador e redirecionar
+        // Desloga o utilizador e redireciona para a página de login
         this.usersStore.logout();
         this.$router.push("/login");
 

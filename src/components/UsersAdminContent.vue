@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="pa-0 ma-0">
-    <h2>Manage Users</h2>
+    <h3 class="mb-4">Manage Users</h3>
 
     <v-table>
       <thead>
@@ -64,7 +64,7 @@ export default {
     nonAdminUsers() {
       return this.users.filter((user) => user.role !== "admin");
     },
-    // Obtém os utilizadores paginados
+    // Obtém os utilizadores da página atual
     paginatedUsers() {
       const start = (this.page - 1) * this.itemsPerPage;
       const end = start + this.itemsPerPage;
@@ -102,7 +102,7 @@ export default {
 .icon-style {
   width: 24px;
   height: 24px;
-  color: #888;
+  color: var(--vt-c-text-light-2);
   cursor: pointer;
 }
 
@@ -119,20 +119,12 @@ export default {
 }
 
 .v-table th {
-  background-color: #f2f2f2;
+  background-color: var(--vt-c-text-dark-2);
   font-weight: bold;
-  font-size: 16px;
 }
 
 .v-table {
   border-radius: 10px;
-}
-
-.icon-style {
-  width: 24px;
-  height: 24px;
-  color: #888;
-  cursor: pointer;
 }
 
 .pagination {
