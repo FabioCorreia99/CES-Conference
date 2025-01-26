@@ -172,6 +172,81 @@ export default {
           },
         });
       });
+
+      // Animação do Ultimo card
+      let registerCard = document.querySelector(".registerCard")
+      const letters = gsap.utils.toArray(".letter");
+    
+      let registerAnimation = gsap.timeline({ paused: true, repeat: -1 })
+      .to(letters, {
+        y: -10,
+        stagger: 0.1, // Anima uma de cada vez
+        duration: 0.2,
+        ease: "power1.out",
+      })
+      .to(letters, {
+        y: 0, 
+        stagger: 0.1, 
+        duration: 0.2,
+        ease: "power1.out",
+      });
+
+      registerCard.addEventListener("mouseenter", () => registerAnimation.restart());
+      registerCard.addEventListener("mouseleave", () => registerAnimation.pause(0)); // reinicia e pausa a animação
+
+      // Animação do Terceiro card
+      const thirdCard = document.querySelector(".thirdCard");
+      const svgs = gsap.utils.toArray(".animated-svg");
+      
+      let thirdanimation = gsap.timeline({ paused: true, repeat: -1 })
+      .to(svgs, {
+        opacity: 0.4,
+        stagger: 0.3, 
+        duration: 0.5, 
+        ease: "power1.inOut",
+      })
+      .to(svgs, {
+        opacity: 1, 
+        stagger: 0.3,
+        duration: 0.5,
+        ease: "power1.inOut",
+      });
+
+      thirdCard.addEventListener("mouseenter", () => thirdanimation.play());
+      thirdCard.addEventListener("mouseleave", () => thirdanimation.pause(0)); // Pausa e reinicia no início
+
+      // Animação do Quinto Card
+      const fifthCard = document.querySelector(".fifthCard");
+      const icon = fifthCard.querySelector(".rotating-icon .mdi-arrow-top-right-thin-circle-outline");
+      const text = fifthCard.querySelector(".animated-text");
+
+      let iconAnimation = gsap.to(icon, {
+        rotation: 360, 
+        duration: 1.5, // Tempo de uma rotação completa
+        repeat: -1, 
+        ease: "linear",
+        paused: true, // Pausa inicialmente
+      });
+
+      let textAnimation = gsap.to(text, {
+        scale: 1.1, // Aumenta o texto em 10%
+        duration: 0.5, 
+        yoyo: true, 
+        repeat: -1, 
+        ease: "power1.inOut",
+        paused: true, 
+      });
+
+      fifthCard.addEventListener("mouseenter", () => {
+        iconAnimation.play(); // animação do ícone
+        textAnimation.play(); // animação do texto
+      });
+
+      fifthCard.addEventListener("mouseleave", () => {
+        iconAnimation.pause(); // Pausa 
+        textAnimation.pause(); // Pausa 
+        textAnimation.progress(0); // Retorna o texto ao estado inicial
+      });
     }, main.value); // <- Scope!
   },
   beforeUnmount() {
@@ -220,20 +295,34 @@ export default {
     <!-- Main Section -->
     <v-container class="mainSection">
       <v-row class="justify-center">
+        <!-- 1 -->
         <v-col class="lft mx-2 px-0 d-flex justify-center" cols="12" lg="3">
-          <v-card rounded="lg" class="px-14 py-8" color="#26466D" width="100%" max-height="16.75rem"> 
+          <v-card 
+            rounded="lg" 
+            class="px-14 py-8 firstCard" 
+            color="#26466D" 
+            width="100%" 
+            max-height="16.75rem"
+          > 
             <h1 class="text-center text-h1">#1</h1>
             <h1 class="text-center text-h4 ">tech event in the <strong>world</strong></h1>
           </v-card>
         </v-col>
+        <!-- 2 -->
         <v-col class="lft px-0 d-flex justify-center" cols="12" lg="3">
-          <v-card rounded="lg" class="px-4 pt-8 d-flex justify-center flex-column" color="#EEF6F2" width="100%" height="16.75rem">
+          <v-card 
+            rounded="lg" 
+            class="px-4 pt-8 d-flex justify-center flex-column secondCard" 
+            color="#EEF6F2" 
+            width="100%" 
+            height="16.75rem"
+          >
             <h3 class="text-center textDarkBlue text-h6">create, compete and innovate at our</h3>
             <h1 class="text-center textDarkBlue text-h4 font-weight-regular"><strong>Hackaton</strong></h1>
 
             <div class="podium d-flex flex-column justify-center mx-auto mt-2 h-75">
-              <v-icon class="mx-auto" icon="mdi-trophy" color="yellow" size="large"></v-icon>
-              <svg  xmlns="http://www.w3.org/2000/svg" width="210" height="101" viewBox="0 0 210 101" fill="none">
+              <v-icon class="mx-auto rotating-icon" icon="mdi-trophy" color="yellow" size="large"></v-icon>
+              <svg xmlns="http://www.w3.org/2000/svg" width="210" height="101" viewBox="0 0 210 101" fill="none">
                 <rect y="25.4111" width="70" height="75" fill="#6590D0"/>
                 <rect x="70" y="0.411133" width="70" height="100" fill="#F2A714"/>
                 <rect x="140" y="50.4111" width="70" height="50" fill="#26466D"/>
@@ -241,18 +330,45 @@ export default {
             </div>
           </v-card>
         </v-col>
+        <!-- 3 -->
         <v-col class="rgt mx-2 px-0 d-flex justify-center" cols="12" lg="5">
-          <v-card rounded="lg" class="px-4 pt-8 d-flex justify-center flex-column" color="#26466D" width="100%" height="16.75rem">
-            <div class="d-flex justify-center">
-              <svg class="mx-2" v-for="n in 3" xmlns="http://www.w3.org/2000/svg" width="105" height="115" viewBox="0 0 105 115" fill="none">
-                <path opacity="0.8" d="M6.99805 24.7479V89.997C6.99805 103.368 21.5276 111.747 33.1157 105.061L61.3717 88.8382L89.6295 72.5267C101.218 65.8413 101.218 49.1724 89.6295 42.3979L61.3717 26.0849L33.1157 9.86189C21.5276 2.99821 6.99805 11.3771 6.99805 24.7479Z" stroke="#F2A714" stroke-width="13.3708" stroke-linecap="round" stroke-linejoin="round"/>
+          <v-card 
+            rounded="lg" 
+            class="px-4 pt-8 d-flex justify-center flex-column thirdCard" 
+            color="#26466D" 
+            width="100%" 
+            height="16.75rem"
+          >
+            <div class="d-flex justify-center svg-container">
+              <svg 
+                class="mx-2 animated-svg" 
+                v-for="n in 3" 
+                :key="n" 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="105" 
+                height="115" 
+                viewBox="0 0 105 115" 
+                fill="none"
+              >
+                <path 
+                  opacity="1" 
+                  d="M6.99805 24.7479V89.997C6.99805 103.368 21.5276 111.747 33.1157 105.061L61.3717 88.8382L89.6295 72.5267C101.218 65.8413 101.218 49.1724 89.6295 42.3979L61.3717 26.0849L33.1157 9.86189C21.5276 2.99821 6.99805 11.3771 6.99805 24.7479Z" 
+                  stroke="#F2A714" 
+                  stroke-width="13.3708" 
+                  stroke-linecap="round" 
+                  stroke-linejoin="round"
+                />
               </svg>
             </div>
-            <h1 class="text-center text-h6 text-sm-h5 mt-2">Fast forward into the future with live demonstrations of AI, IoT, and UI/UX technologies. </h1>
+            <h1 class="text-center text-h6 text-sm-h5 mt-2">
+              Fast forward into the future with live demonstrations of AI, IoT, and UI/UX technologies.
+            </h1>
           </v-card>
+
         </v-col>
       </v-row>
       <v-row class="justify-center">
+        <!-- 1 -->
         <v-col class="lft mx-2 px-0 d-flex justify-center" cols="12"  lg="5">
           <v-card rounded="lg" class="pt-8 d-flex justify-center flex-column" color="#6590D0" width="100%" height="16.75rem">
             <div class="d-flex justify-center">
@@ -271,18 +387,42 @@ export default {
             <h1 class="text-center text-subtitle-2 position-absolute bottom-0 pb-2">Boost your skills with interactive sessions on leadership, team management, and frontend development using modern tools like React, Vue or Angular.</h1>
           </v-card>
         </v-col>
+        <!-- 2 -->
         <v-col class="rgt px-0 d-flex justify-center" xs="12" lg="3">
-          <v-card :to="{name: 'forum'}" rounded="lg" class="pa-4 d-flex flex-column justify-center align-center" color="#EEF6F2" width="100%" max-height="16.75rem"> 
+          <v-card 
+            :to="{name: 'forum'}" 
+            rounded="lg" 
+            class="pa-4 d-flex flex-column justify-center align-center fifthCard" 
+            color="#EEF6F2" 
+            width="100%" 
+            max-height="16.75rem"
+          > 
             <h1 class="text-center text-h3 textDarkBlue pb-2 px-8 pt-10">Forum</h1>
-            <h1 class="text-center text-subtitle-2 textDarkBlue px-4 pb-6">Connect with like-minded professionals and industry leaders</h1>
+            <h1 class="text-center text-subtitle-2 textDarkBlue px-4 pb-6 animated-text">Connect with like-minded professionals and industry leaders</h1>
             <div class="w-100 d-flex justify-end mt-6">
-              <v-btn color="orange" variant="plain" icon="mdi-arrow-top-right-thin-circle-outline"></v-btn>
+              <v-btn 
+                color="orange" 
+                variant="plain" 
+                icon="mdi-arrow-top-right-thin-circle-outline" 
+                class="rotating-icon"
+              ></v-btn>
             </div>
           </v-card>
         </v-col>
+        <!-- 3 -->
         <v-col class="rgt mx-2 px-0 d-flex justify-center" xs="12" lg="3">
-          <v-card :to="{name: 'createAccount'}" rounded="lg" class="py-10  d-flex flex-column justify-center align-center" color="#F2A714" width="100%" height="16.75rem"> 
-            <h1 class="text-center text-h4 my-12 textWhite">REGISTER <v-icon icon="mdi-arrow-right-thin-circle-outline" color="white" size="x-small"></v-icon></h1>
+          <v-card 
+            :to="{name: 'createAccount'}" 
+            rounded="lg" 
+            class="py-10  d-flex flex-column justify-center align-center registerCard" 
+            color="#F2A714" 
+            width="100%" 
+            height="16.75rem"
+          > 
+            <h1 class="text-center text-h4 my-12 textWhite d-flex align-center">
+              <span v-for="(char, index) in 'REGISTER'" :key="index" class="letter">{{ char }}</span>
+              <v-icon icon="mdi-arrow-right-thin-circle-outline" color="white" size="x-small"></v-icon>
+            </h1>
           </v-card>
         </v-col>
       </v-row>
@@ -455,6 +595,22 @@ export default {
 
 
 <style>
+.secondCard:hover .rotating-icon {
+  animation: rotateY 1s infinite linear;
+}
+
+@keyframes rotateY {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+.firstCard:hover strong {
+  color: orange; /* Altera a cor para laranja */
+  transition: color 0.3s ease; /* Adiciona uma transição suave */
+}
 .podium{
   width: 13.125rem !important;
   height: 6.25rem !important;
