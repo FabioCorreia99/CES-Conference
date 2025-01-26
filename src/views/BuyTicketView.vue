@@ -146,7 +146,7 @@
                         <h5 class="blueText">I <b>consent</b> to receive <b>marketing emails</b>and <b>promotional offers</b> from <b>CTA/CES</b>.</h5>
                     </div>
 
-                    <div class="payButton">
+                    <div class="payButton" @click="buyTicket">
                         <span id="payText">/End purchase</span>
 
                         <span id="payText2">/Confirm and pay {{ total }} $</span>
@@ -217,6 +217,11 @@ export default {
             const discount = this.discount[this.days] || 0;
 
             this.total = Math.round(this.days * dayPrice * ( 1- discount));
+        },
+        buyTicket() {
+            this.usersStore.getUserLogged.ticket.bought = true;
+            this.usersStore.addNotification(this.usersStore.getUserLogged.id,"Thanks for buying our ticket!")
+            this.$router.push({name: "home"});
         }
     },
     watch: {

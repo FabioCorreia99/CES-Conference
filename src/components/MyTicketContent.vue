@@ -7,7 +7,8 @@
         :secondaryColor="user.ticket.secondaryColor"
         :hasLogo="user.ticket.hasLogo"
         :name="user.ticket.name ? user.name : ''"
-        :occupation="user.ticket.occupation ? occupation : ''"
+        :occupation="user.ticket.occupation ? user.ticket.occupation : ''"
+        v-if="user.ticket.bought"
         />
     </div>
 </template>

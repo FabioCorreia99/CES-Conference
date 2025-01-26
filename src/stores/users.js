@@ -16,6 +16,7 @@ export const useUsersStore = defineStore("users", {
           hasLogo: true,
           name: "Test Admin",
           occupation: "",
+          bought: true,
         },
         likedTalks: [],
         role: "admin",
@@ -36,6 +37,7 @@ export const useUsersStore = defineStore("users", {
           hasLogo: true,
           name: "Test User",
           occupation: "",
+          bought: false,
         },
         likedTalks: [1,4,2],
         role: "user",
@@ -43,11 +45,6 @@ export const useUsersStore = defineStore("users", {
           {
             "id": 1737911577932,
             "message": "Bill Gates liked your post.",
-            "isRead": false
-          },
-          {
-            "id": 1737911577933,
-            "message": "Jesus liked your post.",
             "isRead": false
           },
         ],
