@@ -42,7 +42,7 @@
                             <h3 class="align-self-start ">ROOM:  <span class="roomText">{{ room }}</span></h3>
                             <p class="w-100" v-html="desc"></p>
                             <div class="w-100 d-flex justify-space-around align-center">
-                                <div class="d-flex justify-start ga-16">
+                                <div class="filtersDiv d-flex justify-start ga-16">
                                     <span v-for="filter in filters" :key="filter"> {{ filter }}</span>
                                 </div>
                                 <OrangeBtn @click="goToForum(talkId)" value="check Forum"/>
@@ -165,6 +165,12 @@
 @media only screen and (max-width: 793px) and (min-width: 600px) {
   .spCol {
     display: none !important;
+  }
+  
+}
+@media only screen and (max-width: 668px) {
+    .filtersDiv{
+    gap: 32px !important;
   }
 }
 </style>

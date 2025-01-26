@@ -76,6 +76,9 @@ export default {
     },
     goToSchedulePage(){
       this.$router.push({name: "schedule"});
+    },
+    goToPartnerPage(){
+      this.$router.push({name: "partners"});
     }
   },
   created () {
@@ -135,14 +138,12 @@ export default {
           trigger: ".speakerContainer",
           start: "center center",
           pin: true,// foca o scroll na animação
+          invalidateOnRefresh: true, // Recalcula ao atualizar
           scrub: 1,// associa a minha animação ao scroll
           snap: 1 / (sections.length - 1),
           end: () => "+=" + (slidesContainer.scrollWidth - innerWidth),
         }
       });
-
-      console.log(gsap.utils.toArray([".lft", ".rgt"]));
-
 
       // Animação: Secção schedule
       gsap.utils.toArray(".lft").forEach((element) => {
@@ -177,6 +178,7 @@ export default {
     if (ctx) {
       ctx.revert(); // Reverte o contexto do GSAP
     }
+    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
   },
 }
 
@@ -367,7 +369,7 @@ export default {
             <h1 class="scheduleText mt-4 mb-8 text-center">Join the world’s most innovative technology event and showcase your company to a global audience.</h1>
             <h2 class="w-75 scheduleSubText text-center">By partnering with CES, you’ll gain unparalleled visibility, connect with industry leaders, and position your brand at the forefront of innovation.</h2>
           </div>
-          <BlueBtnToOrange :handle-click="goToSchedulePage" value="Become a Partner"/>
+          <BlueBtnToOrange :handle-click="goToPartnerPage" value="Become a Partner"/>
         </v-col>
       </v-row>
     </v-container>
@@ -388,7 +390,6 @@ export default {
   background: linear-gradient(180deg, #26466D 0%, #4A88D3 100%) !important;
 
 }
-
 .feedName{
   font-size: 1.25rem;
   font-style: normal;
@@ -516,8 +517,53 @@ html, body {
 
 @media only screen and (max-width: 700px) {
     .SchImg{
+        width: 450px !important;
         display: flex !important;
         justify-content: start !important;
+    }
+}
+@media only screen and (max-width: 762px) {
+    .speakerTitle{
+      font-size: 4rem;
+      font-weight: 700;
+      line-height: 3.5rem; /* 46.875% */
+    }
+    .count,.statsTitle{
+      font-size: 3rem !important;
+      font-weight: 500 !important;
+    }
+    .statsSubTitle{
+      font-size: 1.5rem !important;
+    }
+    .masterTitleDate{
+      font-size: 6rem;
+      font-weight: 800;
+    }
+    .masterTitleLocal{
+      font-size: 2.5rem;
+      font-weight: 400;
+    }
+    .masterDesc {
+      font-size: 2rem;
+      font-weight: 300;
+    }
+}
+@media only screen and (max-width: 550px) {
+    .count,.statsTitle{
+      font-size: 2.2rem !important;
+      font-weight: 500 !important;
+    }
+    .statsSubTitle{
+      font-size: 1.3rem !important;
+    }
+    .masterTitleDate{
+      font-size: 4rem;
+    }
+    .masterTitleLocal{
+      font-size: 2rem;
+    }
+    .masterDesc {
+      font-size: 1.5rem;
     }
 }
 </style>
