@@ -61,7 +61,7 @@
         </v-row>
         
         <v-row>
-          <v-col v-for="(topic, index) in filteredTopics" :key="topic.id" cols="12" class="mb-4" >
+          <v-col v-for="(topic, index) in paginatedTopics" :key="topic.id" cols="12" class="mb-4" >
             <TopicCard 
                 :id="topic.id"
                 :title="topic.title"
@@ -72,6 +72,14 @@
             />
           </v-col>
         </v-row>
+
+        <!-- Paginação -->
+        <div class="pagination mt-12">
+            <v-btn :disabled="page === 1" @click="prevPage" class="pageBTN">Anterior</v-btn>
+            <span id="pageNumber">Página {{ page }} de {{ totalPages }}</span>
+            <v-btn :disabled="page === totalPages" @click="nextPage" class="pageBTN">Seguinte</v-btn>
+        </div>
+
       </v-container>
 
       <!-- Create Topic View  -->
@@ -115,6 +123,8 @@ export default {
             topicsStore: useTopicsStore(),
             topicSelected: [],
             isLoading: true,
+            page: 1,
+            itemsPerPage: 10,
         }
     },
     watch: {
@@ -138,7 +148,17 @@ export default {
         // Get filters from the query params if available
         queryFilters() {
             return this.$route.query.filters ? this.$route.query.filters.split(',') : [];
-        }
+        },
+        // Obtém os utilizadores paginados
+        paginatedTopics() {
+            const start = (this.page - 1) * this.itemsPerPage;
+            const end = start + this.itemsPerPage;
+            return this.filteredTopics.slice(start, end);
+        },
+        // Calcula o total de páginas necessárias
+        totalPages() {
+            return Math.ceil(this.filteredTopics.length / this.itemsPerPage);
+        },
     },
     methods: {
         toggleCreate() {
@@ -162,7 +182,13 @@ export default {
         updateQueryParams(filters) {
             // Update the URL query parameters
             this.$router.push({ query: { filters: filters.join(',') } });
-        }
+        },
+        prevPage() {
+            if (this.page > 1) this.page--;
+        },
+        nextPage() {
+            if (this.page < this.totalPages) this.page++;
+        },
 
     },
     mounted() {
@@ -176,6 +202,16 @@ export default {
 </script>
 
 <style scoped>
+
+.pageBTN {
+    background-color: #F2A714 !important;
+}
+
+#pageNumber {
+    color: black !important;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
 
 span{
     color: var(--color-white) !important;

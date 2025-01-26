@@ -43,7 +43,7 @@
                             <p class="w-100" v-html="desc"></p>
                             <div class="w-100 d-flex justify-space-around align-center">
                                 <div class="filtersDiv d-flex justify-start ga-16">
-                                    <span v-for="filter in filters" :key="filter"> {{ filter }}</span>
+                                    <span v-for="filter in filters" :key="filter" @click="FilterClick(filter)" class="filterBTN"> {{ filter }}</span>
                                 </div>
                                 <OrangeBtn @click="goToForum(talkId)" value="check Forum"/>
                             </div>
@@ -116,6 +116,10 @@
             },
             goToForum(id){
                 this.$router.push({ name: "forumTopic", params:{topicId: id} });
+            },
+            FilterClick(filter) {
+                // Go to the forum with the respective filter selected
+                this.$router.push({name: "forum", query: { filters: filter}});
             }
         },
     }
@@ -155,6 +159,13 @@
 }
 .titleCard{
     color: var(--color-white);
+}
+.filterBTN {
+    cursor: pointer;
+    /* text-decoration: underline; */
+}
+.filterBTN:hover {
+    color: var(--color-orange);
 }
 
 @media only screen and (max-width: 1112px) {
