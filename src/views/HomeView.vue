@@ -520,13 +520,13 @@ export default {
     <!-- Ticket Cards -->
     <v-container fluid class="ticketSection">
       <div class="text-center ">
-        <h1 class="my-2 textDarkBlue text-h2"><span class="textYellow">Flexibe</span>Tickets</h1>
+        <h1 class="my-2 textDarkBlue text-h2"><span class="textYellow">Flexible</span>Tickets</h1>
         <h2 class="mb-12 textDarkBlue text-body-1">Choose what works, skip what doesn’t</h2>
         <v-row class="align-center">
           <!-- Card Esquerda -->
           <v-col sm="12" md="4" col="12" class="lft d-flex justify-sm-center justify-center justify-md-end">
             <v-card class="ticketCard" rounded="lg" width="21rem" height="20.6rem">
-              <v-card-title class="textWhite text-center mt-2 text-sm-h5 text-h4 font-weight-bold"><u>Dairy Ticket</u></v-card-title>
+              <v-card-title class="textWhite text-center mt-2 text-sm-h5 text-h4 font-weight-bold"><u>Daily Ticket</u></v-card-title>
               <v-card-text class="mt-6">
                 <h4 class="textWhite text-caption text-lg-subtitle-2" > <v-icon icon="mdi-check" color="orange" size="small"></v-icon>Access to <strong>all sessions</strong> and <strong>workshops</strong> .</h4>
                 <h4 class="textWhite text-caption text-lg-subtitle-2"> <v-icon icon="mdi-check" color="orange" size="small"></v-icon><strong>Network</strong> with industry leaders.</h4>
