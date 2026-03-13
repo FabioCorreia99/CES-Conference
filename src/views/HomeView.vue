@@ -34,8 +34,8 @@ export default {
       partnersStore: usePartnersStore(),
       speakersStore: useSpeakersStore(),
       talksStore: useTalksStore(),
-      leftImg: new URL("../assets/media/left.png", import.meta.url).href,
-      rightImg: new URL("../assets/media/right.png", import.meta.url).href,
+      leftImg: new URL("../assets/media/left.webp", import.meta.url).href,
+      rightImg: new URL("../assets/media/right.webp", import.meta.url).href,
       scheduleImg: new URL("../assets/media/schedule.jpg", import.meta.url).href,
       partnersImg: new URL("../assets/media/partners.jpg", import.meta.url).href,
       feedBacks: [
