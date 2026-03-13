@@ -5,6 +5,9 @@ import vueDevTools from "vite-plugin-vue-devtools";
 
 // https://vite.dev/config/
 export default defineConfig({
+  build: {
+    chunkSizeWarningLimit: 1500 // Aumenta o limite do aviso para 1.5MB
+  },
   plugins: [vue(), vueDevTools()],
   resolve: {
     alias: {

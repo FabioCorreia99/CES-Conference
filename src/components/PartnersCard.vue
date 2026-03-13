@@ -1,6 +1,6 @@
 <template>
     <v-card class="pa-4 my-4 mx-6" elevation="0" height="26rem" width="18.75rem" rounded="lg" color="rgba(189, 199, 211, 0.20)">
-        <v-img :alt="brand" :src="image" aspect-ratio="16/9" cover width="16.5rem" height="11.5625rem" rounded="lg"></v-img>
+        <v-img :alt="brand" :src="img" aspect-ratio="16/9" cover width="16.5rem" height="11.5625rem" rounded="lg"></v-img>
         <v-card-item density="comfortable" class="w-100 px-1">
             <v-card-title class="PartTitle"> {{ brand }} </v-card-title>
         </v-card-item>
@@ -20,11 +20,6 @@
 
 <script>
     export default {
-        data() {
-            return {
-                image: new URL(this.img, import.meta.url).href,
-            }
-        },
         props: {
             brand: {
                 type: String,
